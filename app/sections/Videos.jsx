@@ -1,0 +1,154 @@
+import React from "react";
+import Image from "next/image";
+
+export default function Videos({ videos }) {
+  const renderVideoMeta = (video, size = "sm") => {
+    const titleSize =
+      size === "lg" ? "text-2xl md:text-3xl" : "text-xl md:text-2xl";
+    const viewsSize = size === "lg" ? "text-base" : "text-sm";
+
+    return (
+      <div className="mt-4 flex items-center justify-between gap-6">
+        <div>
+          <p className="text-[0.65rem] uppercase tracking-[0.4em] text-subtle">
+            Video
+          </p>
+          <h3 className={`${titleSize} font-display font-semibold`}>
+            {video.title}
+          </h3>
+        </div>
+        <div className="text-right">
+          <p className="text-[0.65rem] uppercase tracking-[0.4em] text-subtle">
+            Views
+          </p>
+          <p className={`${viewsSize} font-semibold text-accent`}>
+            {video.views}
+          </p>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <section id="videos" className="section-stack relative pb-32 lg:pt-32  px-6">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="section-title font-display text-6xl md:text-8xl font-bold mb-20 text-accent">
+          Videos
+        </h2>
+        {/* Mobile layout */}
+        <div className="grid gap-8 md:hidden">
+          {videos.map((video, i) => (
+            <div key={i} className="video-item cursor-pointer group">
+              <div className="aspect-video rounded-lg mb-4 flex items-center justify-center overflow-hidden relative">
+                <Image
+                  src={video.image}
+                  alt={video.title}
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-all"></div>
+                <svg
+                  className="w-20 h-20 text-white group-hover:scale-125 transition-transform relative z-10"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+              {renderVideoMeta(video, "sm")}
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop layout */}
+        <div className="hidden md:grid grid-cols-2 gap-8">
+          <div className="flex flex-col gap-8">
+            <div className="video-item cursor-pointer group">
+              <div className="relative min-h-[360px] rounded-lg overflow-hidden">
+                <Image
+                  src={videos[0].image}
+                  alt={videos[0].title}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all"></div>
+                <svg
+                  className="absolute left-6 bottom-6 w-16 h-16 text-white group-hover:scale-110 transition-transform"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+              {renderVideoMeta(videos[0], "lg")}
+            </div>
+            <div className="video-item cursor-pointer group">
+              <div className="relative min-h-[180px] rounded-lg overflow-hidden">
+                <Image
+                  src={videos[3].image}
+                  alt={videos[3].title}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all"></div>
+                <svg
+                  className="absolute left-5 bottom-5 w-12 h-12 text-white group-hover:scale-110 transition-transform"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+              {renderVideoMeta(videos[3], "sm")}
+            </div>
+          </div>
+          <div className="flex flex-col gap-8">
+            <div className="video-item cursor-pointer group">
+              <div className="relative min-h-[180px] rounded-lg overflow-hidden">
+                <Image
+                  src={videos[1].image}
+                  alt={videos[1].title}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all"></div>
+                <svg
+                  className="absolute left-5 bottom-5 w-12 h-12 text-white group-hover:scale-110 transition-transform"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+              {renderVideoMeta(videos[1], "sm")}
+            </div>
+            <div className="video-item cursor-pointer group">
+              <div className="relative min-h-[360px] rounded-lg overflow-hidden">
+                <Image
+                  src={videos[2].image}
+                  alt={videos[2].title}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all"></div>
+                <svg
+                  className="absolute left-6 bottom-6 w-16 h-16 text-white group-hover:scale-110 transition-transform"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+              {renderVideoMeta(videos[2], "lg")}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
