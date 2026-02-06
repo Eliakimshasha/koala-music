@@ -30,7 +30,7 @@ export default function Videos({ videos }) {
   };
 
   return (
-    <section id="videos" className="section-stack relative pb-32 lg:pt-32  px-6">
+    <section id="videos" className="section-stack relative pb-32 pt-9 lg:pt-32  px-6">
       <div className="max-w-7xl mx-auto">
         <h2 className="section-title font-display text-6xl md:text-8xl font-bold mb-20 text-accent">
           Videos

@@ -4,7 +4,7 @@ import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
 
 export default function Albums({ albums, scrollRef, onPrev, onNext }) {
   return (
-    <section id="albums" className="section-stack relative pb-32 lg:pt-32  px-6">
+    <section id="albums" className="section-stack relative pb-32 lg:pt-32 pt-9  px-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between gap-6 mb-12 md:mb-16">
           <h2 className="section-title font-display text-6xl md:text-8xl font-bold text-accent">
