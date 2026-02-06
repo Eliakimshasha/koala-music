@@ -43,7 +43,7 @@ export default function Hero() {
           <p className="hero-subtitle text-base md:text-lg text-muted tracking-[0.2em] uppercase">
             Pure Feeling. Raw Passion. Unforgettable Sound.
           </p>
-          <div className="hero-actions mt-8 flex gap-4">
+          <div className="hero-actions mt-8 flex justify-center gap-4">
             <button className="relative z-40 lg:px-8 px-5 py-3 bg-accent text-accent-contrast font-semibold tracking-wider hover:scale-105 transition-transform">
               LISTEN NOW
             </button>
