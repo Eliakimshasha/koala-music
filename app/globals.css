@@ -74,6 +74,10 @@ body {
 .font-display {
   font-family: var(--font-instrument), serif;
 }
+.hero-title{
+  font-size: 60px !important;
+text-align: start;
+}
 
 .bg-base {
   background-color: var(--bg);
@@ -275,6 +279,7 @@ body {
   writing-mode: vertical-rl;
   text-orientation: mixed;
   transform: rotate(180deg);
+  /* margin-top: 170px; */
   font-size: clamp(3.2rem, 9vw, 7.5rem);
   letter-spacing: 0.08em;
   line-height: 0.9;
@@ -297,7 +302,7 @@ body {
 
 .hero-accent-line {
   width: 2px;
-  height: 64px;
+  height: 170px;
   background: var(--accent);
   opacity: 0.9;
 }
@@ -323,19 +328,19 @@ body {
 .hero-image-frame {
   position: relative;
   width: min(520px, 90vw);
+
   aspect-ratio: 3 / 4;
   border-radius: 24px;
   overflow: hidden;
-  /* box-shadow:
-    0 40px 80px rgba(0, 0, 0, 0.25),
-    0 20px 40px rgba(var(--accent-rgb), 0.2); */
 }
+
 
 .hero-portrait {
   object-fit: cover;
   object-position: center top;
   transform: scale(1.02);
   filter: grayscale(1) contrast(1.05);
+  position: absolute;
 }
 
 
@@ -361,6 +366,11 @@ body {
 
   .hero-accent-stack {
     justify-items: center;
+  }
+
+  .hero-portrait {
+    object-position: center 5%;
+    transform: translateY(-6%) scale(1.03);
   }
 }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import face from "../../public/assets/images/face1.png";
-import mike from "../../public/assets/images/mike.png";
+import mike from '../../public/assets/images/mike.png';
 
 export default function Hero() {
   return (
@@ -21,10 +21,10 @@ export default function Hero() {
 
       <div className="hero-layout relative z-40 w-full max-w-6xl px-6">
         <div className="hero-copy">
-          {/* <div className="hero-koala-text text-accent text-xs tracking-[0.4em] mb-4 font-semibold uppercase">
+          <div className="hero-koala-text text-accent text-xs tracking-[0.4em] mb-4 font-semibold uppercase">
             Follow Us Now
-          </div> */}
-          {/* <div className="">
+          </div>
+          <div className="hero-accent-stack">
             <span className="hero-accent-square"></span>
             <span className="hero-accent-line"></span>
             <span className="hero-accent-dot">
@@ -36,12 +36,14 @@ export default function Hero() {
                 className="hero-accent-icon"
               />
             </span>
-          </div> */}
-
-          {/* <p className="hero-subtitle text-base md:text-lg text-muted tracking-[0.2em] uppercase">
+          </div>
+          <h1 className="hero-title hero-vertical-title font-display uppercase">
+            More Than Music
+          </h1>
+          <p className="hero-subtitle text-base md:text-lg text-muted tracking-[0.2em] uppercase">
             Pure Feeling. Raw Passion. Unforgettable Sound.
-          </p> */}
-          <div className="hero-actions absolute -bottom-5 left-1/2 -translate-x-1/2 w-full z-50 lg:mt-8 flex justify-center gap-4">
+          </p>
+          <div className="hero-actions lg:mt-8 flex justify-center gap-4">
             <button className="relative z-40 lg:px-8 px-5 py-3 bg-accent text-accent-contrast font-semibold tracking-wider hover:scale-105 transition-transform">
               LISTEN NOW
             </button>
@@ -49,34 +51,20 @@ export default function Hero() {
               EXPLORE
             </button>
           </div>
-
-
-<p className=" absolute -bottom-12 left-1/2 -translate-x-1/2 w-full z-50 text-xs">(c) 2026 Koala. All rights reserved.</p>
         </div>
-        <div className="flex h-[50vh]">
-          <h1 className="hero-title absolute z-60 top-2 hero-vertical-title font-display uppercase">
-            <p className="text-start">More</p>
-            <p className="text-start">Than</p>
-            <p className="text-start">Music</p>
-            
-          </h1>
-          <div className="">
-            <Image
-              src={face}
-              alt="Koala portrait"
-              fill
-              priority
-              sizes="(min-width: 724px) 40vw, 80vw"
-              className="hero-portrait"
-            />
-            <div className="hero-image-band"></div>
-            {/* <div className="hero-image-glow"></div> */}
-          </div>
-          
+        <div className="hero-vibe hero-image-frame">
+          <Image
+            src={face}
+            alt="Koala portrait"
+            fill
+            priority
+            sizes="(min-width: 1024px) 40vw, 80vw"
+            className="hero-portrait"
+          />
+          <div className="hero-image-band"></div>
+          <div className="hero-image-glow"></div>
         </div>
-
       </div>
-      
     </section>
   );
 }
