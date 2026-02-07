@@ -6,6 +6,7 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { SplitText } from "gsap/SplitText";
 
 import Chrome from "./components/Chrome";
+import SplashScreen from "./components/SplashScreen";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
 import Albums from "./sections/Albums";
@@ -279,6 +280,7 @@ export default function KoalaWebsite() {
   return (
     <Chrome navLinks={navLinks}>
       <div ref={containerRef} className="bg-base main-one text-base-color overflow-hidden">
+        <SplashScreen />
         <div className="noise"></div>
         <div id="smooth-wrapper">
           <div id="smooth-content">

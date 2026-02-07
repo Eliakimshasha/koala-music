@@ -354,6 +354,129 @@ text-align: start;
   z-index: 9999;
 }
 
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, rgba(var(--accent-rgb), 0.25), transparent 55%),
+    linear-gradient(135deg, var(--bg) 0%, var(--bg-soft) 50%, #020202 100%);
+  color: var(--text);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.splash-screen.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.splash-glow {
+  position: absolute;
+  inset: 20%;
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.4;
+}
+
+.splash-content {
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+  padding: 0 24px;
+  text-align: center;
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+}
+
+.splash-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  animation: splash-pop 0.7s ease forwards;
+}
+
+.splash-line {
+  width: 160px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.8;
+  animation: splash-line 0.7s ease 0.15s forwards;
+  transform: scaleX(0);
+}
+
+.splash-kicker {
+  font-size: 0.7rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+  animation: splash-fade 0.7s ease 0.2s forwards;
+  opacity: 0;
+}
+
+.splash-title {
+  font-family: var(--font-instrument), serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.05;
+  font-weight: 700;
+  animation: splash-fade 0.7s ease 0.3s forwards;
+  opacity: 0;
+}
+
+.splash-title span {
+  display: block;
+  color: var(--accent);
+}
+
+.splash-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  animation: splash-fade 0.7s ease 0.4s forwards;
+  opacity: 0;
+}
+
+@keyframes splash-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes splash-line {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes splash-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .scroll-smooth {
   scroll-behavior: smooth;
 }
