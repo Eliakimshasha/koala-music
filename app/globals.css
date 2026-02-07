@@ -320,7 +320,7 @@ text-align: start;
 }
 
 .text-gradient {
-  
+
   background: linear-gradient(135deg, var(--accent) 0%, var(--gradient-end) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -366,8 +366,6 @@ text-align: start;
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
-
-
 
 .section-stack {
   position: relative;

@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 
 export interface OrbitingCirclesProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
+  pathClassName?: string
   children?: React.ReactNode
   reverse?: boolean
   duration?: number
@@ -16,6 +17,7 @@ export interface OrbitingCirclesProps extends React.HTMLAttributes<HTMLDivElemen
 
 export function OrbitingCircles({
   className,
+  pathClassName,
   children,
   reverse,
   duration = 20,
@@ -35,7 +37,10 @@ export function OrbitingCircles({
           className="pointer-events-none absolute inset-0 size-full"
         >
           <circle
-            className="stroke-black/10 stroke-1 dark:stroke-white/10"
+            className={cn(
+              "stroke-black/10 stroke-1 dark:stroke-white/10",
+              pathClassName
+            )}
             cx="50%"
             cy="50%"
             r={radius}
