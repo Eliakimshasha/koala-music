@@ -38,6 +38,8 @@ export default function Connect({ socialLinks }) {
             iconSize={46}
             radius={150}
             speed={1}
+            pathColor="var(--border-strong)"
+            pathOpacity={0.9}
             className="border border-subtle bg-black/80 shadow-[0_0_16px_-12px_rgba(0,0,0,0.9)]"
           >
             {outerIcons.map((icon) => (
@@ -55,6 +57,8 @@ export default function Connect({ socialLinks }) {
             radius={105}
             reverse
             speed={1.35}
+            pathColor="var(--border-strong)"
+            pathOpacity={0.9}
             className="border border-subtle bg-black/80 shadow-[0_0_16px_-12px_rgba(0,0,0,0.9)]"
           >
             {innerIcons.map((icon) => (

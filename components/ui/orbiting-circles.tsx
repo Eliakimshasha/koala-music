@@ -5,6 +5,9 @@ import { cn } from "@/lib/utils"
 export interface OrbitingCirclesProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
   pathClassName?: string
+  pathColor?: string
+  pathOpacity?: number
+  pathWidth?: number
   children?: React.ReactNode
   reverse?: boolean
   duration?: number
@@ -18,6 +21,9 @@ export interface OrbitingCirclesProps extends React.HTMLAttributes<HTMLDivElemen
 export function OrbitingCircles({
   className,
   pathClassName,
+  pathColor = "var(--border)",
+  pathOpacity = 0.6,
+  pathWidth = 1,
   children,
   reverse,
   duration = 20,
@@ -37,14 +43,14 @@ export function OrbitingCircles({
           className="pointer-events-none absolute inset-0 size-full"
         >
           <circle
-            className={cn(
-              "stroke-black/10 stroke-1 dark:stroke-white/10",
-              pathClassName
-            )}
+            className={cn(pathClassName)}
             cx="50%"
             cy="50%"
             r={radius}
             fill="none"
+            stroke={pathColor}
+            strokeOpacity={pathOpacity}
+            strokeWidth={pathWidth}
           />
         </svg>
       )}
