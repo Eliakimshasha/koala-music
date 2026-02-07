@@ -41,7 +41,7 @@ export default function Hero() {
           {/* <p className="hero-subtitle text-base md:text-lg text-muted tracking-[0.2em] uppercase">
             Pure Feeling. Raw Passion. Unforgettable Sound.
           </p> */}
-          <div className="hero-actions absolute -bottom-5 left-1/2 -translate-x-1/2 w-full z-50 lg:mt-8 flex justify-center gap-4">
+          <div className="hero-actions absolute -bottom-8 left-1/2 -translate-x-1/2 w-full z-50 lg:mt-8 flex justify-center gap-4">
             <button className="relative z-40 lg:px-8 px-5 py-3 bg-accent text-accent-contrast font-semibold tracking-wider hover:scale-105 transition-transform">
               LISTEN NOW
             </button>
@@ -50,15 +50,15 @@ export default function Hero() {
             </button>
           </div>
 
-
-<p className=" absolute -bottom-12 left-1/2 -translate-x-1/2 w-full z-50 text-xs">(c) 2026 Koala. All rights reserved.</p>
+          <p className=" absolute -bottom-15 left-1/2 -translate-x-1/2 w-full z-50 text-xs">
+            (c) 2026 Koala. All rights reserved.
+          </p>
         </div>
         <div className="flex h-[50vh]">
           <h1 className="hero-title absolute z-60 top-2 hero-vertical-title font-display uppercase">
             <p className="text-start">More</p>
             <p className="text-start">Than</p>
             <p className="text-start">Music</p>
-            
           </h1>
           <div className="">
             <Image
@@ -72,11 +72,8 @@ export default function Hero() {
             <div className="hero-image-band"></div>
             {/* <div className="hero-image-glow"></div> */}
           </div>
-          
         </div>
-
       </div>
-      
     </section>
   );
 }
