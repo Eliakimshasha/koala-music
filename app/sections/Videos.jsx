@@ -46,7 +46,7 @@ export default function Videos({ videos }) {
           </h2>
           <Link
             href="/videos"
-            className="inline-flex items-center gap-2 border border-subtle px-5 py-2 text-xs uppercase tracking-[0.35em] hover-text-accent hover-border-accent transition"
+            className="inline-flex items-center gap-2 border border-subtle lg:px-5 px-3 py-2 text-xs uppercase tracking-[0.35em] hover-text-accent hover-border-accent transition"
           >
             <IoIosArrowRoundForward className="h-5 w-5" />
             View More
