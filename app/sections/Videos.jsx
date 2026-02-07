@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Videos({ videos }) {
   const renderVideoMeta = (video, size = "sm") => {
@@ -29,15 +30,26 @@ export default function Videos({ videos }) {
     );
   };
 
+  const featured = videos.slice(0, 3);
+
   return (
     <section id="videos" className="section-stack relative pb-32 pt-9 lg:pt-32  px-6">
       <div className="max-w-7xl mx-auto">
-        <h2 className="section-title font-display text-6xl md:text-8xl font-bold mb-20 text-accent">
-          Videos
-        </h2>
+        <div className="flex items-center justify-between gap-6 mb-16">
+          <h2 className="section-title font-display text-6xl md:text-8xl font-bold text-accent">
+            Videos
+          </h2>
+          <Link
+            href="/videos"
+            className="inline-flex items-center gap-2 border border-subtle px-5 py-2 text-xs uppercase tracking-[0.35em] hover-text-accent hover-border-accent transition"
+          >
+            View More
+          </Link>
+        </div>
+
         {/* Mobile layout */}
         <div className="grid gap-8 md:hidden">
-          {videos.map((video, i) => (
+          {featured.map((video, i) => (
             <div key={i} className="video-item cursor-pointer group">
               <div className="aspect-video rounded-lg mb-4 flex items-center justify-center overflow-hidden relative">
                 <Image
@@ -63,89 +75,49 @@ export default function Videos({ videos }) {
 
         {/* Desktop layout */}
         <div className="hidden md:grid grid-cols-2 gap-8">
-          <div className="flex flex-col gap-8">
-            <div className="video-item cursor-pointer group">
-              <div className="relative min-h-[360px] rounded-lg overflow-hidden">
-                <Image
-                  src={videos[0].image}
-                  alt={videos[0].title}
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all"></div>
-                <svg
-                  className="absolute left-6 bottom-6 w-16 h-16 text-white group-hover:scale-110 transition-transform"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-              {renderVideoMeta(videos[0], "lg")}
+          <div className="video-item cursor-pointer group">
+            <div className="relative min-h-[360px] rounded-lg overflow-hidden">
+              <Image
+                src={featured[0].image}
+                alt={featured[0].title}
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all"></div>
+              <svg
+                className="absolute left-6 bottom-6 w-16 h-16 text-white group-hover:scale-110 transition-transform"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M8 5v14l11-7z" />
+              </svg>
             </div>
-            <div className="video-item cursor-pointer group">
-              <div className="relative min-h-[180px] rounded-lg overflow-hidden">
-                <Image
-                  src={videos[3].image}
-                  alt={videos[3].title}
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all"></div>
-                <svg
-                  className="absolute left-5 bottom-5 w-12 h-12 text-white group-hover:scale-110 transition-transform"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-              {renderVideoMeta(videos[3], "sm")}
-            </div>
+            {renderVideoMeta(featured[0], "lg")}
           </div>
           <div className="flex flex-col gap-8">
-            <div className="video-item cursor-pointer group">
-              <div className="relative min-h-[180px] rounded-lg overflow-hidden">
-                <Image
-                  src={videos[1].image}
-                  alt={videos[1].title}
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all"></div>
-                <svg
-                  className="absolute left-5 bottom-5 w-12 h-12 text-white group-hover:scale-110 transition-transform"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
+            {featured.slice(1).map((video, i) => (
+              <div key={i} className="video-item cursor-pointer group">
+                <div className="relative min-h-[180px] rounded-lg overflow-hidden">
+                  <Image
+                    src={video.image}
+                    alt={video.title}
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all"></div>
+                  <svg
+                    className="absolute left-5 bottom-5 w-12 h-12 text-white group-hover:scale-110 transition-transform"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+                {renderVideoMeta(video, "sm")}
               </div>
-              {renderVideoMeta(videos[1], "sm")}
-            </div>
-            <div className="video-item cursor-pointer group">
-              <div className="relative min-h-[360px] rounded-lg overflow-hidden">
-                <Image
-                  src={videos[2].image}
-                  alt={videos[2].title}
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all"></div>
-                <svg
-                  className="absolute left-6 bottom-6 w-16 h-16 text-white group-hover:scale-110 transition-transform"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-              {renderVideoMeta(videos[2], "lg")}
-            </div>
+            ))}
           </div>
         </div>
       </div>

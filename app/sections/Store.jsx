@@ -1,5 +1,7 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ShoppingCart } from "lucide-react";
 
 export default function Store({ products }) {
   return (
@@ -8,11 +10,19 @@ export default function Store({ products }) {
       className="section-stack section-alt relative pb-32 lg:pt-32  px-6"
     >
       <div className="max-w-7xl mx-auto">
-        <h2 className="section-title font-display text-6xl md:text-8xl font-bold mb-20 text-gradient">
-          Store
-        </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {products.map((product, i) => (
+        <div className="flex items-center justify-between gap-6 mb-16">
+          <h2 className="section-title font-display text-6xl md:text-8xl font-bold text-gradient">
+            Store
+          </h2>
+          <Link
+            href="/store"
+            className="inline-flex items-center gap-2 border border-subtle px-5 py-2 text-xs uppercase tracking-[0.35em] hover-text-accent hover-border-accent transition"
+          >
+            View More
+          </Link>
+        </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {products.slice(0, 3).map((product, i) => (
             <div key={i} className="store-item card-hover cursor-pointer">
               <div className="relative aspect-square rounded-lg mb-4 overflow-hidden">
                 <Image
@@ -24,11 +34,16 @@ export default function Store({ products }) {
                 />
                 <div className="absolute inset-0 bg-black/10"></div>
               </div>
-              <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-              <p className="text-accent font-bold">{product.price}</p>
-              <button className="w-full mt-4 py-3 border border-subtle hover-bg-accent hover-text-accent-contrast hover-border-accent transition-all tracking-wider">
-                ADD TO CART
-              </button>
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <h3 className="text-xl font-semibold mb-1">{product.name}</h3>
+                  <p className="text-accent font-bold">{product.price}</p>
+                </div>
+                <button className="btn-cart-inline">
+                  <ShoppingCart className="h-4 w-4" />
+                  <span>Add to cart</span>
+                </button>
+              </div>
             </div>
           ))}
         </div>
