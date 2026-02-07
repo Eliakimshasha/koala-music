@@ -45,7 +45,7 @@ export default function Connect({ socialLinks }) {
           ref={containerRef}
           className="relative flex h-[320px] w-full items-center justify-center overflow-hidden"
         >
-          <div className="flex size-full max-h-[220px] max-w-xl flex-col items-stretch justify-between gap-8">
+          <div className="flex size-full max-h-[220px] max-w-[40rem] flex-col items-stretch justify-between gap-9">
             <div className="flex flex-row items-center justify-between">
               <a href={icons[0]?.href || "#"} className="social-link">
                 <Circle ref={leftTopRef}>
