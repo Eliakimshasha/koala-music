@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoIosArrowRoundForward } from "react-icons/io";
-import logoGreen from "../../public/assets/images/green.png";
+import logoGreen from "../../public/assets/images/green2.png";
 import logoBlack from "../../public/assets/images/black.png";
 
 export default function Footer() {
@@ -17,36 +17,49 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
-            <Link
-              href="/"
-              className="flex items-center gap-3 mb-4"
-              aria-label="Go to home"
-            >
-              <Image
-                src={logoSrc}
-                alt="Koala logo"
-                width={140}
-                height={40}
-                className="h-12 w-auto object-contain"
-              />
-            </Link>
+            <div className="flex items-end  mb-4">
+              <Link
+                href="/"
+                className="flex items-center gap-3"
+                aria-label="Go to home"
+              >
+                <Image
+                  src={logoSrc}
+                  alt="Koala logo"
+                  width={140}
+                  height={40}
+                  className="h-12 w-auto object-contain"
+                />
+              </Link>
+              <div className="text-[19px] text-accent">.KOALA</div>
+
+            </div>
             <p className="text-muted">More Than Music. Pure Feeling.</p>
           </div>
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <div className="space-y-2 text-muted">
               <div>
-                <Link href="/music" className="hover-text-accent transition-colors">
+                <Link
+                  href="/music"
+                  className="hover-text-accent transition-colors"
+                >
                   Music
                 </Link>
               </div>
               <div>
-                <Link href="/videos" className="hover-text-accent transition-colors">
+                <Link
+                  href="/videos"
+                  className="hover-text-accent transition-colors"
+                >
                   Videos
                 </Link>
               </div>
               <div>
-                <Link href="/store" className="hover-text-accent transition-colors">
+                <Link
+                  href="/store"
+                  className="hover-text-accent transition-colors"
+                >
                   Store
                 </Link>
               </div>
@@ -61,7 +74,7 @@ export default function Footer() {
                 className="flex-1 px-4 py-2 bg-surface border border-subtle  focus:outline-none focus:border-accent"
               />
               <button className="px-6 py-2 bg-accent text-accent-contrast font-semibold hover:scale-105 transition-transform">
-                <IoIosArrowRoundForward/>
+                <IoIosArrowRoundForward />
               </button>
             </div>
           </div>

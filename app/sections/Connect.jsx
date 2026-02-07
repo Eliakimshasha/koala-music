@@ -4,37 +4,54 @@ import React from "react";
 import Image from "next/image";
 import { OrbitingCircles } from "@/registry/magicui/orbiting-circles";
 import logo from "../../public/assets/images/green.png";
+import { AiOutlineTikTok } from "react-icons/ai";
+import { FaXTwitter } from "react-icons/fa6";
+import { IoLogoInstagram } from "react-icons/io5";
+import { FaYoutube } from "react-icons/fa6";
 
-const OrbitIcon = ({ icon, label, href, size }) => {
+
+const OrbitIcon = ({ Icon, label, href, size }) => {
   return (
     <a
       href={href || "#"}
       aria-label={label}
       className="flex h-full w-full items-center justify-center"
     >
-      <Image
-        src={icon}
-        alt={label}
-        width={size}
-        height={size}
-        className="opacity-90"
-      />
+      <Icon size={size} className="opacity-90 text-accent" aria-hidden="true" />
     </a>
   );
 };
 
 export default function Connect({ socialLinks }) {
-  const outerIcons = socialLinks.slice(0, 6);
-  const innerIcons = socialLinks.slice(0, 4);
+  const iconMap = {
+    tiktok: AiOutlineTikTok,
+    twitter: FaXTwitter,
+    x: FaXTwitter,
+    instagram: IoLogoInstagram,
+    youtube: FaYoutube,
+  };
+
+  const resolveIcon = (label = "") => {
+    const key = label.toLowerCase().replace(/\s+/g, "");
+    return iconMap[key];
+  };
+
+  const orbitIcons = socialLinks
+    .map((icon) => ({ ...icon, Icon: resolveIcon(icon.label) }))
+    .filter((icon) => icon.Icon);
+
+  const outerIcons = orbitIcons.slice(0, 6);
+  const innerIcons = orbitIcons.slice(0, 4);
 
   return (
     <section className="section-stack relative pb-32 lg:pt-32 px-6">
       <div className="max-w-5xl mx-auto text-center">
-        <h2 className="section-title font-display text-6xl md:text-8xl font-bold mb-12 text-accent">
+        <h2 className="section-title font-display text-5xl md:text-8xl font-bold mb-4 text-accent">
           Connect
         </h2>
+        <div className="splash-line mx-auto mb-12"></div>
         <div className="relative mx-auto flex h-[360px] w-full max-w-3xl items-center justify-center overflow-hidden">
-          <OrbitingCircles
+          {/* <OrbitingCircles
             iconSize={46}
             radius={150}
             speed={1}
@@ -51,7 +68,7 @@ export default function Connect({ socialLinks }) {
                 size={22}
               />
             ))}
-          </OrbitingCircles>
+          </OrbitingCircles> */}
           <OrbitingCircles
             iconSize={36}
             radius={105}
@@ -64,7 +81,7 @@ export default function Connect({ socialLinks }) {
             {innerIcons.map((icon) => (
               <OrbitIcon
                 key={`inner-${icon.label}`}
-                icon={icon.icon}
+                Icon={icon.Icon}
                 label={icon.label}
                 href={icon.href}
                 size={18}
