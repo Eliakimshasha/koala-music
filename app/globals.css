@@ -277,13 +277,15 @@ text-align: start;
   border-top: 1px dotted var(--border);
 }
 
-.music-index {
-  min-width: 3ch;
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-subtle);
-  font-variant-numeric: tabular-nums;
+.music-icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px dotted var(--border);
+  border-radius: 999px;
+  color: var(--accent);
+  font-size: 1rem;
 }
 
 .music-title {
@@ -318,6 +320,7 @@ text-align: start;
 }
 
 .text-gradient {
+  
   background: linear-gradient(135deg, var(--accent) 0%, var(--gradient-end) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
