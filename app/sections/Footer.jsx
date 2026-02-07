@@ -13,7 +13,7 @@ export default function Footer() {
       : logoGreen;
 
   return (
-    <footer className="section-stack relative py-16 px-6 border-t border-subtle">
+    <footer className="section-stack relative py-16 px-6 border-t-[1px] border-gray-100/30">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
