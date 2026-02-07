@@ -7,6 +7,7 @@ import MobileNav from "./MobileNav";
 export default function Chrome({ navLinks, children }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [theme, setTheme] = useState("dark");
+  const [glassBg, setGlassBg] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -47,6 +48,30 @@ export default function Chrome({ navLinks, children }) {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const target = document.querySelector(".hero-section");
+    if (!target) {
+      setGlassBg(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setGlassBg(!entry.isIntersecting);
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+
+    observer.observe(target);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
@@ -59,6 +84,7 @@ export default function Chrome({ navLinks, children }) {
         setMenuOpen={setMenuOpen}
         theme={theme}
         onToggleTheme={toggleTheme}
+        glassBg={glassBg}
       />
       <MobileNav
         navLinks={navLinks}

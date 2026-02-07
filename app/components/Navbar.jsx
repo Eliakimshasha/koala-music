@@ -11,12 +11,17 @@ export default function Navbar({
   setMenuOpen,
   theme,
   onToggleTheme,
+  glassBg,
 }) {
   const logoSrc = theme === "light" ? logoBlack : logoGreen;
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 ">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        glassBg ? "bg-nav backdrop-blur-md  border-subtle" : ""
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 pt-4 flex justify-between items-center">
         <Link href="/" className="flex items-center" aria-label="Go to home">
           <Image
             src={logoSrc}
