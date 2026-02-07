@@ -16,10 +16,10 @@ import Boomplay from "../../public/assets/images/boomplay.png";
 import iconInstagram from "../../public/assets/images/social.png";
 
 export const navLinks = [
-  { label: "MUSIC", href: "#music" },
-  { label: "VIDEOS", href: "#videos" },
-  { label: "STORE", href: "#store" },
-  { label: "ABOUT", href: "#about" },
+  { label: "MUSIC", href: "/music" },
+  { label: "VIDEOS", href: "/videos" },
+  { label: "STORE", href: "/store" },
+  { label: "ABOUT", href: "/about" },
 ];
 
 export const albums = [

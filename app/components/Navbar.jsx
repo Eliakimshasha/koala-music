@@ -1,5 +1,9 @@
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
+import logoGreen from "../../public/assets/images/green.png";
+import logoBlack from "../../public/assets/images/black.png";
 
 export default function Navbar({
   navLinks,
@@ -8,19 +12,30 @@ export default function Navbar({
   theme,
   onToggleTheme,
 }) {
+  const logoSrc = theme === "light" ? logoBlack : logoGreen;
+
   return (
-    <nav className="fixed top-0 left-0 w-full z-50    border-subtle">
+    <nav className="fixed top-0 left-0 w-full z-50 ">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <div className="text-2xl font-display font-bold text-accent">KOALA</div>
+        <Link href="/" className="flex items-center" aria-label="Go to home">
+          <Image
+            src={logoSrc}
+            alt="Koala logo"
+            width={140}
+            height={40}
+            className="h-16 w-auto object-contain"
+            priority
+          />
+        </Link>
         <div className="hidden md:flex items-center gap-8 text-sm tracking-wider">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="hover-text-accent transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
           <ThemeToggle theme={theme} onToggle={onToggleTheme} />
         </div>

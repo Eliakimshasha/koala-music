@@ -1,11 +1,18 @@
 import React from "react";
+import Link from "next/link";
+import logoBlack from "../../public/assets/images/black.png";
+import Image from "next/image";
+import { IoIosArrowRoundForward } from "react-icons/io";
+
 
 export default function MobileNav({ navLinks, menuOpen, setMenuOpen }) {
   return (
     <div
       id="mobile-nav"
       className={`md:hidden fixed inset-0 z-50 transition-all duration-300 ${
-        menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        menuOpen
+          ? "opacity-100 pointer-events-auto"
+          : "opacity-0 pointer-events-none"
       }`}
       role="dialog"
       aria-modal="true"
@@ -32,7 +39,7 @@ export default function MobileNav({ navLinks, menuOpen, setMenuOpen }) {
           </div>
           <div className="mt-12 flex flex-col gap-2">
             {navLinks.map((link, index) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="group flex items-center justify-between border-b border-black/10 py-5 transition hover:border-black/40"
@@ -47,22 +54,31 @@ export default function MobileNav({ navLinks, menuOpen, setMenuOpen }) {
                   </span>
                 </div>
                 <span className="text-lg text-black/50 transition group-hover:text-black">
-                  -&gt;
+                  <IoIosArrowRoundForward />
                 </span>
-              </a>
+              </Link>
             ))}
           </div>
-          <div className="mt-10 flex items-center justify-between border-t border-black/10 pt-6">
-            <a
-              href="#music"
+          <div className="mt-10 flex items-center justify-between  pt-6">
+            <Link
+              href="/music"
               className="rounded-full bg-black px-5 py-2 text-sm font-semibold text-accent transition hover:scale-105"
               onClick={() => setMenuOpen(false)}
             >
               Listen Now
-            </a>
-            <span className="text-xs uppercase tracking-[0.3em] text-black/60">
-              KOALA
-            </span>
+            </Link>
+            <Link href="/" className="flex items-center gap-3" aria-label="Go to home">
+              <span className="text-xs uppercase tracking-[0.3em] text-black/60">
+                KOALA
+              </span>
+              <Image
+                src={logoBlack}
+                alt="Koala logo"
+                width={140}
+                height={40}
+                className="h-12 w-auto object-contain"
+              />
+            </Link>
           </div>
         </div>
       </div>
