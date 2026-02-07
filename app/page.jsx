@@ -109,21 +109,17 @@ export default function KoalaWebsite() {
         y: -120,
       });
 
-      gsap.fromTo(
-        ".hero-section",
-        { autoAlpha: 1 },
-        {
-          autoAlpha: 0,
-          duration: 0.6,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: "#about",
-            start: "top 70%",
-            end: "top 30%",
-            toggleActions: "play reverse play reverse",
-          },
-        }
-      );
+      gsap.to(".hero-section", {
+        autoAlpha: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#about",
+          start: "top 70%",
+          end: "top 30%",
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      });
 
       gsap.to(".hero-orb", {
         y: -18,
