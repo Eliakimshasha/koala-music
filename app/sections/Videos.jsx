@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { IoIosArrowRoundForward } from "react-icons/io";
 
 export default function Videos({ videos }) {
   const renderVideoMeta = (video, size = "sm") => {
@@ -43,6 +44,7 @@ export default function Videos({ videos }) {
             href="/videos"
             className="inline-flex items-center gap-2 border border-subtle px-5 py-2 text-xs uppercase tracking-[0.35em] hover-text-accent hover-border-accent transition"
           >
+            <IoIosArrowRoundForward className="h-5 w-5" />
             View More
           </Link>
         </div>
@@ -96,29 +98,56 @@ export default function Videos({ videos }) {
             {renderVideoMeta(featured[0], "lg")}
           </div>
           <div className="flex flex-col gap-8">
-            {featured.slice(1).map((video, i) => (
-              <div key={i} className="video-item cursor-pointer group">
-                <div className="relative min-h-[180px] rounded-lg overflow-hidden">
-                  <Image
-                    src={video.image}
-                    alt={video.title}
-                    fill
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all"></div>
-                  <svg
-                    className="absolute left-5 bottom-5 w-12 h-12 text-white group-hover:scale-110 transition-transform"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-                {renderVideoMeta(video, "sm")}
+            <div className="video-item cursor-pointer group">
+              <div className="relative min-h-[180px] rounded-lg overflow-hidden">
+                <Image
+                  src={featured[1].image}
+                  alt={featured[1].title}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all"></div>
+                <svg
+                  className="absolute left-5 bottom-5 w-12 h-12 text-white group-hover:scale-110 transition-transform"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
               </div>
-            ))}
+              {renderVideoMeta(featured[1], "sm")}
+            </div>
+            <div className="video-item cursor-pointer group">
+              <div className="relative min-h-[360px] rounded-lg overflow-hidden">
+                <Image
+                  src={featured[2].image}
+                  alt={featured[2].title}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all"></div>
+                <svg
+                  className="absolute left-6 bottom-6 w-16 h-16 text-white group-hover:scale-110 transition-transform"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+              {renderVideoMeta(featured[2], "lg")}
+            </div>
           </div>
+        </div>
+        <div className="mt-10 flex justify-end">
+          <Link
+            href="/videos"
+            className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-subtle hover-text-accent transition"
+          >
+            See More
+            <IoIosArrowRoundForward className="h-5 w-5" />
+          </Link>
         </div>
       </div>
     </section>
