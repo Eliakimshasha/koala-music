@@ -15,7 +15,7 @@
   --text: #ffffff;
   --text-muted: rgba(255, 255, 255, 0.7);
   --text-subtle: rgba(255, 255, 255, 0.45);
-  --accent: oklch(0.97 0 0);
+  --accent: #afd3a1;
   --accent-contrast: #000000;
   --accent-rgb: 175, 211, 161;
   --accent-faint: rgba(175, 211, 161, 0.1);
