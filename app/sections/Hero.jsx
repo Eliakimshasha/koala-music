@@ -56,9 +56,9 @@ export default function Hero() {
         </div>
         <div className="flex h-[50vh]">
           <h1 className="hero-title absolute z-60 top-2 hero-vertical-title font-display uppercase">
-            <p className="text-start">More</p>
-            <p className="text-start">Than</p>
-            <p className="text-start">Music</p>
+            <p className="text-start leading-tight  -tracking-[0.01em]">More</p>
+            <p className="text-start leading-tight -tracking-[0.01em]">Than</p>
+            <p className="text-start leading-tight -tracking-[0.01em]">Music</p>
           </h1>
           <div className="">
             <Image

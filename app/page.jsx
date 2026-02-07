@@ -137,7 +137,8 @@ export default function KoalaWebsite() {
           scrollTrigger: {
             trigger: title,
             start: "top 80%",
-            toggleActions: "play none none reverse",
+            toggleActions: "play none none none",
+            once: true,
           },
           y: 100,
           opacity: 0,
@@ -165,7 +166,8 @@ export default function KoalaWebsite() {
         scrollTrigger: {
           trigger: ".music-section",
           start: "top 70%",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none none",
+          once: true,
         },
         scale: 0.8,
         opacity: 0,
@@ -179,7 +181,8 @@ export default function KoalaWebsite() {
           scrollTrigger: {
             trigger: item,
             start: "top 85%",
-            toggleActions: "play none none reverse",
+            toggleActions: "play none none none",
+            once: true,
           },
           y: 100,
           opacity: 0,
@@ -190,13 +193,27 @@ export default function KoalaWebsite() {
         });
       });
 
+      // Pin videos when "See More" reaches the bottom; let Store pass above
+      if (document.querySelector("#videos") && document.querySelector("#store")) {
+        ScrollTrigger.create({
+          trigger: "#videos",
+          start: "bottom bottom",
+          endTrigger: "#store",
+          end: "top top",
+          pin: true,
+          pinSpacing: false,
+          invalidateOnRefresh: true,
+        });
+      }
+
       // Store items reveal
       gsap.utils.toArray(".store-item").forEach((item, i) => {
         gsap.from(item, {
           scrollTrigger: {
             trigger: item,
             start: "top 80%",
-            toggleActions: "play none none reverse",
+            toggleActions: "play none none none",
+            once: true,
           },
           x: i % 2 === 0 ? -100 : 100,
           opacity: 0,
@@ -204,6 +221,23 @@ export default function KoalaWebsite() {
           ease: "power3.out",
         });
       });
+
+      // Pin store when the bottom marker appears; let Coming Soon pass above
+      const storeSection = document.querySelector("#store");
+      const comingSoonSection = document.querySelector("#coming-soon");
+      const storePinTrigger = document.querySelector("#store .gsap-reference");
+
+      if (storeSection && comingSoonSection && storePinTrigger) {
+        ScrollTrigger.create({
+          trigger: storePinTrigger,
+          start: "top bottom",
+          endTrigger: comingSoonSection,
+          end: "top top",
+          pin: storeSection,
+          pinSpacing: false,
+          invalidateOnRefresh: true,
+        });
+      }
 
       // About text: character-by-character color reveal
       const msgOne = document.querySelector(".msg-one");
@@ -294,7 +328,7 @@ export default function KoalaWebsite() {
             />
             <Music tracks={tracks} />
             <Videos videos={videos} />
-            <Store products={products} />
+            <Store products={products} enableMobileSlider />
             <ComingSoon data={comingSoon} />
             <Connect socialLinks={socialLinks} />
             <Footer />

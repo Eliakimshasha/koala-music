@@ -41,7 +41,7 @@ export default function Videos({ videos }) {
     >
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between gap-6 mb-16">
-          <h2 className="section-title font-display text-6xl md:text-8xl font-bold text-accent">
+          <h2 className="section-title font-display text-5xl md:text-8xl font-bold text-accent">
             Videos
           </h2>
           <Link
@@ -57,7 +57,7 @@ export default function Videos({ videos }) {
         <div className="grid gap-8 md:hidden">
           {featured.map((video, i) => (
             <div key={i} className="video-item cursor-pointer group">
-              <div className="aspect-video rounded-lg mb-4 flex items-center justify-center overflow-hidden relative">
+              <div className="aspect-video rounded-xs mb-4 flex items-center justify-center overflow-hidden relative">
                 <Image
                   src={video.image}
                   alt={video.title}
@@ -94,7 +94,7 @@ export default function Videos({ videos }) {
             <p className=" absolute bottom-0 -right-20 text-xs"><span className=" font-display text-[#afd3a1] text-lg">KOALA.</span> @all rights reserved</p>
           </div>
           <div className="video-item cursor-pointer group">
-            <div className="relative min-h-90 rounded-lg overflow-hidden">
+            <div className="relative min-h-90 rounded-xs overflow-hidden">
               <Image
                 src={featured[0].image}
                 alt={featured[0].title}
@@ -115,7 +115,7 @@ export default function Videos({ videos }) {
           </div>
           <div className="flex flex-col gap-8">
             <div className="video-item cursor-pointer group">
-              <div className="relative min-h-[180px] rounded-lg overflow-hidden">
+              <div className="relative min-h-[180px] rounded-xs overflow-hidden">
                 <Image
                   src={featured[1].image}
                   alt={featured[1].title}
@@ -135,7 +135,7 @@ export default function Videos({ videos }) {
               {renderVideoMeta(featured[1], "sm")}
             </div>
             <div className="video-item cursor-pointer group">
-              <div className="relative min-h-[360px] rounded-lg overflow-hidden">
+              <div className="relative min-h-[360px] rounded-xs overflow-hidden">
                 <Image
                   src={featured[2].image}
                   alt={featured[2].title}

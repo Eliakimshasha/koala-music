@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function ComingSoon({ data }) {
   return (
-    <section className="section-stack relative py-32 pt-9 px-6">
+    <section id="coming-soon" className="section-stack relative py-32 pt-9 px-6">
       <div className="max-w-6xl mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-12 items-center">
         <div>
           <div className="text-xs uppercase tracking-[0.4em] text-subtle mb-6">
