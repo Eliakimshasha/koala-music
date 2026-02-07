@@ -277,7 +277,7 @@ text-align: start;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.55rem 0.9rem;
+  padding: 0.75rem 0.9rem;
   border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--surface);
