@@ -41,7 +41,7 @@ export default function Store({ products }) {
                 </div>
                 <button className="btn-cart-inline">
                   <ShoppingCart className="h-4 w-4" />
-                  <span>Buy</span>
+                  <span className="mt-[2px]">Buy</span>
                 </button>
               </div>
             </div>
