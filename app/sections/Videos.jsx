@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import Logo from "../../public/assets/images/green2.png";
 
 export default function Videos({ videos }) {
   const renderVideoMeta = (video, size = "sm") => {
@@ -34,7 +35,10 @@ export default function Videos({ videos }) {
   const featured = videos.slice(0, 3);
 
   return (
-    <section id="videos" className="section-stack relative pb-32 pt-9 lg:pt-32  px-6">
+    <section
+      id="videos"
+      className="section-stack relative pb-32 pt-9 lg:pt-32  px-6"
+    >
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between gap-6 mb-16">
           <h2 className="section-title font-display text-6xl md:text-8xl font-bold text-accent">
@@ -76,9 +80,21 @@ export default function Videos({ videos }) {
         </div>
 
         {/* Desktop layout */}
-        <div className="hidden md:grid grid-cols-2 gap-8">
+        <div className="hidden relative md:grid grid-cols-2 gap-8">
+          <div className="absolute -bottom-9 left-0 flex items-end ">
+            <div className="flex items-center gap-3 h-48 ">
+              <Image
+                src={Logo}
+                alt="Koala logo"
+                width={140}
+                height={40}
+                className="h-48 w-auto opacity-20"
+              />
+            </div>
+            <p className=" absolute bottom-0 -right-20 text-xs"><span className=" font-display text-[#afd3a1] text-lg">KOALA.</span> @all rights reserved</p>
+          </div>
           <div className="video-item cursor-pointer group">
-            <div className="relative min-h-[360px] rounded-lg overflow-hidden">
+            <div className="relative min-h-90 rounded-lg overflow-hidden">
               <Image
                 src={featured[0].image}
                 alt={featured[0].title}
