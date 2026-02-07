@@ -26,7 +26,7 @@ export default function ComingSoon({ data }) {
         </div>
         <div className="relative">
           <div className="absolute -top-10 -right-6 w-32 h-32 rounded-full bg-accent blur-3xl opacity-30"></div>
-          <div className="relative aspect-[6/5] rounded-sm overflow-hidden border border-subtle shadow-2xl">
+          <div className="relative aspect-6/5 rounded-xs overflow-hidden shadow-2xl">
             <Image
               src={data.image}
               alt="Coming soon collection preview"
