@@ -37,19 +37,19 @@ export default function MobileNav({ navLinks, menuOpen, setMenuOpen }) {
             <span>Navigation</span>
             <span className="tracking-wide">Swipe or tap</span>
           </div>
-          <div className="mt-12 flex flex-col gap-2">
+          <div className="mt-12 max-[900px]:mt-5 flex flex-col gap-2">
             {navLinks.map((link, index) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="group flex items-center justify-between border-b border-black/10 py-5 transition hover:border-black/40"
+                className="group flex items-center justify-between border-b border-black/10 py-5 max-[900px]:py-4 transition hover:border-black/40"
                 onClick={() => setMenuOpen(false)}
               >
                 <div className="flex items-center gap-5">
                   <span className="text-xs uppercase tracking-[0.4em] text-black/50">
                     0{index + 1}
                   </span>
-                  <span className="font-display text-2xl tracking-[0.2em]">
+                  <span className="font-display text-2xl max-[900px]:text-sm tracking-[0.2em]">
                     {link.label}
                   </span>
                 </div>
@@ -59,7 +59,7 @@ export default function MobileNav({ navLinks, menuOpen, setMenuOpen }) {
               </Link>
             ))}
           </div>
-          <div className="mt-10 flex items-center justify-between  pt-6">
+          <div className="mt-10 max-[900px]:mt-1 flex items-center justify-between  pt-6">
             <Link
               href="/music"
               className="rounded-full bg-black px-5 py-2 text-sm font-semibold text-accent transition hover:scale-105"

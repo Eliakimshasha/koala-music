@@ -14,10 +14,18 @@ import iconTwitter from "../../public/assets/images/twitter.png";
 import iconYouTube from "../../public/assets/images/youtube.png";
 import Boomplay from "../../public/assets/images/boomplay.png";
 import iconInstagram from "../../public/assets/images/social.png";
+import face2 from "../../public/assets/images/face2.png";
+import face3 from "../../public/assets/images/face3.png";
+import face4 from "../../public/assets/images/face4.png";
+import vibing from "../../public/assets/images/vibing.png";
+import vibing2 from "../../public/assets/images/vibing2.png";
 
 export const navLinks = [
   { label: "MUSIC", href: "/music" },
   { label: "VIDEOS", href: "/videos" },
+  { label: "SHOWS", href: "/live-shows" },
+  { label: "LIFESTYLE", href: "/lifestyle" },
+  { label: "MORE THAN MUSIC", href: "/more-than-music" },
   { label: "STORE", href: "/store" },
   { label: "ABOUT", href: "/about" },
 ];
@@ -68,3 +76,123 @@ export const socialLinks = [
   { label: "YouTube", href: "#", icon: iconYouTube },
  
 ];
+
+export const liveShows = [
+  {
+    title: "Midnight Echoes Tour",
+    date: "Mar 12, 2026",
+    location: "Dar es Salaam • Diamond Dome",
+    price: "55,000 TZS",
+    image: product5,
+  },
+  {
+    title: "Coastline Sessions",
+    date: "Apr 18, 2026",
+    location: "Zanzibar • Oceanfront Arena",
+    price: "70,000 TZS",
+    image: product5,
+  },
+  {
+    title: "Neon Rooftop Live",
+    date: "May 09, 2026",
+    location: "Arusha • Skyline Rooftop",
+    price: "45,000 TZS",
+    image: product5,
+  },
+  {
+    title: "City Lights Experience",
+    date: "Jun 20, 2026",
+    location: "Dodoma • Capital Hall",
+    price: "60,000 TZS",
+    image: product5,
+  },
+];
+
+export const lifestylePosts = [
+  {
+    title: "Morning Routines Before the Stage",
+    tag: "Lifestyle",
+    date: "Feb 02, 2026",
+    readTime: "5 min read",
+    excerpt:
+      "Quiet mornings, strong tea, and the rituals that keep me focused before the crowd arrives.",
+    image: vibing2,
+  },
+  {
+    title: "Tour Diary: City Lights, Quiet Rooms",
+    tag: "Stories",
+    date: "Jan 24, 2026",
+    readTime: "6 min read",
+    excerpt:
+      "Snapshots from the road - the small moments between soundcheck and the spotlight.",
+    image: face4,
+  },
+  {
+    title: "What I Pack for a Week of Shows",
+    tag: "Lifestyle",
+    date: "Jan 10, 2026",
+    readTime: "4 min read",
+    excerpt:
+      "Gear, journals, and essentials that travel with me from studio sessions to stage.",
+    image: face2,
+  },
+];
+
+export const moreThanMusic = {
+  title: "More Than Music",
+  subtitle:
+    "I build worlds beyond the studio - from camera to page to stage.",
+  disciplines: [
+    {
+      title: "Modelling",
+      tag: "Editorial + Campaign",
+      description:
+        "Fashion stories, lookbooks, and brand campaigns with a bold, clean edge.",
+      image: face2,
+    },
+    {
+      title: "Author",
+      tag: "Books + Essays",
+      description:
+        "Short-form stories, essays, and a developing book project rooted in real life.",
+      image: vibing,
+    },
+    {
+      title: "Comedy",
+      tag: "Live + Digital",
+      description:
+        "Set pieces, sketches, and quick hits that blend timing with truth.",
+      image: face3,
+    },
+    {
+      title: "Creative Direction",
+      tag: "Visual + Styling",
+      description:
+        "Concepts, styling, and creative direction for visuals that feel cinematic.",
+      image: face4,
+    },
+  ],
+  highlights: [
+    {
+      title: "Featured Work",
+      detail: "Runway looks, lifestyle campaigns, and visual editorials.",
+    },
+    {
+      title: "Writing Desk",
+      detail: "Essays in progress and a book chapter series.",
+    },
+    {
+      title: "Stage Time",
+      detail: "Stand-up sets and audience-ready hosting.",
+    },
+    {
+      title: "Collabs",
+      detail: "Creative partnerships across fashion, media, and culture.",
+    },
+  ],
+  gallery: [
+    { title: "On Set", image: vibing2 },
+    { title: "Editorial", image: face2 },
+    { title: "Backstage", image: face4 },
+  ],
+};

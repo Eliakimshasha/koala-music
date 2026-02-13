@@ -31,7 +31,7 @@ export default function Footer() {
                   className="h-12 w-auto object-contain"
                 />
               </Link>
-              <div className="text-[19px] text-accent">.KOALA</div>
+              <div className="text-[16px] text-accent">.KOALA</div>
 
             </div>
             <p className="text-muted">More Than Music. Pure Feeling.</p>
@@ -61,6 +61,14 @@ export default function Footer() {
                   className="hover-text-accent transition-colors"
                 >
                   Store
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href="/more-than-music"
+                  className="hover-text-accent transition-colors"
+                >
+                  More Than Music
                 </Link>
               </div>
             </div>

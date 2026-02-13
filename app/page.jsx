@@ -12,6 +12,8 @@ import About from "./sections/About";
 import Albums from "./sections/Albums";
 import Music from "./sections/Music";
 import Videos from "./sections/Videos";
+import LiveShows from "./sections/LiveShows";
+import Lifestyle from "./sections/Lifestyle";
 import Store from "./sections/Store";
 import ComingSoon from "./sections/ComingSoon";
 import Connect from "./sections/Connect";
@@ -21,6 +23,8 @@ import {
   albums,
   tracks,
   videos,
+  liveShows,
+  lifestylePosts,
   products,
   socialLinks,
   comingSoon,
@@ -193,12 +197,15 @@ export default function KoalaWebsite() {
         });
       });
 
-      // Pin videos when "See More" reaches the bottom; let Store pass above
-      if (document.querySelector("#videos") && document.querySelector("#store")) {
+      // Pin videos when "See More" reaches the bottom; let Live Shows pass above
+      if (
+        document.querySelector("#videos") &&
+        document.querySelector("#live-shows")
+      ) {
         ScrollTrigger.create({
           trigger: "#videos",
           start: "bottom bottom",
-          endTrigger: "#store",
+          endTrigger: "#live-shows",
           end: "top top",
           pin: true,
           pinSpacing: false,
@@ -328,6 +335,8 @@ export default function KoalaWebsite() {
             />
             <Music tracks={tracks} />
             <Videos videos={videos} />
+            <LiveShows shows={liveShows} />
+            <Lifestyle posts={lifestylePosts} />
             <Store products={products} enableMobileSlider />
             <ComingSoon data={comingSoon} />
             <Connect socialLinks={socialLinks} />
