@@ -12,7 +12,11 @@ export default function VideosPage() {
       <div className="bg-base text-base-color overflow-hidden">
         <div className="noise"></div>
         <div className="pt-24">
-          <Videos videos={videos} />
+          <Videos
+            videos={videos}
+            centerTitle
+            intro="Catch the latest videos, sessions, and live moments as they drop."
+          />
           <Footer />
         </div>
       </div>

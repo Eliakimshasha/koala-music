@@ -115,7 +115,7 @@ export const lifestylePosts = [
     readTime: "5 min read",
     excerpt:
       "Quiet mornings, strong tea, and the rituals that keep me focused before the crowd arrives.",
-    image: vibing2,
+    image: product5,
   },
   {
     title: "Tour Diary: City Lights, Quiet Rooms",
@@ -124,7 +124,7 @@ export const lifestylePosts = [
     readTime: "6 min read",
     excerpt:
       "Snapshots from the road - the small moments between soundcheck and the spotlight.",
-    image: face4,
+    image: product5,
   },
   {
     title: "What I Pack for a Week of Shows",
@@ -133,7 +133,7 @@ export const lifestylePosts = [
     readTime: "4 min read",
     excerpt:
       "Gear, journals, and essentials that travel with me from studio sessions to stage.",
-    image: face2,
+    image: product5,
   },
 ];
 
@@ -146,28 +146,28 @@ export const moreThanMusic = {
       tag: "Editorial + Campaign",
       description:
         "Fashion stories, lookbooks, and brand campaigns with a bold, clean edge.",
-      image: face2,
+      image: product5,
     },
     {
       title: "Author",
       tag: "Books + Essays",
       description:
         "Short-form stories, essays, and a developing book project rooted in real life.",
-      image: vibing,
+      image: product5,
     },
     {
       title: "Comedy",
       tag: "Live + Digital",
       description:
         "Set pieces, sketches, and quick hits that blend timing with truth.",
-      image: face3,
+      image: product5,
     },
     {
       title: "Creative Direction",
       tag: "Visual + Styling",
       description:
         "Concepts, styling, and creative direction for visuals that feel cinematic.",
-      image: face4,
+      image: product5,
     },
   ],
   highlights: [
@@ -189,8 +189,8 @@ export const moreThanMusic = {
     },
   ],
   gallery: [
-    { title: "On Set", image: vibing2 },
-    { title: "Editorial", image: face2 },
-    { title: "Backstage", image: face4 },
+    { title: "On Set", image: product5 },
+    { title: "Editorial", image: product5 },
+    { title: "Backstage", image: product5 },
   ],
 };

@@ -56,28 +56,21 @@ export default function LiveShows({ shows = [] }) {
     <section
       id="live-shows"
       ref={sectionRef}
-      className="section-stack relative py-20 px-6"
+      className="section-stack relative lg:py-20 max-[900px]:mt-5 px-6"
     >
       <div className="max-w-7xl mx-auto">
         <div className="live-header flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
           <div>
-            <p className="live-kicker text-xs uppercase tracking-[0.5em] text-subtle mb-4">
-              Live Dates
-            </p>
-            <h2 className="section-title font-display text-5xl md:text-8xl font-bold text-gradient">
-              Live Shows
-            </h2>
-            <p className="live-copy mt-3 text-base text-muted max-w-xl">
+            <div className="text-center">
+              <h2 className="section-title font-display text-3xl md:text-8xl font-bold text-gradient">
+                Live Shows
+              </h2>
+              
+            </div>
+            <p className="live-copy mt-3 text-base text-center text-muted max-w-xl">
               Dates, locations, and pricing in one clean list.
             </p>
           </div>
-          <Link
-            href="/live-shows"
-            className="live-cta inline-flex items-center gap-2 border border-subtle px-5 py-2 text-xs uppercase tracking-[0.35em] hover-text-accent hover-border-accent transition"
-          >
-            <IoIosArrowRoundForward className="h-5 w-5" />
-            View More
-          </Link>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
@@ -104,7 +97,9 @@ export default function LiveShows({ shows = [] }) {
                   <h3 className="mt-2 text-2xl font-display font-semibold">
                     {show.title}
                   </h3>
-                  <p className="mt-2 text-sm max-[900px]:text-xs text-muted">{show.location}</p>
+                  <p className="mt-2 text-sm max-[900px]:text-xs text-muted">
+                    {show.location}
+                  </p>
                 </div>
                 <div className="text-right">
                   <p className="text-[0.6rem] uppercase tracking-[0.35em] text-subtle">
@@ -126,14 +121,8 @@ export default function LiveShows({ shows = [] }) {
           ))}
         </div>
 
-        <div className="mt-10 flex justify-end">
-          <Link
-            href="/live-shows"
-            className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-subtle hover-text-accent transition"
-          >
-            See the full calendar
-            <IoIosArrowRoundForward className="h-5 w-5" />
-          </Link>
+        <div className="mt-10 mb-10 flex justify-end">
+         
         </div>
       </div>
     </section>

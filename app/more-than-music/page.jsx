@@ -12,7 +12,7 @@ import Footer from "../sections/Footer";
 import { navLinks, socialLinks, moreThanMusic } from "../data/siteData";
 
 export default function MoreThanMusicPage() {
-  const { title, subtitle, disciplines, gallery } = moreThanMusic;
+  const { title, subtitle, disciplines, highlights, gallery } = moreThanMusic;
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -36,6 +36,7 @@ export default function MoreThanMusicPage() {
       });
 
       gsap.utils.toArray(".section-title").forEach((title) => {
+        if (title.classList.contains("mtm-hero-title")) return;
         gsap.from(title, {
           scrollTrigger: {
             trigger: title,
@@ -77,11 +78,11 @@ export default function MoreThanMusicPage() {
         <div className="pt-24">
           <section className="section-stack relative pt-10 pb-14 px-6">
             <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
-              <div className="mtm-hero-copy">
-                <div className="text-xs uppercase tracking-[0.5em] text-subtle mb-4">
+              <div className="mtm-hero-copy text-center">
+                <div className="text-xs uppercase   tracking-[0.5em] text-subtle mb-4">
                   Beyond the studio
                 </div>
-                <h1 className="section-title font-display text-5xl md:text-7xl font-bold text-gradient">
+                <h1 className="section-title mtm-hero-title font-display text-5xl md:text-7xl font-bold text-gradient">
                   {title}
                 </h1>
                 <p className="mt-4 text-base text-muted leading-relaxed">
@@ -134,7 +135,7 @@ export default function MoreThanMusicPage() {
                 </Link>
               </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {disciplines.slice(0, 3).map((item) => (
+                {disciplines.map((item) => (
                   <div key={item.title} className="mtm-card group">
                     <div className="relative aspect-video overflow-hidden">
                       <Image
@@ -154,6 +155,68 @@ export default function MoreThanMusicPage() {
                         {item.title}
                       </h3>
                     </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="section-stack relative py-10 px-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
+                <div>
+                  <h2 className="section-title font-display text-4xl md:text-6xl font-bold text-accent">
+                    Highlights
+                  </h2>
+                  <p className="mt-3 text-muted max-w-xl">
+                    Snapshot of the work and worlds beyond the studio.
+                  </p>
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {highlights.map((item) => (
+                  <div
+                    key={item.title}
+                    className="mtm-card bg-surface border border-subtle rounded-xs p-6"
+                  >
+                    <p className="text-xs uppercase tracking-[0.4em] text-subtle mb-3">
+                      {item.title}
+                    </p>
+                    <p className="text-base text-muted">{item.detail}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="section-stack relative py-16 px-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
+                <div>
+                  <h2 className="section-title font-display text-4xl md:text-6xl font-bold text-accent">
+                    Gallery
+                  </h2>
+                  <p className="mt-3 text-muted max-w-xl">
+                    A few frames from recent sets and sessions.
+                  </p>
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {gallery.map((item) => (
+                  <div key={item.title} className="mtm-card group">
+                    <div className="relative aspect-video overflow-hidden rounded-xs">
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        sizes="(min-width: 1024px) 30vw, 100vw"
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/25" />
+                    </div>
+                    <p className="mt-4 text-sm uppercase tracking-[0.35em] text-subtle">
+                      {item.title}
+                    </p>
                   </div>
                 ))}
               </div>

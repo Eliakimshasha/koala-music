@@ -56,11 +56,11 @@ export default function Lifestyle({ posts = [] }) {
     <section
       id="lifestyle"
       ref={sectionRef}
-      className="section-stack relative py-20 px-6"
+      className="section-stack relative py-20 max-[900px]:py-7 px-6"
     >
       <div className="max-w-7xl mx-auto">
         <div className="lifestyle-header flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
-          <div>
+          <div className="text-center">
             <p className="lifestyle-kicker text-xs uppercase tracking-[0.5em] text-subtle mb-4">
               Beyond the Studio
             </p>
@@ -71,17 +71,11 @@ export default function Lifestyle({ posts = [] }) {
               Simple notes from life on and off the road.
             </p>
           </div>
-          <Link
-            href="/lifestyle"
-            className="lifestyle-cta inline-flex items-center gap-2 border border-subtle px-5 py-2 text-xs uppercase tracking-[0.35em] hover-text-accent hover-border-accent transition"
-          >
-            <IoIosArrowRoundForward className="h-5 w-5" />
-            View More
-          </Link>
+         
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.slice(0, 3).map((post) => (
+          {posts.map((post) => (
             <Link
               key={post.title}
               href="/lifestyle"
@@ -110,13 +104,7 @@ export default function Lifestyle({ posts = [] }) {
         </div>
 
         <div className="mt-10 flex justify-end">
-          <Link
-            href="/lifestyle"
-            className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-subtle hover-text-accent transition"
-          >
-            See more stories
-            <IoIosArrowRoundForward className="h-5 w-5" />
-          </Link>
+          
         </div>
       </div>
     </section>

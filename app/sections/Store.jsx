@@ -10,7 +10,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Store({ products, enableMobileSlider = false }) {
+export default function Store({
+  products = [],
+  enableMobileSlider = false,
+  showMoreLink = false,
+  centerTitle = false,
+  intro,
+}) {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
 
@@ -143,18 +149,38 @@ export default function Store({ products, enableMobileSlider = false }) {
       }`}
     >
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between gap-6 mb-16">
-          <h2 className="section-title font-display text-6xl md:text-8xl font-bold text-gradient">
-            Store
-          </h2>
-          <Link
-            href="/store"
-            className="inline-flex items-center gap-2 border border-subtle px-5 py-2 text-xs uppercase tracking-[0.35em] hover-text-accent hover-border-accent transition"
-          >
-            <IoIosArrowRoundForward className="h-5 w-5" />
-            View More
-          </Link>
-        </div>
+        {centerTitle ? (
+          <div className="flex flex-col items-center text-center gap-4 mb-12">
+            <h2 className="section-title font-display text-6xl md:text-8xl font-bold text-gradient">
+              Store
+            </h2>
+            {intro ? <p className="text-base text-muted">{intro}</p> : null}
+            {showMoreLink ? (
+              <Link
+                href="/store"
+                className="inline-flex items-center gap-2 border border-subtle px-5 py-2 text-xs uppercase tracking-[0.35em] hover-text-accent hover-border-accent transition"
+              >
+                <IoIosArrowRoundForward className="h-5 w-5" />
+                View More
+              </Link>
+            ) : null}
+          </div>
+        ) : (
+          <div className="flex items-center justify-between gap-6 mb-16">
+            <h2 className="section-title font-display text-6xl md:text-8xl font-bold text-gradient">
+              Store
+            </h2>
+            {showMoreLink ? (
+              <Link
+                href="/store"
+                className="inline-flex items-center gap-2 border border-subtle px-5 py-2 text-xs uppercase tracking-[0.35em] hover-text-accent hover-border-accent transition"
+              >
+                <IoIosArrowRoundForward className="h-5 w-5" />
+                View More
+              </Link>
+            ) : null}
+          </div>
+        )}
 
         <div
           className={
@@ -164,7 +190,7 @@ export default function Store({ products, enableMobileSlider = false }) {
           }
         >
           <div ref={trackRef} className={gridClassName}>
-            {products.slice(0, 3).map((product, i) => (
+            {products.map((product, i) => (
               <div key={i} className={itemClassName}>
                 <div className="relative aspect-square rounded-xs mb-4 overflow-hidden">
                   <Image
@@ -193,15 +219,17 @@ export default function Store({ products, enableMobileSlider = false }) {
           </div>
         </div>
 
-        <div className="mt-10 flex justify-end">
-          <Link
-            href="/store"
-            className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-subtle hover-text-accent transition"
-          >
-            See More
-            <IoIosArrowRoundForward className="h-5 w-5" />
-          </Link>
-        </div>
+        {showMoreLink ? (
+          <div className="mt-10 flex justify-end">
+            <Link
+              href="/store"
+              className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-subtle hover-text-accent transition"
+            >
+              See More
+              <IoIosArrowRoundForward className="h-5 w-5" />
+            </Link>
+          </div>
+        ) : null}
       </div>
     </section>
   );

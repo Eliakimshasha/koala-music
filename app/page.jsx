@@ -54,10 +54,14 @@ export default function KoalaWebsite() {
               onNext={() => scrollAlbums(1)}
             />
             <Music tracks={tracks} />
-            <Videos videos={videos} />
+            <Videos videos={videos.slice(0, 3)} showMoreLink />
             {/* <LiveShows shows={liveShows} /> */}
-            {/* <Lifestyle posts={lifestylePosts} /> */}
-            <Store products={products} enableMobileSlider />
+            {/* <Lifestyle posts={lifestylePosts.slice(0, 3)} /> */}
+            <Store
+              products={products.slice(0, 3)}
+              enableMobileSlider
+              showMoreLink
+            />
             <ComingSoon data={comingSoon} />
             <Connect socialLinks={socialLinks} />
             <Footer />

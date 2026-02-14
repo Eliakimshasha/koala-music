@@ -12,8 +12,12 @@ export default function StorePage() {
     <Chrome navLinks={navLinks}>
       <div className="bg-base text-base-color overflow-hidden">
         <div className="noise"></div>
-        <div className="pt-24">
-          <Store products={products} />
+        <div className="pt-24 max-[900px]:pt-1">
+          <Store
+            products={products}
+            centerTitle
+            intro="Shop the newest drops, limited capsules, and everyday essentials."
+          />
           <ComingSoon data={comingSoon} />
           <Footer />
         </div>
