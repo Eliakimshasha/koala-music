@@ -4,7 +4,6 @@ import logoBlack from "../../public/assets/images/black.png";
 import Image from "next/image";
 import { IoIosArrowRoundForward } from "react-icons/io";
 
-
 export default function MobileNav({ navLinks, menuOpen, setMenuOpen }) {
   return (
     <div
@@ -24,14 +23,32 @@ export default function MobileNav({ navLinks, menuOpen, setMenuOpen }) {
         }`}
         onClick={(event) => event.stopPropagation()}
       >
-        <button
-          type="button"
-          aria-label="Close menu"
-          className="absolute right-6 top-6 flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-black transition hover:border-black/40"
-          onClick={() => setMenuOpen(false)}
-        >
-          <span className="text-xl">x</span>
-        </button>
+        <div>
+          <button
+            type="button"
+            aria-label="Close menu"
+            className="absolute right-6 top-6 flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-black transition hover:border-black/40"
+            onClick={() => setMenuOpen(false)}
+          >
+            <span className="text-xl">x</span>
+          </button>
+          <div className="absolute left-6 top-6 flex   items-center justify-center">
+            <Link
+              href="/"
+              aria-label="Go to home"
+              className="inline-flex items-center justify-center"
+              onClick={() => setMenuOpen(false)}
+            >
+              <Image
+                src={logoBlack}
+                alt="Koala logo"
+                width={140}
+                height={40}
+                className="h-12 w-auto object-contain"
+              />
+            </Link>
+          </div>
+        </div>
         <div className="h-full overflow-y-auto px-6 pb-12 pt-24">
           <div className="flex items-center justify-between text-xs uppercase tracking-[0.45em] text-black/60">
             <span>Navigation</span>
@@ -67,7 +84,11 @@ export default function MobileNav({ navLinks, menuOpen, setMenuOpen }) {
             >
               Listen Now
             </Link>
-            <Link href="/" className="flex items-center gap-3" aria-label="Go to home">
+            <Link
+              href="/"
+              className="flex items-center gap-3"
+              aria-label="Go to home"
+            >
               <span className="text-xs uppercase tracking-[0.3em] text-black/60">
                 KOALA
               </span>
