@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import cardImage from "../../public/assets/images/alb1.jpeg";
+import cardImage from "../../public/assets/images/alb2.jpg";
 import cardImage2 from "../../public/assets/images/alb2.jpeg";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
@@ -184,8 +184,8 @@ function RotateCard() {
             {
               width: "100px",
               height: "100px",
-              top: "-70px",
-              left: "37%",
+              top: "-60px",
+              left: "33%",
               duration: 1,
             },
             "<",
@@ -260,7 +260,7 @@ function RotateCard() {
 
         <div
           ref={smallImg3}
-          className="absolute inset-0 z-30"
+          className="absolute inset-0 z-34"
           style={{ transformStyle: "preserve-3d" }}
         >
           <Image
@@ -328,26 +328,26 @@ function RotateCard() {
 
       <div
         ref={cardRef3}
-        className="absolute top-1/3 transform -translate-y-1/9 mt-10 text-2xl font-semibold z-50"
+        className="absolute top-1/3 transform -translate-y-1/9 mt-15 text-2xl font-semibold z-50"
       >
-        READY
+        KOALA
       </div>
       <div
         ref={cardRef4}
-        className="absolute top-1/3 transform -translate-y-1/9 mt-10 text-2xl font-semibold z-50"
+        className="absolute top-1/3 transform -translate-y-1/9 mt-15 text-2xl font-semibold z-50"
       >
-        TO GO
+        MUSIC
       </div>
       <div
         ref={textContent}
-        className="absolute  top-1/2 transform -translate-y-1/2 mt-8 w-[90%] mx-auto text-center text-xs lg:text-sm z-50"
+        className="absolute top-1/2 transform -translate-y-1/2 mt-14 w-[90%] mx-auto text-center text-xs lg:text-sm z-50"
       >
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
-          molestiae sed error magnam facere minus quae alias a tenetur ullam!
+          Koala blends R&B, Afro soul, Afrobeats, Amapiano, Jazz, and Indie into
+          warm, late-night soundscapes that hit straight to the heart.
         </p>
         <button className="bg-white rounded-xs mt-1 py-1 px-3 text-center text-black/50">
-          GET YOUR CARD NOW
+          LISTEN NOW
         </button>
       </div>
     </section>

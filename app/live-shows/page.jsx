@@ -3,7 +3,7 @@
 import React from "react";
 import Chrome from "../components/Chrome";
 import LiveShows from "../sections/LiveShows";
-import Connect from "../sections/Connect";
+import ConnectRow from "../sections/ConnectRow";
 import Footer from "../sections/Footer";
 import { navLinks, liveShows, socialLinks } from "../data/siteData";
 
@@ -14,7 +14,7 @@ export default function LiveShowsPage() {
         <div className="noise"></div>
         <div className="pt-24">
           <LiveShows shows={liveShows} />
-          <Connect socialLinks={socialLinks} />
+          <ConnectRow socialLinks={socialLinks} />
           <Footer />
         </div>
       </div>

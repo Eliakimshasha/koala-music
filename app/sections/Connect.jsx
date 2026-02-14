@@ -75,8 +75,8 @@ export default function Connect({ socialLinks }) {
         </h2>
         <div className="splash-line mx-auto lg:mb-12"></div>
         <div className="relative mx-auto flex h-90 w-full max-w-2xl items-center justify-center overflow-hidden">
-          {/* <OrbitingCircles
-            iconSize={46}
+          <OrbitingCircles
+            iconSize={36}
             radius={150}
             speed={1}
             pathColor="var(--border-strong)"
@@ -86,18 +86,18 @@ export default function Connect({ socialLinks }) {
             {outerIcons.map((icon) => (
               <OrbitIcon
                 key={`outer-${icon.label}`}
-                icon={icon.icon}
+                Icon={icon.Icon}
                 label={icon.label}
                 href={icon.href}
                 size={22}
               />
             ))}
-          </OrbitingCircles> */}
+          </OrbitingCircles>
           <OrbitingCircles
             iconSize={36}
             radius={105}
             reverse
-            speed={1.35}
+            speed={1}
             pathColor="var(--border-strong)"
             pathOpacity={0.9}
             className="border border-subtle bg-black/80 shadow-[0_0_16px_-12px_rgba(0,0,0,0.9)]"

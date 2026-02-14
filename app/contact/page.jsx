@@ -2,7 +2,7 @@
 
 import React from "react";
 import Chrome from "../components/Chrome";
-import Connect from "../sections/Connect";
+import ConnectRow from "../sections/ConnectRow";
 import Footer from "../sections/Footer";
 import { navLinks, socialLinks } from "../data/siteData";
 
@@ -12,7 +12,7 @@ export default function ContactPage() {
       <div className="bg-base text-base-color overflow-hidden">
         <div className="noise"></div>
         <div className="pt-24">
-          <Connect socialLinks={socialLinks} />
+          <ConnectRow socialLinks={socialLinks} />
           <Footer />
         </div>
       </div>

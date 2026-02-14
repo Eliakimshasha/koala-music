@@ -1,18 +1,13 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { IoIosArrowRoundForward } from "react-icons/io";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Chrome from "../components/Chrome";
-import Connect from "../sections/Connect";
-import Footer from "../sections/Footer";
-import { navLinks, socialLinks, moreThanMusic } from "../data/siteData";
+import { navLinks, moreThanMusic } from "../data/siteData";
 
 export default function MoreThanMusicPage() {
-  const { title, subtitle, disciplines, highlights, gallery } = moreThanMusic;
+  const { title, subtitle } = moreThanMusic;
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -25,14 +20,6 @@ export default function MoreThanMusicPage() {
         duration: 0.9,
         ease: "power3.out",
         stagger: 0.12,
-      });
-
-      gsap.from(".mtm-hero-card", {
-        scale: 0.96,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        delay: 0.1,
       });
 
       gsap.utils.toArray(".section-title").forEach((title) => {
@@ -77,8 +64,8 @@ export default function MoreThanMusicPage() {
         <div className="noise"></div>
         <div className="pt-24">
           <section className="section-stack relative pt-10 pb-14 px-6">
-            <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
-              <div className="mtm-hero-copy text-center">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="mtm-hero-copy">
                 <div className="text-xs uppercase   tracking-[0.5em] text-subtle mb-4">
                   Beyond the studio
                 </div>
@@ -88,143 +75,79 @@ export default function MoreThanMusicPage() {
                 <p className="mt-4 text-base text-muted leading-relaxed">
                   {subtitle}
                 </p>
-                <div className="mt-6">
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 border border-subtle px-6 py-3 text-xs uppercase tracking-[0.35em] hover-text-accent hover-border-accent transition"
-                  >
-                    Book a Project
-                    <IoIosArrowRoundForward className="h-5 w-5" />
-                  </Link>
-                </div>
-              </div>
-              <div className="relative mtm-hero-card">
-                <div className="relative">
-                  <div className="relative aspect-video overflow-hidden">
-                    <Image
-                      src={gallery[0].image}
-                      alt={gallery[0].title}
-                      fill
-                      sizes="(min-width: 1024px) 45vw, 100vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/35"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section className="section-stack relative py-16 px-6">
-            <div className="max-w-7xl mx-auto">
-              <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
-                <div>
-                  <h2 className="section-title font-display text-4xl md:text-6xl font-bold text-accent">
-                    Creative Lanes
-                  </h2>
-                  <p className="mt-3 text-muted max-w-xl">
-                    Select work beyond the studio.
-                  </p>
-                </div>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 border border-subtle px-5 py-2 text-xs uppercase tracking-[0.35em] hover-text-accent hover-border-accent transition"
-                >
-                  <IoIosArrowRoundForward className="h-5 w-5" />
-                  Inquire
-                </Link>
-              </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {disciplines.map((item) => (
-                  <div key={item.title} className="mtm-card group">
-                    <div className="relative aspect-video overflow-hidden">
-                      <Image
-                        src={item.image}
-                        alt={item.title}
-                        fill
-                        sizes="(min-width: 1024px) 30vw, 100vw"
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-black/25" />
-                    </div>
-                    <div className="mt-4">
-                      <p className="text-xs uppercase tracking-[0.4em] text-subtle mb-2">
-                        {item.tag}
-                      </p>
-                      <h3 className="text-2xl font-display font-semibold">
-                        {item.title}
-                      </h3>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           </section>
 
           <section className="section-stack relative py-10 px-6">
-            <div className="max-w-7xl mx-auto">
-              <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
-                <div>
-                  <h2 className="section-title font-display text-4xl md:text-6xl font-bold text-accent">
-                    Highlights
-                  </h2>
-                  <p className="mt-3 text-muted max-w-xl">
-                    Snapshot of the work and worlds beyond the studio.
+            <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-start">
+              <div>
+                <p className="text-xs text-center uppercase tracking-[0.45em] text-subtle mb-3">
+                  Beyond Music
+                </p>
+                <h2 className="section-title  text-center font-display text-4xl md:text-6xl font-bold text-accent">
+                  More Than The Studio
+                </h2>
+                <div className="mt-5 space-y-4 max-[900px]:text-[13px] text-center text-muted leading-relaxed">
+                  <p>
+                    Beyond music, Koala is a trained Biotechnologist with an
+                    Ordinary Diploma from the Dar es Salaam Institute of
+                    Technology, bringing a strong research and analytical
+                    mindset to his work.
+                  </p>
+                  <p>
+                    He is also a Digital Strategist, Creative Entrepreneur,
+                    Brand Developer, and Project Coordinator, actively involved
+                    in community-driven initiatives through Tanzania Bora
+                    Initiative.
+                  </p>
+                  <p>
+                    In addition, he serves as a Public Speaker, Youth Advocate,
+                    Workshop Host, and Creative Director, combining leadership,
+                    strategy, and social impact beyond the artistic space.
                   </p>
                 </div>
               </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {highlights.map((item) => (
-                  <div
-                    key={item.title}
-                    className="mtm-card bg-surface border border-subtle rounded-xs p-6"
-                  >
-                    <p className="text-xs uppercase tracking-[0.4em] text-subtle mb-3">
-                      {item.title}
-                    </p>
-                    <p className="text-base text-muted">{item.detail}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section className="section-stack relative py-16 px-6">
-            <div className="max-w-7xl mx-auto">
-              <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
-                <div>
-                  <h2 className="section-title font-display text-4xl md:text-6xl font-bold text-accent">
-                    Gallery
-                  </h2>
-                  <p className="mt-3 text-muted max-w-xl">
-                    A few frames from recent sets and sessions.
+              <div className="grid gap-6">
+                <div className="mtm-card bg-surface border border-subtle rounded-xs text-center p-6">
+                  <p className="text-xs uppercase tracking-[0.4em] text-center text-subtle mb-3">
+                    Education + Research
+                  </p>
+                  <h3 className="text-2xl font-display font-semibold">
+                    Biotechnology (DIT)
+                  </h3>
+                  <p className="mt-2 text-sm text-muted">
+                    Ordinary Diploma from Dar es Salaam Institute of Technology
+                    with a research and analytical focus.
+                  </p>
+                </div>
+                <div className="mtm-card bg-surface border border-subtle rounded-xs text-center p-6">
+                  <p className="text-xs uppercase tracking-[0.4em] text-center text-subtle mb-3">
+                    Strategy + Brand
+                  </p>
+                  <h3 className="text-2xl font-display font-semibold">
+                    Digital + Creative Leadership
+                  </h3>
+                  <p className="mt-2 text-sm text-muted">
+                    Digital Strategist, Creative Entrepreneur, Brand Developer,
+                    and Project Coordinator driving outcomes beyond the studio.
+                  </p>
+                </div>
+                <div className="mtm-card bg-surface border border-subtle rounded-xs text-center p-6">
+                  <p className="text-xs uppercase tracking-[0.4em] text-center text-subtle mb-3">
+                    Community + Impact
+                  </p>
+                  <h3 className="text-2xl font-display font-semibold">
+                    Tanzania Bora Initiative
+                  </h3>
+                  <p className="mt-2 text-sm text-muted">
+                    Public Speaker, Youth Advocate, Workshop Host, and Creative
+                    Director focused on community-driven growth.
                   </p>
                 </div>
               </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {gallery.map((item) => (
-                  <div key={item.title} className="mtm-card group">
-                    <div className="relative aspect-video overflow-hidden rounded-xs">
-                      <Image
-                        src={item.image}
-                        alt={item.title}
-                        fill
-                        sizes="(min-width: 1024px) 30vw, 100vw"
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-black/25" />
-                    </div>
-                    <p className="mt-4 text-sm uppercase tracking-[0.35em] text-subtle">
-                      {item.title}
-                    </p>
-                  </div>
-                ))}
-              </div>
             </div>
           </section>
-
-          <Connect socialLinks={socialLinks} />
-          <Footer />
         </div>
       </div>
     </Chrome>

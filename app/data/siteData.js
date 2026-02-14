@@ -139,7 +139,8 @@ export const lifestylePosts = [
 
 export const moreThanMusic = {
   title: "More Than Music",
-  subtitle: "I build worlds beyond the studio - from camera to page to stage.",
+  subtitle:
+    "Biotechnologist, strategist, and community leader blending research, creativity, and social impact.",
   disciplines: [
     {
       title: "Modelling",
