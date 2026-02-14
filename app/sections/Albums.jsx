@@ -1,10 +1,54 @@
-import React from "react";
+"use client";
+
+import React, { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Albums({ albums, scrollRef, onPrev, onNext }) {
+  const sectionRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".section-title", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+        y: 60,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power3.out",
+      });
+
+      gsap.utils.toArray(".album-card").forEach((card, i) => {
+        const speed = 1 + (i % 3) * 0.3;
+        gsap.to(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+          y: i * -35 * speed,
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="albums" className="section-stack relative pb-32 lg:pt-32 pt-9  px-6">
+    <section
+      id="albums"
+      ref={sectionRef}
+      className="section-stack relative pb-32 lg:pt-32 pt-9  px-6"
+    >
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between gap-6 mb-12 md:mb-16">
           <h2 className="section-title font-display text-6xl md:text-8xl font-bold text-accent">

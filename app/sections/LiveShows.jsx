@@ -104,13 +104,13 @@ export default function LiveShows({ shows = [] }) {
                   <h3 className="mt-2 text-2xl font-display font-semibold">
                     {show.title}
                   </h3>
-                  <p className="mt-2 text-sm text-muted">{show.location}</p>
+                  <p className="mt-2 text-sm max-[900px]:text-xs text-muted">{show.location}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-[0.6rem] uppercase tracking-[0.35em] text-subtle">
                     Price
                   </p>
-                  <p className="mt-2 text-xl font-semibold text-accent">
+                  <p className="mt-2 text-xl max-[900px]:text-sm font-semibold text-accent">
                     {show.price}
                   </p>
                   <Link

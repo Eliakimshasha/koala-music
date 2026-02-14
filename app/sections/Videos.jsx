@@ -1,10 +1,65 @@
-import React from "react";
+"use client";
+
+import React, { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import Logo from "../../public/assets/images/green2.png";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Videos({ videos }) {
+  const sectionRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".section-title", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+        y: 60,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power3.out",
+      });
+
+      gsap.utils.toArray(".video-item").forEach((item, i) => {
+        gsap.from(item, {
+          scrollTrigger: {
+            trigger: item,
+            start: "top 85%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+          y: 40,
+          opacity: 0,
+          duration: 0.7,
+          delay: i * 0.05,
+          ease: "power3.out",
+        });
+      });
+
+      if (document.querySelector("#live-shows")) {
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "bottom bottom",
+          endTrigger: "#live-shows",
+          end: "top top",
+          pin: true,
+          pinSpacing: false,
+          invalidateOnRefresh: true,
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const renderVideoMeta = (video, size = "sm") => {
     const titleSize =
       size === "lg" ? "text-2xl md:text-3xl" : "text-xl md:text-2xl";
@@ -37,6 +92,7 @@ export default function Videos({ videos }) {
   return (
     <section
       id="videos"
+      ref={sectionRef}
       className="section-stack relative pb-32 pt-9 lg:pt-32  px-6"
     >
       <div className="max-w-7xl mx-auto">

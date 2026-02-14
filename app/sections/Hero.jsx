@@ -1,11 +1,120 @@
-import React from "react";
+"use client";
+
+import React, { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import face from "../../public/assets/images/face1.png";
 import mike from "../../public/assets/images/mike.png";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Hero() {
+  const sectionRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const heroIntro = gsap.timeline({
+        defaults: { ease: "power3.out", duration: 1 },
+      });
+
+      heroIntro
+        .from(".hero-bg", { scale: 1.08, opacity: 0, duration: 1.4 })
+        .from(".hero-orb", { scale: 0.7, opacity: 0, stagger: 0.15 }, "-=1.1")
+        .from(".hero-title", { y: 60, opacity: 0 }, "-=0.8")
+        .from(".hero-actions", { y: 20, opacity: 0 }, "-=0.6");
+
+      const aboutSection = document.querySelector("#about");
+      if (aboutSection) {
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top top",
+          endTrigger: aboutSection,
+          end: "top top",
+          pin: true,
+          pinSpacing: false,
+        });
+
+        gsap.to(".hero-title", {
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            endTrigger: aboutSection,
+            end: "top top",
+            scrub: true,
+          },
+          y: -80,
+          scale: 0.92,
+          opacity: 0.35,
+        });
+
+        gsap.to(".hero-bg", {
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            endTrigger: aboutSection,
+            end: "top top",
+            scrub: true,
+          },
+          scale: 1.2,
+          opacity: 0.4,
+        });
+
+        gsap.to(".hero-spotlight", {
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            endTrigger: aboutSection,
+            end: "top top",
+            scrub: true,
+          },
+          scale: 1.4,
+          opacity: 0.2,
+          y: -120,
+        });
+
+        gsap.to(sectionRef.current, {
+          autoAlpha: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: aboutSection,
+            start: "top 70%",
+            end: "top 30%",
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        });
+      }
+
+      gsap.to(".hero-orb", {
+        y: -18,
+        duration: 6,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+        stagger: 1.2,
+      });
+
+      gsap.to(".parallax-slow", {
+        scrollTrigger: {
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1,
+        },
+        y: (i, el) =>
+          (1 - parseFloat(el.getAttribute("data-speed") || "0")) *
+          ScrollTrigger.maxScroll(window),
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="hero-section relative h-screen flex items-center justify-center overflow-hidden z-10">
+    <section
+      ref={sectionRef}
+      className="hero-section relative h-screen flex items-center justify-center overflow-hidden z-10"
+    >
       <div className="hero-bg absolute inset-0 opacity-50"></div>
       <div className="hero-spotlight absolute inset-0"></div>
       <div className="hero-pattern absolute inset-0"></div>

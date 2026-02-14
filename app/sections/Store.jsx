@@ -91,6 +91,41 @@ export default function Store({ products, enableMobileSlider = false }) {
     return () => ctx.revert();
   }, [enableMobileSlider]);
 
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".section-title", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+        y: 60,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power3.out",
+      });
+
+      gsap.utils.toArray(".store-item").forEach((item, i) => {
+        gsap.from(item, {
+          scrollTrigger: {
+            trigger: item,
+            start: "top 85%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+          y: 40,
+          opacity: 0,
+          duration: 0.7,
+          delay: i * 0.05,
+          ease: "power3.out",
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const gridClassName = enableMobileSlider
     ? "store-track relative flex flex-row flex-nowrap gap-6 pr-6 md:pr-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8"
     : "store-track flex flex-col gap-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8";

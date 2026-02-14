@@ -1,9 +1,40 @@
-import React from "react";
+"use client";
+
+import React, { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function ComingSoon({ data }) {
+  const sectionRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".section-title", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+        y: 60,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power3.out",
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="coming-soon" className="section-stack relative py-32 pt-9 px-6">
+    <section
+      id="coming-soon"
+      ref={sectionRef}
+      className="section-stack relative py-32 pt-9 px-6"
+    >
       <div className="max-w-6xl mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-12 items-center">
         <div>
           <div className="text-xs uppercase tracking-[0.4em] text-subtle mb-6">

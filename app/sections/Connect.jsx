@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import { OrbitingCircles } from "@/registry/magicui/orbiting-circles";
 import logo from "../../public/assets/images/green.png";
@@ -8,7 +8,10 @@ import { AiOutlineTikTok } from "react-icons/ai";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoLogoInstagram } from "react-icons/io5";
 import { FaYoutube } from "react-icons/fa6";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
 
 const OrbitIcon = ({ Icon, label, href, size }) => {
   return (
@@ -23,6 +26,27 @@ const OrbitIcon = ({ Icon, label, href, size }) => {
 };
 
 export default function Connect({ socialLinks }) {
+  const sectionRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".section-title", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+        y: 60,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power3.out",
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const iconMap = {
     tiktok: AiOutlineTikTok,
     twitter: FaXTwitter,
@@ -44,13 +68,13 @@ export default function Connect({ socialLinks }) {
   const innerIcons = orbitIcons.slice(0, 4);
 
   return (
-    <section className="section-stack relative pb-32 lg:pt-32 px-6">
+    <section ref={sectionRef} className="section-stack relative lg:pb-32 lg:pt-32 px-6">
       <div className="max-w-5xl mx-auto text-center">
         <h2 className="section-title font-display text-5xl md:text-8xl font-bold mb-4 text-accent">
           Connect
         </h2>
-        <div className="splash-line mx-auto mb-12"></div>
-        <div className="relative mx-auto flex h-[360px] w-full max-w-3xl items-center justify-center overflow-hidden">
+        <div className="splash-line mx-auto lg:mb-12"></div>
+        <div className="relative mx-auto flex h-90 w-full max-w-2xl items-center justify-center overflow-hidden">
           {/* <OrbitingCircles
             iconSize={46}
             radius={150}

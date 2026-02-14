@@ -54,9 +54,9 @@ export const videos = [
 
 export const products = [
   { name: "Feelings T-Shirt", price: "35,000 TZS", image: product1 },
-  { name: "Deep Hoodie", price: "75,000 TZS", image: product2 },
   { name: "Life Cap", price: "25,000 TZS", image: product3 },
   { name: "Koala Tote Bag", price: "30,000 TZS", image: product4 },
+  { name: "Deep Hoodie", price: "75,000 TZS", image: product2 },
 ];
 
 export const comingSoon = {
@@ -68,13 +68,12 @@ export const comingSoon = {
 };
 
 export const socialLinks = [
-   { label: "Spotify", href: "#", icon: iconSpotify },
+  { label: "Spotify", href: "#", icon: iconSpotify },
   { label: "TikTok", href: "#", icon: iconTikTok },
   { label: "Boomplay", href: "#", icon: Boomplay },
   { label: "Instagram", href: "#", icon: iconInstagram },
   { label: "Twitter", href: "#", icon: iconTwitter },
   { label: "YouTube", href: "#", icon: iconYouTube },
- 
 ];
 
 export const liveShows = [
@@ -140,8 +139,7 @@ export const lifestylePosts = [
 
 export const moreThanMusic = {
   title: "More Than Music",
-  subtitle:
-    "I build worlds beyond the studio - from camera to page to stage.",
+  subtitle: "I build worlds beyond the studio - from camera to page to stage.",
   disciplines: [
     {
       title: "Modelling",

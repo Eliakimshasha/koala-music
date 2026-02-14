@@ -17,7 +17,8 @@ export default function SplashScreen() {
       setVisible(false);
       document.documentElement.style.overflow = originalOverflow;
       router.replace("/");
-    }, 4400);
+    }, 2400);
+    // }, 4400);
 
     return () => {
       clearTimeout(timer);

@@ -1,9 +1,65 @@
-import React from "react";
+"use client";
+
+import React, { useLayoutEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
+
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function About() {
+  const sectionRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const splitTextInstances = [];
+
+    const ctx = gsap.context(() => {
+      const msgOne = document.querySelector(".msg-one");
+      const msgTwo = document.querySelector(".msg-two");
+
+      if (msgOne) {
+        const firstText = SplitText.create(msgOne, { type: "chars" });
+        splitTextInstances.push(firstText);
+        gsap.to(firstText.chars, {
+          color: "#AFD3A1",
+          stagger: 0.02,
+          ease: "power1.in",
+          scrollTrigger: {
+            trigger: ".maini",
+            start: "top 80%",
+            end: "bottom 150%",
+            scrub: 1.5,
+          },
+        });
+      }
+
+      if (msgTwo) {
+        const secondText = SplitText.create(msgTwo, { type: "chars" });
+        splitTextInstances.push(secondText);
+        gsap.to(secondText.chars, {
+          color: "#AFD3A1",
+          stagger: 0.02,
+          ease: "power1.in",
+          scrollTrigger: {
+            trigger: ".maini",
+            start: "top 40%",
+            end: "bottom 100%",
+            scrub: 1.5,
+          },
+        });
+      }
+    }, sectionRef);
+
+    return () => {
+      splitTextInstances.forEach((instance) => instance.revert());
+      ctx.revert();
+    };
+  }, []);
+
   return (
     <section
       id="about"
+      ref={sectionRef}
       className="section-stack section-alt relative py-0 lg:py-16 px-6"
     >
       <div className="tracking-[0.02em] maini flex flex-col items-center justify-center min-h-screen gap-9 px-8">
