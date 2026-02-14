@@ -60,7 +60,7 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="section-stack section-alt relative py-0 lg:py-16 px-6"
+      className="section-stack relative py-0 lg:py-16 px-6"
     >
       <div className="tracking-[0.02em] maini flex flex-col items-center justify-center min-h-screen gap-9 px-8">
         <div className="relative overflow-hidden min-w-[280px] md:min-w-[500px] lg:flex-1 flex flex-col gap-8 justify-center items-center">
