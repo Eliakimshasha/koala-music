@@ -2,31 +2,49 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import logo from "../../public/assets/images/green.png";
 
 export default function SplashScreen() {
-  const router = useRouter();
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   useEffect(() => {
+    let timer;
     const originalOverflow = document.documentElement.style.overflow;
+    const storageKey = "koalaSplashSeen";
+
+    let alreadySeen = false;
+    try {
+      alreadySeen = sessionStorage.getItem(storageKey) === "1";
+      if (!alreadySeen) {
+        sessionStorage.setItem(storageKey, "1");
+      }
+    } catch (error) {
+      alreadySeen = false;
+    }
+
+    if (alreadySeen) {
+      setVisible(false);
+      setChecked(true);
+      return undefined;
+    }
+
+    setVisible(true);
+    setChecked(true);
     document.documentElement.style.overflow = "hidden";
 
-    const timer = setTimeout(() => {
+    timer = setTimeout(() => {
       setVisible(false);
       document.documentElement.style.overflow = originalOverflow;
-      router.replace("/");
     }, 2400);
-    // }, 4400);
 
     return () => {
-      clearTimeout(timer);
+      if (timer) clearTimeout(timer);
       document.documentElement.style.overflow = originalOverflow;
     };
-  }, [router]);
+  }, []);
 
-  if (!visible) return null;
+  if (!checked || !visible) return null;
 
   return (
     <div className="splash-screen is-visible">
