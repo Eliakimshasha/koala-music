@@ -60,7 +60,7 @@ export default function Lifestyle({ posts = [] }) {
     >
       <div className="max-w-7xl mx-auto">
         <div className="lifestyle-header flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
-          <div className="text-center">
+          <div className="text-center  lg:mx-auto">
             <p className="lifestyle-kicker text-xs uppercase tracking-[0.5em] text-subtle mb-4">
               Beyond the Studio
             </p>

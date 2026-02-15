@@ -134,7 +134,7 @@ export default function Store({
 
   const gridClassName = enableMobileSlider
     ? "store-track relative flex flex-row flex-nowrap gap-6 pr-6 md:pr-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8"
-    : "store-track flex flex-col gap-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8";
+    : "store-track flex flex-col gap-8 md:grid md:grid-cols-2 lg:grid-cols-2 md:gap-8";
 
   const itemClassName = enableMobileSlider
     ? "store-item card-hover cursor-pointer flex-none w-[76vw] sm:w-[60vw] md:w-auto"

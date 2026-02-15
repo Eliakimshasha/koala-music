@@ -62,32 +62,17 @@ export default function MoreThanMusicPage() {
     <Chrome navLinks={navLinks}>
       <div ref={containerRef} className="bg-base text-base-color overflow-hidden">
         <div className="noise"></div>
-        <div className="pt-24">
-          <section className="section-stack relative pt-10 pb-14 px-6">
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="mtm-hero-copy">
-                <div className="text-xs uppercase   tracking-[0.5em] text-subtle mb-4">
-                  Beyond the studio
-                </div>
-                <h1 className="section-title mtm-hero-title font-display text-5xl md:text-7xl font-bold text-gradient">
+        <div className="lg:pt-24 pt-16">
+        
+
+          <section className="section-stack relative lg:px-68 py-10 px-6">
+            {/* <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.35fr_0.65fr] gap-10 items-start"> */}
+            <div className="max-w-7xl mx-auto grid  gap-10 items-start">
+              <div>
+              <h1 className="section-title text-center mtm-hero-title font-display text-5xl md:text-7xl font-bold text-gradient">
                   {title}
                 </h1>
-                <p className="mt-4 text-base text-muted leading-relaxed">
-                  {subtitle}
-                </p>
-              </div>
-            </div>
-          </section>
-
-          <section className="section-stack relative py-10 px-6">
-            <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-start">
-              <div>
-                <p className="text-xs text-center uppercase tracking-[0.45em] text-subtle mb-3">
-                  Beyond Music
-                </p>
-                <h2 className="section-title  text-center font-display text-4xl md:text-6xl font-bold text-accent">
-                  More Than The Studio
-                </h2>
+               
                 <div className="mt-5 space-y-4 max-[900px]:text-[13px] text-center text-muted leading-relaxed">
                   <p>
                     Beyond music, Koala is a trained Biotechnologist with an
@@ -109,7 +94,7 @@ export default function MoreThanMusicPage() {
                 </div>
               </div>
               <div className="grid gap-6">
-                <div className="mtm-card bg-surface border border-subtle rounded-xs text-center p-6">
+                <div className="mtm-card bg-surface rounded-xs text-center p-6">
                   <p className="text-xs uppercase tracking-[0.4em] text-center text-subtle mb-3">
                     Education + Research
                   </p>
@@ -121,7 +106,7 @@ export default function MoreThanMusicPage() {
                     with a research and analytical focus.
                   </p>
                 </div>
-                <div className="mtm-card bg-surface border border-subtle rounded-xs text-center p-6">
+                <div className="mtm-card bg-surface rounded-xs text-center p-6">
                   <p className="text-xs uppercase tracking-[0.4em] text-center text-subtle mb-3">
                     Strategy + Brand
                   </p>
@@ -133,7 +118,7 @@ export default function MoreThanMusicPage() {
                     and Project Coordinator driving outcomes beyond the studio.
                   </p>
                 </div>
-                <div className="mtm-card bg-surface border border-subtle rounded-xs text-center p-6">
+                <div className="mtm-card bg-surface rounded-xs text-center p-6">
                   <p className="text-xs uppercase tracking-[0.4em] text-center text-subtle mb-3">
                     Community + Impact
                   </p>

@@ -247,7 +247,7 @@ export default function Videos({
             </div>
           </>
         ) : (
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
             {videos.map((video, i) => (
               <div key={i} className="video-item cursor-pointer group">
                 <div className="aspect-video rounded-xs mb-4 flex items-center justify-center overflow-hidden relative">

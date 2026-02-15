@@ -12,7 +12,7 @@ import iconSpotify from "../../public/assets/images/spotify.png";
 import iconTikTok from "../../public/assets/images/tiktok.png";
 import iconTwitter from "../../public/assets/images/twitter.png";
 import iconYouTube from "../../public/assets/images/youtube.png";
-import Boomplay from "../../public/assets/images/boomplay.png";
+import Boomplay from "../../public/assets/images/boomplay.svg";
 import iconInstagram from "../../public/assets/images/social.png";
 import face2 from "../../public/assets/images/face2.png";
 import face3 from "../../public/assets/images/face3.png";

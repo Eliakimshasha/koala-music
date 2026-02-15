@@ -60,14 +60,13 @@ export default function LiveShows({ shows = [] }) {
     >
       <div className="max-w-7xl mx-auto">
         <div className="live-header flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
-          <div>
+          <div className=" w-full ">
             <div className="text-center">
-              <h2 className="section-title font-display text-3xl md:text-8xl font-bold text-gradient">
+              <h2 className="section-title lg:text-center font-display text-3xl md:text-8xl font-bold text-gradient">
                 Live Shows
               </h2>
-              
             </div>
-            <p className="live-copy mt-3 text-base text-center text-muted max-w-xl">
+            <p className="live-copy lg:text-center mt-3 text-base text-center text-muted max-w-xl mx-auto">
               Dates, locations, and pricing in one clean list.
             </p>
           </div>

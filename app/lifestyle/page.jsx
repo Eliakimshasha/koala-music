@@ -11,7 +11,7 @@ export default function LifestylePage() {
     <Chrome navLinks={navLinks}>
       <div className="bg-base text-base-color overflow-hidden">
         <div className="noise"></div>
-        <div className="pt-24">
+        <div className="pt-16 lg:px-52">
           <Lifestyle posts={lifestylePosts} />
           <Footer />
         </div>

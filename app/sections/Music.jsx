@@ -46,16 +46,16 @@ export default function Music({ tracks }) {
     <section
       id="music"
       ref={sectionRef}
-      className="music-section section-stack relative pb-32 lg:pt-32  px-6 section-alt"
+      className="music-section section-stack relative pb-32 lg:pt-8  px-6 section-alt"
     >
       <div className="max-w-4xl mx-auto">
         
-         <h2 className="section-title font-display text-6xl md:text-8xl font-bold mb-6 text-gradient">
+         <h2 className="section-title text-center font-display text-6xl md:text-8xl font-bold mb-6 text-gradient">
           Latest Tracks
         </h2>
         <div className="splash-line mx-auto mb-16"></div>
-        <div className="music-player music-panel">
-          <div className="music-list">
+        <div className="music-player music-panel lg:max-w-xl mx-auto">
+          <div className="music-list ">
             {tracks.map((track, i) => (
               <div key={i} className="music-row">
                 <span className="music-icon" aria-hidden="true">
