@@ -209,7 +209,7 @@ text-align: start;
 }
 
 .text-msg-two {
-  color: var(--msg-two);
+  color: var(--accent-faint);
 }
 
 .text-contrast {

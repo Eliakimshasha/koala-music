@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
+import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Chrome from "../components/Chrome";
@@ -16,22 +17,22 @@ export default function AboutPage() {
   const pinRef = useRef(null);
   const copyRef = useRef(null);
 
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
+  useGSAP(
+    () => {
       if (!pinRef.current || !copyRef.current) return;
 
       ScrollTrigger.create({
         trigger: pinRef.current,
         start: "top 2%",
-        end: () => `+=${copyRef.current.offsetHeight}`,
+        end: () =>
+          `+=${Math.max(copyRef.current.offsetHeight, window.innerHeight + 20)}`,
         pin: true,
         pinSpacing: false,
         invalidateOnRefresh: true,
       });
-    }, pinRef);
-
-    return () => ctx.revert();
-  }, []);
+    },
+    { scope: pinRef },
+  );
 
   
   return (
