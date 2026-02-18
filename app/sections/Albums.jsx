@@ -26,18 +26,7 @@ export default function Albums({ albums, scrollRef, onPrev, onNext }) {
         ease: "power3.out",
       });
 
-      gsap.utils.toArray(".album-card").forEach((card, i) => {
-        const speed = 1 + (i % 3) * 0.3;
-        gsap.to(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-          y: i * -35 * speed,
-        });
-      });
+     
     }, sectionRef);
 
     return () => ctx.revert();
