@@ -342,7 +342,7 @@ function RotateCard() {
         ref={textContent}
         className="absolute top-1/2 transform -translate-y-1/2 mt-14 w-[90%] mx-auto text-center text-xs lg:text-sm z-50"
       >
-        <p className="lg:max-w-[320px">
+        <p className="lg:max-w-[320px text-center">
           Koala blends R&B, Afro soul, Afrobeats, Amapiano, Jazz, and Indie into
           warm, late-night soundscapes that hit straight to the heart.
         </p>
