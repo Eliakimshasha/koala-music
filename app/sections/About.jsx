@@ -63,7 +63,7 @@ export default function About() {
       className="section-stack noise2 bg-black relative py-0 lg:py-16 px-6"
     >
       <div className="tracking-[0.02em] maini flex flex-col items-center justify-center min-h-screen gap-9 px-8">
-        <div className="relative overflow-hidden min-w-[280px] md:min-w-[500px] lg:flex-1 flex flex-col gap-8 justify-center items-center">
+        <div className="relative overflow-hidden min-w-70 md:min-w-125 lg:flex-1 flex flex-col gap-8 justify-center items-center">
           <h1 className="font-bold msg-one uppercase text-6xl md:text-8xl text-center text-accent-faint tracking-tighter">
             More <br /> Than
           </h1>
