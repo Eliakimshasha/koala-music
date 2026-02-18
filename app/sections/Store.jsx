@@ -44,7 +44,7 @@ export default function Store({
           const lastCardRect = lastCard.getBoundingClientRect();
 
           const base = Math.max(0, lastCardRect.right - sliderRect.right);
-          const tail = Math.max(16, sliderRect.width * 0.38);
+          const tail = Math.max(16, sliderRect.width * 0.01);
           const amount = base + tail;
 
           gsap.set(track, { x: currentX });
@@ -58,7 +58,7 @@ export default function Store({
           ease: "none",
           scrollTrigger: {
             trigger: section,
-            start: "top top",
+            start: "top 20%",
             end: () => `+=${getScrollAmount()}px`,
             scrub: true,
             pin: true,
@@ -112,21 +112,7 @@ export default function Store({
         ease: "power3.out",
       });
 
-      gsap.utils.toArray(".store-item").forEach((item, i) => {
-        gsap.from(item, {
-          scrollTrigger: {
-            trigger: item,
-            start: "top 85%",
-            toggleActions: "play none none none",
-            once: true,
-          },
-          y: 40,
-          opacity: 0,
-          duration: 0.7,
-          delay: i * 0.05,
-          ease: "power3.out",
-        });
-      });
+    
     }, sectionRef);
 
     return () => ctx.revert();
@@ -144,11 +130,11 @@ export default function Store({
     <section
       id="store"
       ref={sectionRef}
-      className={`section-stack  section-alt relative pb-32 pt-32 px-6 ${
+      className={`section-stack  section-alt relative  px-6 ${
         enableMobileSlider ? "min-h-screen md:min-h-0" : ""
       }`}
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl   mx-auto">
         {centerTitle ? (
           <div className="flex flex-col items-center text-center gap-4 mb-12">
             <h2 className="section-title font-display text-6xl md:text-8xl font-bold text-gradient">
@@ -158,7 +144,7 @@ export default function Store({
             {showMoreLink ? (
               <Link
                 href="/store"
-                className="inline-flex items-center gap-2 border border-subtle px-5 py-2 text-xs uppercase tracking-[0.35em] hover-text-accent hover-border-accent transition"
+                className="inline-flex items-center gap-2 max-[900px]:px-1 border border-subtle px-5 py-2 text-xs uppercase tracking-[0.35em] hover-text-accent hover-border-accent transition"
               >
                 <IoIosArrowRoundForward className="h-5 w-5" />
                 View More
@@ -173,7 +159,7 @@ export default function Store({
             {showMoreLink ? (
               <Link
                 href="/store"
-                className="inline-flex items-center gap-2 border border-subtle px-5 py-2 text-xs uppercase tracking-[0.35em] hover-text-accent hover-border-accent transition"
+                className="inline-flex items-center gap-2 border border-subtle px-2 py-2 text-xs uppercase tracking-[0.35em] hover-text-accent hover-border-accent transition"
               >
                 <IoIosArrowRoundForward className="h-5 w-5" />
                 View More
