@@ -72,7 +72,6 @@ export default function AdminAlbumsSection({ albums, tracks }) {
 
         <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {albums.map((album) => {
-            const isActive = album.id === selectedAlbumId;
             return (
               <button
                 key={album.id}
