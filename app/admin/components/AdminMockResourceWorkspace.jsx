@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
   Dialog,
@@ -31,13 +31,43 @@ const AUDIO_IMAGE =
 const DEFAULT_IMAGE =
   "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=800&q=80";
 
-export default function AdminMockResourceWorkspace({ title, fields, seedItems }) {
-  const [items, setItems] = useState(seedItems);
+export default function AdminMockResourceWorkspace({
+  title,
+  fields,
+  endpoint,
+  token,
+  apiUrl,
+}) {
+  const [items, setItems] = useState([]);
   const [query, setQuery] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [draft, setDraft] = useState(() => getInitialDraft(fields));
   const [sheetOpen, setSheetOpen] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function fetchItems() {
+    if (!token) return;
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`${apiUrl}${endpoint}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error("Failed to load items");
+      const data = await res.json();
+      setItems(Array.isArray(data) ? data : []);
+    } catch (err) {
+      setError(err?.message || "Failed to load items");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchItems();
+  }, [token, apiUrl, endpoint]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -61,44 +91,93 @@ export default function AdminMockResourceWorkspace({ title, fields, seedItems })
     setEditingId(item.id);
     const next = getInitialDraft(fields);
     fields.forEach((field) => {
-      next[field.name] = item[field.name] ?? "";
+      const value = item[field.name];
+      if (field.type === "datetime-local" && typeof value === "string") {
+        next[field.name] = value.slice(0, 16);
+      } else if (field.type === "date" && typeof value === "string") {
+        next[field.name] = value.slice(0, 10);
+      } else {
+        next[field.name] = value ?? "";
+      }
     });
     setDraft(next);
     setSheetOpen(true);
   }
 
-  function saveItem(e) {
-    e.preventDefault();
-    if (editingId) {
-      setItems((prev) =>
-        prev.map((item) =>
-          item.id === editingId ? { ...item, ...draft } : item
-        )
-      );
-      setEditingId(null);
-      setSheetOpen(false);
-      return;
-    }
+  function cleanPayload(data) {
+    const payload = {};
+    fields.forEach((field) => {
+      const raw = data[field.name];
+      if (raw === "") {
+        payload[field.name] = null;
+        return;
+      }
+      if (field.type === "number") {
+        payload[field.name] = Number(raw);
+        return;
+      }
+      payload[field.name] = raw;
+    });
+    return payload;
+  }
 
-    const nextId = String(Date.now());
-    setItems((prev) => [{ id: nextId, ...draft }, ...prev]);
-    setDraft(getInitialDraft(fields));
-    setSheetOpen(false);
+  async function saveItem(e) {
+    e.preventDefault();
+    setError("");
+    const payload = cleanPayload(draft);
+    try {
+      if (editingId) {
+        const res = await fetch(`${apiUrl}${endpoint}/${editingId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error("Failed to update item");
+      } else {
+        const res = await fetch(`${apiUrl}${endpoint}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error("Failed to create item");
+      }
+
+      setEditingId(null);
+      setDraft(getInitialDraft(fields));
+      setSheetOpen(false);
+      await fetchItems();
+    } catch (err) {
+      setError(err?.message || "Failed to save item");
+    }
   }
 
   function askDelete(item) {
     setDeleteTarget(item);
   }
 
-  function removeItem() {
+  async function removeItem() {
     if (!deleteTarget) return;
-    const id = deleteTarget.id;
-    setItems((prev) => prev.filter((item) => item.id !== id));
-    if (editingId === id) {
-      setEditingId(null);
-      setDraft(getInitialDraft(fields));
+    try {
+      const res = await fetch(`${apiUrl}${endpoint}/${deleteTarget.id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error("Failed to delete item");
+      if (editingId === deleteTarget.id) {
+        setEditingId(null);
+        setDraft(getInitialDraft(fields));
+      }
+      setDeleteTarget(null);
+      await fetchItems();
+    } catch (err) {
+      setError(err?.message || "Failed to delete item");
     }
-    setDeleteTarget(null);
   }
 
   function getItemImage(item) {
@@ -130,6 +209,11 @@ export default function AdminMockResourceWorkspace({ title, fields, seedItems })
       </div>
 
       <div className="mt-4">
+        {error ? (
+          <p className="mb-3 border border-rose-300 bg-rose-50 px-3 py-2 text-sm text-rose-700">
+            {error}
+          </p>
+        ) : null}
         <div className="border border-slate-300 bg-slate-50 p-3">
           <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
@@ -144,7 +228,13 @@ export default function AdminMockResourceWorkspace({ title, fields, seedItems })
           </div>
 
           <div className="grid gap-2 lg:grid-cols-2">
-            {filtered.map((item) => (
+            {loading ? (
+              <p className="border border-slate-300 bg-white p-3 text-sm text-slate-600">
+                Loading...
+              </p>
+            ) : null}
+
+            {!loading && filtered.map((item) => (
               <div
                 key={item.id}
                 className="border border-slate-300 bg-white p-3 text-sm"
@@ -192,7 +282,7 @@ export default function AdminMockResourceWorkspace({ title, fields, seedItems })
                 </div>
               </div>
             ))}
-            {filtered.length === 0 && (
+            {!loading && filtered.length === 0 && (
               <p className="border border-slate-300 bg-white p-3 text-sm text-slate-600">
                 No results found.
               </p>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,15 +12,50 @@ import {
 const FALLBACK_COVER =
   "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1000&q=80";
 
-export default function AdminAlbumsSection({ albums, tracks }) {
-  const [selectedAlbumId, setSelectedAlbumId] = useState(albums[0]?.id || null);
+export default function AdminAlbumsSection({ token, apiUrl }) {
+  const [albums, setAlbums] = useState([]);
+  const [selectedAlbumId, setSelectedAlbumId] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [localTracks, setLocalTracks] = useState(tracks);
+  const [localTracks, setLocalTracks] = useState([]);
   const [newTrack, setNewTrack] = useState({
     title: "",
     artist: "",
     release_date: "",
   });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function fetchAlbumsAndTracks() {
+    if (!token) return;
+    setLoading(true);
+    setError("");
+    try {
+      const [albumsRes, musicRes] = await Promise.all([
+        fetch(`${apiUrl}/albums`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${apiUrl}/music`, { headers: { Authorization: `Bearer ${token}` } }),
+      ]);
+      if (!albumsRes.ok || !musicRes.ok) {
+        throw new Error("Failed to load albums section");
+      }
+      const [albumsData, musicData] = await Promise.all([
+        albumsRes.json(),
+        musicRes.json(),
+      ]);
+      setAlbums(Array.isArray(albumsData) ? albumsData : []);
+      setLocalTracks(Array.isArray(musicData) ? musicData : []);
+      if (Array.isArray(albumsData) && albumsData.length > 0) {
+        setSelectedAlbumId((prev) => prev || albumsData[0].id);
+      }
+    } catch (err) {
+      setError(err?.message || "Failed to load albums section");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchAlbumsAndTracks();
+  }, [token, apiUrl]);
 
   const selectedAlbum = useMemo(
     () => albums.find((album) => album.id === selectedAlbumId) || null,
@@ -37,24 +72,45 @@ export default function AdminAlbumsSection({ albums, tracks }) {
     setDialogOpen(true);
   }
 
-  function addTrackToAlbum(e) {
+  async function addTrackToAlbum(e) {
     e.preventDefault();
     if (!selectedAlbum || !newTrack.title.trim()) return;
-
-    const createdTrack = {
-      id: `m-${Date.now()}`,
-      title: newTrack.title.trim(),
-      artist: newTrack.artist.trim() || "Unknown Artist",
-      album: selectedAlbum.title,
-      release_date: newTrack.release_date || null,
-    };
-
-    setLocalTracks((prev) => [createdTrack, ...prev]);
-    setNewTrack({ title: "", artist: "", release_date: "" });
+    setError("");
+    try {
+      const res = await fetch(`${apiUrl}/music`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          title: newTrack.title.trim(),
+          artist: newTrack.artist.trim() || "Unknown Artist",
+          album: selectedAlbum.title,
+          release_date: newTrack.release_date || null,
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to add music");
+      const created = await res.json();
+      setLocalTracks((prev) => [created, ...prev]);
+      setNewTrack({ title: "", artist: "", release_date: "" });
+    } catch (err) {
+      setError(err?.message || "Failed to add music");
+    }
   }
 
-  function deleteTrack(trackId) {
-    setLocalTracks((prev) => prev.filter((track) => track.id !== trackId));
+  async function deleteTrack(trackId) {
+    setError("");
+    try {
+      const res = await fetch(`${apiUrl}/music/${trackId}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error("Failed to delete music");
+      setLocalTracks((prev) => prev.filter((track) => track.id !== trackId));
+    } catch (err) {
+      setError(err?.message || "Failed to delete music");
+    }
   }
 
   return (
@@ -70,6 +126,16 @@ export default function AdminAlbumsSection({ albums, tracks }) {
           Click an album card to view all related music.
         </p>
 
+        {error ? (
+          <p className="mt-3 border border-rose-300 bg-rose-50 px-3 py-2 text-sm text-rose-700">
+            {error}
+          </p>
+        ) : null}
+        {loading ? (
+          <p className="mt-3 border border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-600">
+            Loading albums...
+          </p>
+        ) : null}
         <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {albums.map((album) => {
             return (

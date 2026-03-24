@@ -20,6 +20,14 @@ export default function AdminPage() {
   const [status, setStatus] = useState("");
   const [authError, setAuthError] = useState("");
   const [activeView, setActiveView] = useState("dashboard");
+  const [stats, setStats] = useState([
+    { label: "Total Music", value: "0", delta: "", caption: "Tracks in library" },
+    { label: "Total Videos", value: "0", delta: "", caption: "Published videos" },
+    { label: "Total Shows", value: "0", delta: "", caption: "Upcoming shows" },
+    { label: "Total Products", value: "0", delta: "", caption: "Store catalog" },
+  ]);
+  const [activityItems, setActivityItems] = useState([]);
+  const [upcomingGigs, setUpcomingGigs] = useState([]);
 
   useEffect(() => {
     const saved = localStorage.getItem("admin_token");
@@ -127,174 +135,82 @@ export default function AdminPage() {
     if (authError) setAuthError("");
   }
 
-  const resources = [
-    {
-      title: "Albums",
-      endpoint: "/albums",
-      fields: [
-        { name: "title", label: "Title" },
-        { name: "description", label: "Description", type: "textarea" },
-        { name: "release_date", label: "Release Date", type: "date" },
-        { name: "cover_image_url", label: "Cover Image URL" },
-      ],
-    },
-    {
-      title: "Videos",
-      endpoint: "/videos",
-      fields: [
-        { name: "title", label: "Title" },
-        { name: "description", label: "Description", type: "textarea" },
-        { name: "video_url", label: "Video URL" },
-        { name: "thumbnail_url", label: "Thumbnail URL" },
-        { name: "release_date", label: "Release Date", type: "date" },
-      ],
-    },
-    {
-      title: "Music",
-      endpoint: "/music",
-      fields: [
-        { name: "title", label: "Title" },
-        { name: "artist", label: "Artist" },
-        { name: "album", label: "Album" },
-        { name: "description", label: "Description", type: "textarea" },
-        { name: "audio_url", label: "Audio URL" },
-        { name: "cover_image_url", label: "Cover Image URL" },
-        { name: "duration_seconds", label: "Duration (sec)", type: "number", step: "1" },
-        { name: "release_date", label: "Release Date", type: "date" },
-      ],
-    },
-    {
-      title: "Store",
-      endpoint: "/store",
-      fields: [
-        { name: "name", label: "Name" },
-        { name: "description", label: "Description", type: "textarea" },
-        { name: "price", label: "Price", type: "number", step: "0.01" },
-        { name: "currency", label: "Currency" },
-        { name: "stock", label: "Stock", type: "number", step: "1" },
-        { name: "image_url", label: "Image URL" },
-      ],
-    },
-    {
-      title: "Shows",
-      endpoint: "/shows",
-      fields: [
-        { name: "title", label: "Title" },
-        { name: "venue", label: "Venue" },
-        { name: "city", label: "City" },
-        { name: "country", label: "Country" },
-        { name: "show_datetime", label: "Show Date/Time", type: "datetime-local" },
-        { name: "ticket_url", label: "Ticket URL" },
-        { name: "notes", label: "Notes", type: "textarea" },
-      ],
-    },
-  ];
+  useEffect(() => {
+    async function loadDashboardData() {
+      if (!token) return;
+      try {
+        const [musicRes, videosRes, showsRes, storeRes, albumsRes] = await Promise.all([
+          fetch(`${API_URL}/music`, { headers: { Authorization: `Bearer ${token}` } }),
+          fetch(`${API_URL}/videos`, { headers: { Authorization: `Bearer ${token}` } }),
+          fetch(`${API_URL}/shows`, { headers: { Authorization: `Bearer ${token}` } }),
+          fetch(`${API_URL}/store`, { headers: { Authorization: `Bearer ${token}` } }),
+          fetch(`${API_URL}/albums`, { headers: { Authorization: `Bearer ${token}` } }),
+        ]);
+        if (!musicRes.ok || !videosRes.ok || !showsRes.ok || !storeRes.ok || !albumsRes.ok) {
+          return;
+        }
+        const [musicData, videosData, showsData, storeData, albumsData] = await Promise.all([
+          musicRes.json(),
+          videosRes.json(),
+          showsRes.json(),
+          storeRes.json(),
+          albumsRes.json(),
+        ]);
 
-  const stats = [
-    {
-      label: "Total Music",
-      value: "24",
-      delta: "+3",
-      caption: "Tracks in library",
-    },
-    {
-      label: "Total Videos",
-      value: "16",
-      delta: "+2",
-      caption: "Published videos",
-    },
-    {
-      label: "Total Shows",
-      value: "9",
-      delta: "+1",
-      caption: "Upcoming shows",
-    },
-    {
-      label: "Total Products",
-      value: "31",
-      delta: "+4",
-      caption: "Store catalog",
-    },
-  ];
+        setStats([
+          {
+            label: "Total Music",
+            value: String(Array.isArray(musicData) ? musicData.length : 0),
+            delta: "",
+            caption: "Tracks in library",
+          },
+          {
+            label: "Total Videos",
+            value: String(Array.isArray(videosData) ? videosData.length : 0),
+            delta: "",
+            caption: "Published videos",
+          },
+          {
+            label: "Total Shows",
+            value: String(Array.isArray(showsData) ? showsData.length : 0),
+            delta: "",
+            caption: "Upcoming shows",
+          },
+          {
+            label: "Total Products",
+            value: String(Array.isArray(storeData) ? storeData.length : 0),
+            delta: "",
+            caption: "Store catalog",
+          },
+        ]);
 
-  const activityItems = [
-    { title: 'Uploaded "Summer Nights" EP', time: "12 hrs ago" },
-    { title: "Added new show in Austin, TX", time: "14 hrs ago" },
-    { title: 'Updated "Echoes" video link', time: "2 days ago" },
-    { title: "Merch stock update: Vinyl", time: "3 days ago" },
-  ];
+        const activities = [];
+        (Array.isArray(musicData) ? musicData : [])
+          .slice(0, 2)
+          .forEach((item) => activities.push({ title: `Music: ${item.title}`, time: "Latest" }));
+        (Array.isArray(videosData) ? videosData : [])
+          .slice(0, 1)
+          .forEach((item) => activities.push({ title: `Video: ${item.title}`, time: "Latest" }));
+        (Array.isArray(albumsData) ? albumsData : [])
+          .slice(0, 1)
+          .forEach((item) => activities.push({ title: `Album: ${item.title}`, time: "Latest" }));
+        setActivityItems(activities);
 
-  const upcomingGigs = [
-    { title: "The Fillmore", location: "San Francisco, CA", date: "Jul 15" },
-    { title: "Brooklyn Steel", location: "Brooklyn, NY", date: "Jul 21" },
-    { title: "Red Rocks Amphitheatre", location: "Morrison, CO", date: "Aug 05" },
-  ];
+        const shows = (Array.isArray(showsData) ? showsData : []).slice(0, 3).map((show) => ({
+          title: show.title,
+          location: [show.venue, show.city, show.country].filter(Boolean).join(", "),
+          date: show.show_datetime
+            ? new Date(show.show_datetime).toLocaleDateString()
+            : "TBA",
+        }));
+        setUpcomingGigs(shows);
+      } catch {
+        // Keep UI usable even when dashboard fetch fails.
+      }
+    }
 
-  const albumItems = [
-    {
-      id: "a1",
-      title: "City Lights",
-      description: "A late-night pop and synth journey.",
-      release_date: "2026-02-10",
-      cover_image_url:
-        "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=1000&q=80",
-    },
-    {
-      id: "a2",
-      title: "Night Ride",
-      description: "Fast-paced electronic pop collection.",
-      release_date: "2026-03-01",
-      cover_image_url:
-        "https://images.unsplash.com/photo-1461783436728-0a9217714694?auto=format&fit=crop&w=1000&q=80",
-    },
-    {
-      id: "a3",
-      title: "Sunset Tapes",
-      description: "Acoustic and chill recordings.",
-      release_date: "2026-04-12",
-      cover_image_url:
-        "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1000&q=80",
-    },
-  ];
-
-  const musicItems = [
-    {
-      id: "m1",
-      title: "Midnight Echo",
-      artist: "Ariana Cole",
-      album: "City Lights",
-      description: "Lead single for spring campaign.",
-      audio_url: "https://audio.example.com/midnight-echo.mp3",
-      release_date: "2026-02-14",
-    },
-    {
-      id: "m2",
-      title: "Neon Drive",
-      artist: "Ariana Cole",
-      album: "Night Ride",
-      description: "High-energy promo track.",
-      audio_url: "https://audio.example.com/neon-drive.mp3",
-      release_date: "2026-03-05",
-    },
-    {
-      id: "m3",
-      title: "Golden Hour",
-      artist: "Ariana Cole",
-      album: "Sunset Tapes",
-      description: "Acoustic sunset session.",
-      audio_url: "https://audio.example.com/golden-hour.mp3",
-      release_date: "2026-04-16",
-    },
-    {
-      id: "m4",
-      title: "Afterglow",
-      artist: "Ariana Cole",
-      album: "City Lights",
-      description: "Late-night down-tempo vibe.",
-      audio_url: "https://audio.example.com/afterglow.mp3",
-      release_date: "2026-02-20",
-    },
-  ];
+    loadDashboardData();
+  }, [token]);
 
   return (
     <main className="admin-page">
@@ -321,6 +237,9 @@ export default function AdminPage() {
               {activeView === "music" && (
                 <AdminMockResourceWorkspace
                   title="Music Manager"
+                  endpoint="/music"
+                  token={token}
+                  apiUrl={API_URL}
                   fields={[
                     { name: "title", label: "Title" },
                     { name: "artist", label: "Artist" },
@@ -329,17 +248,19 @@ export default function AdminPage() {
                     { name: "audio_url", label: "Audio URL" },
                     { name: "release_date", label: "Release Date", type: "date" },
                   ]}
-                  seedItems={musicItems}
                 />
               )}
 
               {activeView === "albums" && (
-                <AdminAlbumsSection albums={albumItems} tracks={musicItems} />
+                <AdminAlbumsSection token={token} apiUrl={API_URL} />
               )}
 
               {activeView === "videos" && (
                 <AdminMockResourceWorkspace
                   title="Video Manager"
+                  endpoint="/videos"
+                  token={token}
+                  apiUrl={API_URL}
                   fields={[
                     { name: "title", label: "Title" },
                     { name: "description", label: "Description", type: "textarea" },
@@ -347,30 +268,15 @@ export default function AdminPage() {
                     { name: "thumbnail_url", label: "Thumbnail URL" },
                     { name: "release_date", label: "Release Date", type: "date" },
                   ]}
-                  seedItems={[
-                    {
-                      id: "v1",
-                      title: "Midnight Echo (Official Video)",
-                      description: "Main campaign visual.",
-                      video_url: "https://video.example.com/midnight-echo",
-                      thumbnail_url: "https://img.example.com/midnight-echo.jpg",
-                      release_date: "2026-02-20",
-                    },
-                    {
-                      id: "v2",
-                      title: "Behind The Scenes: Neon Drive",
-                      description: "Studio and rehearsal footage.",
-                      video_url: "https://video.example.com/neon-drive-bts",
-                      thumbnail_url: "https://img.example.com/neon-drive-bts.jpg",
-                      release_date: "2026-03-10",
-                    },
-                  ]}
                 />
               )}
 
               {activeView === "shows" && (
                 <AdminMockResourceWorkspace
                   title="Shows Manager"
+                  endpoint="/shows"
+                  token={token}
+                  apiUrl={API_URL}
                   fields={[
                     { name: "title", label: "Show Title" },
                     { name: "venue", label: "Venue" },
@@ -383,32 +289,15 @@ export default function AdminPage() {
                     },
                     { name: "ticket_url", label: "Ticket URL" },
                   ]}
-                  seedItems={[
-                    {
-                      id: "s1",
-                      title: "Summer Tour Opener",
-                      venue: "The Fillmore",
-                      city: "San Francisco",
-                      country: "USA",
-                      show_datetime: "2026-07-15T20:00",
-                      ticket_url: "https://tickets.example.com/fillmore",
-                    },
-                    {
-                      id: "s2",
-                      title: "Night Sessions Live",
-                      venue: "Brooklyn Steel",
-                      city: "New York",
-                      country: "USA",
-                      show_datetime: "2026-07-21T21:00",
-                      ticket_url: "https://tickets.example.com/brooklyn",
-                    },
-                  ]}
                 />
               )}
 
               {activeView === "store" && (
                 <AdminMockResourceWorkspace
                   title="Store Manager"
+                  endpoint="/store"
+                  token={token}
+                  apiUrl={API_URL}
                   fields={[
                     { name: "name", label: "Product Name" },
                     { name: "description", label: "Description", type: "textarea" },
@@ -416,26 +305,6 @@ export default function AdminPage() {
                     { name: "currency", label: "Currency" },
                     { name: "stock", label: "Stock", type: "number", step: "1" },
                     { name: "image_url", label: "Image URL" },
-                  ]}
-                  seedItems={[
-                    {
-                      id: "p1",
-                      name: "Signature Hoodie",
-                      description: "Limited drop black hoodie.",
-                      price: "79.99",
-                      currency: "USD",
-                      stock: "42",
-                      image_url: "https://store.example.com/hoodie.png",
-                    },
-                    {
-                      id: "p2",
-                      name: "Vinyl Deluxe Edition",
-                      description: "Collector edition with booklet.",
-                      price: "44.50",
-                      currency: "USD",
-                      stock: "18",
-                      image_url: "https://store.example.com/vinyl.png",
-                    },
                   ]}
                 />
               )}
