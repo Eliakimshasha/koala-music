@@ -12,9 +12,6 @@ export default function DashboardOverview({ stats }) {
             Performance Snapshot
           </h2>
         </div>
-        <div className="border border-slate-300 bg-slate-100 px-4 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-slate-700">
-          Real-time
-        </div>
       </div>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -26,7 +23,7 @@ export default function DashboardOverview({ stats }) {
             <p className="text-[0.58rem] uppercase tracking-[0.2em] text-slate-500">
               {stat.label}
             </p>
-            <div className="mt-3 flex items-center gap-2">
+            <div className="mt-3 flex items-center gap-2 lg:gap-6">
               <p className="text-2xl font-semibold text-slate-900">
                 {stat.value}
               </p>

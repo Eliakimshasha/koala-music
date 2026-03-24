@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import {
+  Disc3,
   Calendar,
   LayoutGrid,
   LogOut,
@@ -15,9 +16,18 @@ import {
 } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const navItems = [
   { key: "dashboard", label: "Dashboard", icon: LayoutGrid },
+  { key: "albums", label: "Albums", icon: Disc3 },
   { key: "music", label: "Music Library", icon: Music2 },
   { key: "videos", label: "Video Gallery", icon: Video },
   { key: "shows", label: "Shows Manager", icon: Calendar },
@@ -27,10 +37,17 @@ const navItems = [
 
 export default function AdminSidebar({ onLogout, activeView, onSelect }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [logoutOpen, setLogoutOpen] = useState(false);
 
   function handleSelect(view) {
     onSelect(view);
     setMobileOpen(false);
+  }
+
+  function confirmLogout() {
+    setLogoutOpen(false);
+    setMobileOpen(false);
+    onLogout();
   }
 
   return (
@@ -103,7 +120,7 @@ export default function AdminSidebar({ onLogout, activeView, onSelect }) {
 
               <button
                 type="button"
-                onClick={onLogout}
+                onClick={() => setLogoutOpen(true)}
                 className="mt-auto flex items-center justify-center gap-2 border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800"
               >
                 <LogOut className="size-4" />
@@ -158,7 +175,7 @@ export default function AdminSidebar({ onLogout, activeView, onSelect }) {
 
           <button
             type="button"
-            onClick={onLogout}
+            onClick={() => setLogoutOpen(true)}
             className="mt-auto flex items-center gap-3 border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 transition hover:border-slate-900"
           >
             <LogOut className="size-4" />
@@ -166,6 +183,33 @@ export default function AdminSidebar({ onLogout, activeView, onSelect }) {
           </button>
         </div>
       </aside>
+
+      <Dialog open={logoutOpen} onOpenChange={setLogoutOpen}>
+        <DialogContent className="max-w-md border border-slate-300 bg-white text-slate-900">
+          <DialogHeader>
+            <DialogTitle>Confirm Logout</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to log out from the admin dashboard?
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <button
+              type="button"
+              onClick={() => setLogoutOpen(false)}
+              className="border border-slate-300 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-widest text-slate-700"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={confirmLogout}
+              className="border border-slate-900 bg-slate-900 px-3 py-2 text-xs font-semibold uppercase tracking-widest text-white"
+            >
+              Logout
+            </button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

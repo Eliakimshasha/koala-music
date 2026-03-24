@@ -4,13 +4,14 @@ export default function AdminAuthPanel({
   email,
   password,
   status,
+  errorMessage,
   onEmailChange,
   onPasswordChange,
   onLogin,
   onRegister,
 }) {
   return (
-    <div className="border border-slate-300 bg-white p-6">
+    <div className="w-full max-w-[560px] border border-slate-300 bg-white p-6">
       <div className="flex items-center justify-between gap-4">
         <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-900">
           Secure Access
@@ -43,6 +44,9 @@ export default function AdminAuthPanel({
             value={password}
             onChange={(e) => onPasswordChange(e.target.value)}
           />
+          {errorMessage ? (
+            <p className="mt-2 text-xs font-medium text-rose-700">{errorMessage}</p>
+          ) : null}
         </div>
         <div className="mt-2 flex flex-wrap gap-3">
           <button

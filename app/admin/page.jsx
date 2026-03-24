@@ -2,13 +2,12 @@
 
 import { useEffect, useState } from "react";
 
-import AdminAuthInfo from "./components/AdminAuthInfo";
+import AdminAlbumsSection from "./components/AdminAlbumsSection";
 import AdminMockResourceWorkspace from "./components/AdminMockResourceWorkspace";
 import AdminAuthPanel from "./components/AdminAuthPanel";
 import AdminSettingsPanel from "./components/AdminSettingsPanel";
 import AdminSidebar from "./components/AdminSidebar";
 import DashboardActivity from "./components/DashboardActivity";
-import DashboardCrudSection from "./components/DashboardCrudSection";
 import DashboardOverview from "./components/DashboardOverview";
 import DashboardUpcoming from "./components/DashboardUpcoming";
 
@@ -19,6 +18,7 @@ export default function AdminPage() {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [status, setStatus] = useState("");
+  const [authError, setAuthError] = useState("");
   const [activeView, setActiveView] = useState("dashboard");
 
   useEffect(() => {
@@ -26,9 +26,34 @@ export default function AdminPage() {
     if (saved) setToken(saved);
   }, []);
 
+  async function parseAuthError(res, fallbackMessage) {
+    try {
+      const data = await res.json();
+
+      if (typeof data?.detail === "string") {
+        return data.detail;
+      }
+
+      if (Array.isArray(data?.detail)) {
+        const first = data.detail[0];
+        if (typeof first === "string") return first;
+        if (typeof first?.msg === "string") return first.msg;
+      }
+
+      if (typeof data?.message === "string") {
+        return data.message;
+      }
+
+      return fallbackMessage;
+    } catch {
+      return fallbackMessage;
+    }
+  }
+
   async function login(e) {
     e.preventDefault();
     setStatus("Logging in...");
+    setAuthError("");
     try {
       const body = new URLSearchParams();
       body.append("username", email);
@@ -39,35 +64,67 @@ export default function AdminPage() {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body,
       });
+      if (!res.ok) {
+        const message = await parseAuthError(
+          res,
+          "Wrong email or password. Please try again."
+        );
+        throw new Error(message);
+      }
+
       const data = await res.json();
-      if (!res.ok) throw new Error();
       localStorage.setItem("admin_token", data.access_token);
       setToken(data.access_token);
       setStatus("Logged in.");
+      setAuthError("");
     } catch (err) {
-      setStatus("Login failed.");
+      setStatus("");
+      setAuthError(err?.message || "Wrong email or password. Please try again.");
     }
   }
 
   async function register(e) {
     e.preventDefault();
     setStatus("Creating admin...");
+    setAuthError("");
     try {
       const res = await fetch(`${API_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      if (!res.ok) throw new Error();
+
+      if (!res.ok) {
+        const message = await parseAuthError(
+          res,
+          "Admin creation failed. Please check your details."
+        );
+        throw new Error(message);
+      }
+
       setStatus("Admin created. Now login.");
+      setAuthError("");
     } catch (err) {
-      setStatus("Admin creation failed.");
+      setStatus("");
+      setAuthError(
+        err?.message || "Admin creation failed. Please check your details."
+      );
     }
   }
 
   function logout() {
     localStorage.removeItem("admin_token");
     setToken("");
+  }
+
+  function handleEmailChange(value) {
+    setEmail(value);
+    if (authError) setAuthError("");
+  }
+
+  function handlePasswordChange(value) {
+    setPassword(value);
+    if (authError) setAuthError("");
   }
 
   const resources = [
@@ -135,28 +192,28 @@ export default function AdminPage() {
 
   const stats = [
     {
-      label: "Total Streams",
-      value: "2.5M",
-      delta: "+12%",
-      caption: "Last 30 days",
+      label: "Total Music",
+      value: "24",
+      delta: "+3",
+      caption: "Tracks in library",
     },
     {
-      label: "Tickets Sold",
-      value: "1,200",
-      delta: "+6%",
-      caption: "Tour cycle",
+      label: "Total Videos",
+      value: "16",
+      delta: "+2",
+      caption: "Published videos",
     },
     {
-      label: "Store Revenue",
-      value: "$8,450",
-      delta: "+3%",
-      caption: "Monthly gross",
+      label: "Total Shows",
+      value: "9",
+      delta: "+1",
+      caption: "Upcoming shows",
     },
     {
-      label: "New Fans",
-      value: "+320",
-      delta: "+18%",
-      caption: "Fan base growth",
+      label: "Total Products",
+      value: "31",
+      delta: "+4",
+      caption: "Store catalog",
     },
   ];
 
@@ -171,6 +228,72 @@ export default function AdminPage() {
     { title: "The Fillmore", location: "San Francisco, CA", date: "Jul 15" },
     { title: "Brooklyn Steel", location: "Brooklyn, NY", date: "Jul 21" },
     { title: "Red Rocks Amphitheatre", location: "Morrison, CO", date: "Aug 05" },
+  ];
+
+  const albumItems = [
+    {
+      id: "a1",
+      title: "City Lights",
+      description: "A late-night pop and synth journey.",
+      release_date: "2026-02-10",
+      cover_image_url:
+        "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=1000&q=80",
+    },
+    {
+      id: "a2",
+      title: "Night Ride",
+      description: "Fast-paced electronic pop collection.",
+      release_date: "2026-03-01",
+      cover_image_url:
+        "https://images.unsplash.com/photo-1461783436728-0a9217714694?auto=format&fit=crop&w=1000&q=80",
+    },
+    {
+      id: "a3",
+      title: "Sunset Tapes",
+      description: "Acoustic and chill recordings.",
+      release_date: "2026-04-12",
+      cover_image_url:
+        "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1000&q=80",
+    },
+  ];
+
+  const musicItems = [
+    {
+      id: "m1",
+      title: "Midnight Echo",
+      artist: "Ariana Cole",
+      album: "City Lights",
+      description: "Lead single for spring campaign.",
+      audio_url: "https://audio.example.com/midnight-echo.mp3",
+      release_date: "2026-02-14",
+    },
+    {
+      id: "m2",
+      title: "Neon Drive",
+      artist: "Ariana Cole",
+      album: "Night Ride",
+      description: "High-energy promo track.",
+      audio_url: "https://audio.example.com/neon-drive.mp3",
+      release_date: "2026-03-05",
+    },
+    {
+      id: "m3",
+      title: "Golden Hour",
+      artist: "Ariana Cole",
+      album: "Sunset Tapes",
+      description: "Acoustic sunset session.",
+      audio_url: "https://audio.example.com/golden-hour.mp3",
+      release_date: "2026-04-16",
+    },
+    {
+      id: "m4",
+      title: "Afterglow",
+      artist: "Ariana Cole",
+      album: "City Lights",
+      description: "Late-night down-tempo vibe.",
+      audio_url: "https://audio.example.com/afterglow.mp3",
+      release_date: "2026-02-20",
+    },
   ];
 
   return (
@@ -206,27 +329,12 @@ export default function AdminPage() {
                     { name: "audio_url", label: "Audio URL" },
                     { name: "release_date", label: "Release Date", type: "date" },
                   ]}
-                  seedItems={[
-                    {
-                      id: "m1",
-                      title: "Midnight Echo",
-                      artist: "Ariana Cole",
-                      album: "City Lights",
-                      description: "Lead single for spring campaign.",
-                      audio_url: "https://audio.example.com/midnight-echo.mp3",
-                      release_date: "2026-02-14",
-                    },
-                    {
-                      id: "m2",
-                      title: "Neon Drive",
-                      artist: "Ariana Cole",
-                      album: "Night Ride",
-                      description: "High-energy promo track.",
-                      audio_url: "https://audio.example.com/neon-drive.mp3",
-                      release_date: "2026-03-05",
-                    },
-                  ]}
+                  seedItems={musicItems}
                 />
+              )}
+
+              {activeView === "albums" && (
+                <AdminAlbumsSection albums={albumItems} tracks={musicItems} />
               )}
 
               {activeView === "videos" && (
@@ -338,17 +446,17 @@ export default function AdminPage() {
             </div>
           </div>
         ) : (
-          <div className="grid items-start gap-4 p-3 sm:p-4 md:gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+          <div className="grid min-h-screen place-items-center p-4">
             <AdminAuthPanel
               email={email}
               password={password}
               status={status}
-              onEmailChange={setEmail}
-              onPasswordChange={setPassword}
+              errorMessage={authError}
+              onEmailChange={handleEmailChange}
+              onPasswordChange={handlePasswordChange}
               onLogin={login}
               onRegister={register}
             />
-            <AdminAuthInfo apiUrl={API_URL} />
           </div>
         )}
       </div>
