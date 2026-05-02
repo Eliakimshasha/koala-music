@@ -14,13 +14,17 @@ export default function About() {
   useGSAP(
     () => {
       if (!sectionRef.current) return;
+      const aboutScrollColor =
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--about-scroll-color")
+          .trim() || "#AFD3A1";
 
       // Split msg-one words and animate color on scroll
-      const firstMsgSplit = SplitText.create(".msg-one", { type: "words" });
-      gsap.to(firstMsgSplit.words, {
-        color: "#AFD3A1",
+      const firstMsgSplit = SplitText.create(".msg-one", { type: "chars" });
+      gsap.to(firstMsgSplit.chars, {
+        color: aboutScrollColor,
         ease: "power1.in",
-        stagger: 1,
+        stagger: 0.08,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 70%",
@@ -31,11 +35,11 @@ export default function About() {
       });
 
       // Split msg-two words and animate color on scroll
-      const secondMsgSplit = SplitText.create(".msg-two", { type: "words" });
-      gsap.to(secondMsgSplit.words, {
-        color: "#AFD3A1",
+      const secondMsgSplit = SplitText.create(".msg-two", { type: "chars" });
+      gsap.to(secondMsgSplit.chars, {
+        color: aboutScrollColor,
         ease: "power1.in",
-        stagger: 1,
+        stagger: 0.08,
         scrollTrigger: {
           trigger: ".msg-two",
           start: "top 70%",
@@ -46,13 +50,13 @@ export default function About() {
 
       // Clip-path reveal for .music heading (same as msg-text-scroll)
       gsap.to(".music-reveal", {
-        duration: 1,
         clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-        ease: "circ.inOut",
-        delay: 1,
+        ease: "none",
         scrollTrigger: {
           trigger: ".music-reveal",
-          start: "top 60%",
+          start: "top 80%",
+          end: "top 50%",
+          scrub: true,
         },
       });
 
@@ -66,7 +70,7 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="section-stack h-screen max-h-screen flex justify-center items-center noise2 bg-black relative py-0  px-6"
+      className="section-stack section-alt h-screen max-h-screen flex justify-center items-center noise2 bg-base relative py-0 px-6 transition-colors duration-300"
     >
       <div className="tracking-[0.02em]  maini flex flex-col items-center justify-center  gap-1 px-8">
         <div className="relative overflow-hidden min-w-70 md:min-w-125 lg:flex-1 flex flex-col gap-8 justify-center items-center">
@@ -75,10 +79,10 @@ export default function About() {
           </h1>
           {/* Clip-path reveal wrapper — same pattern as msg-text-scroll */}
           <div
-            className="music-reveal absolute top-1/2 z-20 lg:-translate-y-24 -translate-y-20 left-1/2  min-w-fit -rotate-6 bg-accent border-2 border-black px-4 py-2 -translate-x-1/2"
+            className="music-reveal absolute top-1/2 z-20 lg:-translate-y-24 -translate-y-20 left-1/2 min-w-fit -rotate-6 bg-accent border border-transparent px-4 py-2 -translate-x-1/2"
             style={{ clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)" }}
           >
-            <h1 className="font-bold music uppercase text-4xl lg:text-8xl text-accent-contrast tracking-tighter">
+            <h1 className="font-bold music uppercase text-4xl lg:text-8xl text-black tracking-tighter">
               Music
             </h1>
           </div>

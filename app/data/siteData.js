@@ -38,11 +38,11 @@ export const albums = [
 ];
 
 export const tracks = [
+  { title: "Safe Space", duration: "3:40", plays: "1.1M" },
+  { title: "On and Off", duration: "3:52", plays: "980K" },
   { title: "Kitu Wrong", duration: "3:45", plays: "1.2M" },
   { title: "I Move On", duration: "4:12", plays: "890K" },
   { title: "Happiness", duration: "3:28", plays: "1.5M" },
-  { title: "Ya Kesho", duration: "3:56", plays: "750K" },
-  { title: "More Than Music", duration: "4:34", plays: "2.1M" },
 ];
 
 export const videos = [

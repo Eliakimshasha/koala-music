@@ -27,6 +27,7 @@
   --hero-orb: rgba(175, 211, 161, 0.25);
   --hero-orb-secondary: rgba(255, 255, 255, 0.18);
   --msg-two: #ffffff;
+  --about-scroll-color: #afd3a1;
   --noise-opacity: 0.05;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -110,31 +111,6 @@
     transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
     }
   }
-}
-
-[data-theme="light"] {
-  color-scheme: light;
-  --bg: #ffffff;
-  --bg-soft: #ffffff;
-  --surface: rgba(0, 0, 0, 0.04);
-  --surface-strong: rgba(0, 0, 0, 0.06);
-  --border: rgba(0, 0, 0, 0.12);
-  --border-strong: rgba(0, 0, 0, 0.2);
-  --text: #000000;
-  --text-muted: rgba(0, 0, 0, 0.6);
-  --text-subtle: rgba(0, 0, 0, 0.45);
-  --accent: #afd3a1;
-  --accent-contrast: #000000;
-  --accent-faint: rgba(175, 211, 161, 0.25);
-  --nav-bg: rgba(255, 255, 255, 0.75);
-  --nav-border: rgba(0, 0, 0, 0.08);
-  --overlay: rgba(0, 0, 0, 0.2);
-  --gradient-end: #000000;
-  --card-shadow: rgba(0, 0, 0, 0.12);
-  --hero-orb: rgba(175, 211, 161, 0.25);
-  --hero-orb-secondary: rgba(0, 0, 0, 0.08);
-  --msg-two: #000000;
-  --noise-opacity: 0.03;
 }
 
 * {
@@ -309,6 +285,10 @@ text-align: start;
 
 .section-alt {
   background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+}
+
+.footer-distinct {
+  background: transparent;
 }
 
 .music-panel {
@@ -621,6 +601,7 @@ text-align: start;
   color: var(--accent);
   text-shadow: 0 16px 30px rgba(0, 0, 0, 0.25);
 }
+
 
 .hero-accent-stack {
   display: grid;

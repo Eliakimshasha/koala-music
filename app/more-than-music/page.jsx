@@ -1,10 +1,14 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Chrome from "../components/Chrome";
 import { navLinks, moreThanMusic } from "../data/siteData";
+
+const LISTEN_NOW_HREF = "https://oneprm.link/245155137539";
 
 export default function MoreThanMusicPage() {
   const { title, subtitle } = moreThanMusic;
@@ -134,6 +138,56 @@ export default function MoreThanMusicPage() {
             </div>
           </section>
         </div>
+
+        <footer className="footer-distinct px-6 md:px-24 pb-10">
+          <div className="max-w-7xl mx-auto border-t border-gray-100/10 pt-10">
+            <div className="flex flex-col items-center text-center gap-6">
+              <Link href="/" aria-label="Go to home">
+                <Image
+                  src="/assets/images/green2.png"
+                  alt="Koala logo"
+                  width={220}
+                  height={64}
+                  className="h-12 w-auto object-contain"
+                />
+              </Link>
+
+              <div className="text-muted text-xs md:text-sm tracking-wide">
+                <span>© 2026 KOALA MUZIKI</span>
+                <span className="mx-2">|</span>
+                <Link
+                  href="/about"
+                  className="hover-text-accent transition-colors"
+                >
+                  About
+                </Link>
+                <span className="mx-2">|</span>
+                <Link
+                  href="/contact"
+                  className="hover-text-accent transition-colors"
+                >
+                  Contact
+                </Link>
+                <span className="mx-2">|</span>
+                <Link
+                  href="/store"
+                  className="hover-text-accent transition-colors"
+                >
+                  Store
+                </Link>
+                <span className="mx-2">|</span>
+                <Link
+                  href={LISTEN_NOW_HREF}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover-text-accent transition-colors"
+                >
+                  Listen Now
+                </Link>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
     </Chrome>
   );

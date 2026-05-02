@@ -1,19 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import ThemeToggle from "./ThemeToggle";
+import { HiOutlineBars2 } from "react-icons/hi2";
 import logoGreen from "../../public/assets/images/green.png";
-import logoBlack from "../../public/assets/images/black.png";
 
-export default function Navbar({
-  navLinks,
-  menuOpen,
-  setMenuOpen,
-  theme,
-  onToggleTheme,
-  glassBg,
-}) {
-  const logoSrc = theme === "light" ? logoBlack : logoGreen;
+export default function Navbar({ navLinks, menuOpen, setMenuOpen, glassBg }) {
 
   return (
     <nav
@@ -24,7 +15,7 @@ export default function Navbar({
       <div className="max-w-7xl mx-auto px-6 pt-4 flex justify-between items-center">
         <Link href="/" className="flex items-center" aria-label="Go to home">
           <Image
-            src={logoSrc}
+            src={logoGreen}
             alt="Koala logo"
             width={140}
             height={40}
@@ -42,36 +33,18 @@ export default function Navbar({
               {link.label}
             </Link>
           ))}
-          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
         </div>
         <div className="md:hidden flex items-center gap-3">
-          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
           <button
             type="button"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-subtle bg-surface hover-bg-surface-strong transition"
+            className="flex h-8 w-11 items-center bg-white/10 justify-center rounded-xs   hover-bg-surface-strong transition"
             aria-label="Toggle navigation menu"
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             onClick={() => setMenuOpen((open) => !open)}
           >
             <span className="sr-only">Toggle navigation</span>
-            <span className="flex flex-col gap-1.5">
-              <span
-                className={`h-0.5 w-6 bg-base-text transition-transform duration-300 ${
-                  menuOpen ? "translate-y-2 rotate-45" : ""
-                }`}
-              ></span>
-              <span
-                className={`h-0.5 w-6 bg-base-text transition-all duration-300 ${
-                  menuOpen ? "opacity-0" : "opacity-100"
-                }`}
-              ></span>
-              <span
-                className={`h-0.5 w-6 bg-base-text transition-transform duration-300 ${
-                  menuOpen ? "-translate-y-2 -rotate-45" : ""
-                }`}
-              ></span>
-            </span>
+            <HiOutlineBars2 className="h-6 w-6 text-accent" />
           </button>
         </div>
       </div>

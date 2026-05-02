@@ -3,19 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import logoGreen from "../../public/assets/images/green2.png";
-import logoBlack from "../../public/assets/images/black.png";
 
 export default function Footer() {
-  const logoSrc =
-    typeof document !== "undefined" &&
-    document.documentElement.getAttribute("data-theme") === "light"
-      ? logoBlack
-      : logoGreen;
-
   return (
-    <footer className="section-stack relative py-16 px-6 border-t-[1px] border-gray-100/10">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+    <footer className="section-stack footer-distinct relative left-1/2 -translate-x-1/2 w-screen py-16 border-t-[1px] border-gray-100/10">
+      <div className="w-full lg:px-52">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
             <div className="flex items-end  mb-4">
               <Link
@@ -24,7 +18,7 @@ export default function Footer() {
                 aria-label="Go to home"
               >
                 <Image
-                  src={logoSrc}
+                  src={logoGreen}
                   alt="Koala logo"
                   width={140}
                   height={40}
@@ -86,9 +80,10 @@ export default function Footer() {
               </button>
             </div>
           </div>
-        </div>
-        <div className="text-center text-muted text-sm">
-          (c) 2024 Koala. All rights reserved.
+          </div>
+          <div className="text-center text-muted text-sm">
+            (c) 2024 Koala. All rights reserved.
+          </div>
         </div>
       </div>
     </footer>

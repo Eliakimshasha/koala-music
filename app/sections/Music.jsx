@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useLayoutEffect, useRef } from "react";
+import Link from "next/link";
 import { IoIosPlay } from "react-icons/io";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -66,6 +67,14 @@ export default function Music({ tracks }) {
                 <span className="music-duration">{track.duration}</span>
               </div>
             ))}
+          </div>
+          <div className="mt-8 flex justify-center">
+            <Link
+              href="/music"
+              className="px-6 py-3 bg-accent text-accent-contrast font-semibold hover:scale-105 transition-transform"
+            >
+              Listen now
+            </Link>
           </div>
         </div>
       </div>

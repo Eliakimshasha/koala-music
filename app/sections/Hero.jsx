@@ -163,7 +163,7 @@ export default function Hero() {
             <div className="hero-image-band"></div>
           </div>
 
-          <h1 className="hero-title absolute z-60 top-2 hero-vertical-title font-display uppercase">
+          <h1 className="hero-title hero-mobile-title absolute z-60 top-2 hero-vertical-title font-display uppercase">
             <p className="text-start leading-tight -tracking-[0.01em]">More</p>
             <p className="text-start leading-tight -tracking-[0.01em]">Than</p>
             <p className="text-start leading-tight -tracking-[0.01em]">Music</p>

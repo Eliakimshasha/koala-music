@@ -8,6 +8,7 @@ import logo from "../../public/assets/images/green.png";
 import { AiOutlineTikTok, AiOutlineSpotify } from "react-icons/ai";
 import { FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { IoLogoInstagram } from "react-icons/io5";
+import { SiAudiomack, SiTidal } from "react-icons/si";
 
 import boomplay from "musicfetch/brands/boomplay";
 import { BrandIcon } from "musicfetch/react";
@@ -94,7 +95,12 @@ export default function Connect({ socialLinks = [] }) {
     .filter((icon) => icon.Icon);
 
   const outerIcons = orbitIcons.slice(0, 6);
-  const innerIcons = orbitIcons.slice(0, 4);
+  const innerIcons = [
+    orbitIcons[0],
+    orbitIcons[1],
+    { label: "Audiomack", href: "#", Icon: SiAudiomack },
+    { label: "Tidal", href: "#", Icon: SiTidal },
+  ].filter(Boolean);
 
   /* -------------------- JSX -------------------- */
 
