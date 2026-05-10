@@ -6,8 +6,9 @@ import Link from "next/link";
 import { HiOutlineBars2 } from "react-icons/hi2";
 import { IoIosArrowRoundForward } from "react-icons/io";
 
+import MusicStreamingDialog from "@/components/MusicStreamingDialog";
+
 const LISTEN_NOW_HREF = "https://onerpm.link/245155137539";
-const SAFE_SPACE_HREF = "https://onerpm.link/219151261349";
 
 const navLinks = [
   { label: "MUSIC", href: "/music" },
@@ -24,31 +25,26 @@ const tracks = [
     title: "On and Off",
     imageSrc: "/assets/images/main-on-and-off.jpeg",
     imageAlt: "On and Off cover art",
-    href: LISTEN_NOW_HREF,
   },
   {
     title: "Kitu Wrong",
     imageSrc: "/assets/images/alb1.jpeg",
     imageAlt: "Kitu Wrong cover art",
-    href: LISTEN_NOW_HREF,
   },
   {
     title: "Safe Space",
     imageSrc: "/assets/images/safe-space.jpg",
     imageAlt: "Safe Space cover art",
-    href: SAFE_SPACE_HREF,
   },
   {
     title: "Bottles of Beer",
     imageSrc: "/assets/images/alb2.jpeg",
     imageAlt: "Bottles of Beer cover art",
-    href: LISTEN_NOW_HREF,
   },
   {
     title: "Am Alive",
     imageSrc: "/assets/images/koala9.jpeg",
     imageAlt: "Am Alive cover art",
-    href: LISTEN_NOW_HREF,
   },
 ];
 
@@ -246,50 +242,48 @@ export default function MusicPage() {
                   className="px-6 py-6 md:px-10 md:py-0 min-h-[420px] md:min-h-[370px] md:max-h-[380px]"
                 >
                   <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-0 items-center min-h-[340px] md:min-h-[380px]">
-                  <div
-                    className={[
-                      "relative w-full  overflow-hidden",
-                      "h-[300px] md:h-[380px]",
-                      "max-w-[460px] md:max-w-[520px] lg:max-w-none",
-                      imageFirst ? "md:order-1" : "md:order-2",
-                    ].join(" ")}
-                  >
-                    <Image
-                      src={track.imageSrc}
-                      alt={track.imageAlt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover"
-                      priority={i < 2}
-                    />
-                  </div>
+                    <div
+                      className={[
+                        "relative w-full overflow-hidden",
+                        "h-[300px] md:h-[380px]",
+                        "max-w-[460px] md:max-w-[520px] lg:max-w-none",
+                        imageFirst ? "md:order-1" : "md:order-2",
+                      ].join(" ")}
+                    >
+                      <Image
+                        src={track.imageSrc}
+                        alt={track.imageAlt}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover"
+                        priority={i < 2}
+                      />
+                    </div>
 
-                  <div
-                    className={[
-                      "p-2 md:p-4",
-                      imageFirst ? "md:order-2" : "md:order-1",
-                      imageFirst ? "lg:pl-12" : "",
-                    ].join(" ")}
-                  >
-                    <div className="text-muted text-sm mb-3">Koala Muziki</div>
-                    <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
-                      {track.title}
-                    </h2>
+                    <div
+                      className={[
+                        "p-2 md:p-4",
+                        imageFirst ? "md:order-2" : "md:order-1",
+                        imageFirst ? "lg:pl-12" : "",
+                      ].join(" ")}
+                    >
+                      <div className="text-muted text-sm mb-3">Koala Muziki</div>
+                      <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
+                        {track.title}
+                      </h2>
 
-                    <div className="flex flex-wrap items-center gap-4">
-                      <Link
-                        href={track.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="px-6 py-3 bg-accent text-accent-contrast font-semibold hover:scale-105 transition-transform"
-                      >
-                        Listen now
-                      </Link>
-                      <div className="text-muted text-sm">
-                        Available on all platforms
+                      <div className="flex flex-wrap items-center gap-4">
+                        <MusicStreamingDialog
+                          title={track.title}
+                          imageSrc={track.imageSrc}
+                          imageAlt={track.imageAlt}
+                          triggerClassName="px-6 py-3 bg-accent text-accent-contrast font-semibold hover:scale-105 transition-transform"
+                        />
+                        <div className="text-muted text-sm">
+                          Available on all platforms
+                        </div>
                       </div>
                     </div>
-                  </div>
                   </div>
                 </section>
               );
@@ -312,7 +306,7 @@ export default function MusicPage() {
             </Link>
 
             <div className="text-muted text-xs md:text-sm tracking-wide">
-              <span>© 2026 KOALA MUZIKI</span>
+              <span>Copyright 2026 KOALA MUZIKI</span>
               <span className="mx-2">|</span>
               <Link
                 href="/about"

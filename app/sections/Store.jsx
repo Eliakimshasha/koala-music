@@ -130,13 +130,13 @@ export default function Store({
     <section
       id="store"
       ref={sectionRef}
-      className={`section-stack  section-alt relative  px-6 ${
+      className={`section-stack   section-alt relative  px-6 ${
         enableMobileSlider ? "min-h-screen md:min-h-0" : ""
       }`}
     >
       <div className="max-w-7xl   mx-auto">
         {centerTitle ? (
-          <div className="flex flex-col items-center text-center gap-4 mb-12">
+          <div className="flex flex-col items-center text-center pt-20 gap-4 mb-12">
             <h2 className="section-title font-display text-6xl md:text-8xl font-bold text-gradient">
               Store
             </h2>
