@@ -7,46 +7,9 @@ import { HiOutlineBars2 } from "react-icons/hi2";
 import { IoIosArrowRoundForward } from "react-icons/io";
 
 import MusicStreamingDialog from "@/components/MusicStreamingDialog";
+import { musicReleases, navLinks } from "../data/siteData";
 
 const LISTEN_NOW_HREF = "https://onerpm.link/245155137539";
-
-const navLinks = [
-  { label: "MUSIC", href: "/music" },
-  { label: "VIDEOS", href: "/videos" },
-  { label: "SHOWS", href: "/live-shows" },
-  { label: "LIFESTYLE", href: "/lifestyle" },
-  { label: "MORE THAN MUSIC", href: "/more-than-music" },
-  { label: "STORE", href: "/store" },
-  { label: "ABOUT", href: "/about" },
-];
-
-const tracks = [
-  {
-    title: "On and Off",
-    imageSrc: "/assets/images/main-on-and-off.jpeg",
-    imageAlt: "On and Off cover art",
-  },
-  {
-    title: "Kitu Wrong",
-    imageSrc: "/assets/images/alb1.jpeg",
-    imageAlt: "Kitu Wrong cover art",
-  },
-  {
-    title: "Safe Space",
-    imageSrc: "/assets/images/safe-space.jpg",
-    imageAlt: "Safe Space cover art",
-  },
-  {
-    title: "Bottles of Beer",
-    imageSrc: "/assets/images/alb2.jpeg",
-    imageAlt: "Bottles of Beer cover art",
-  },
-  {
-    title: "Am Alive",
-    imageSrc: "/assets/images/koala9.jpeg",
-    imageAlt: "Am Alive cover art",
-  },
-];
 
 export default function MusicPage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -233,7 +196,7 @@ export default function MusicPage() {
           <div className="splash-line mx-auto mb-16"></div>
 
           <div className="space-y-0 md:space-y-0 py-12  bg-surface lg:w-[70%] lg:mx-auto ">
-            {tracks.map((track, i) => {
+            {musicReleases.map((track, i) => {
               const imageFirst = i % 2 === 0;
 
               return (

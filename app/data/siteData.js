@@ -7,18 +7,12 @@ import product2 from "../../public/assets/images/prod2.jpg";
 import product3 from "../../public/assets/images/prod3.jpg";
 import product4 from "../../public/assets/images/prod4.jpg";
 import product5 from "../../public/assets/images/prod5.jpg";
-import iconApple from "../../public/assets/images/apple.png";
 import iconSpotify from "../../public/assets/images/spotify.png";
 import iconTikTok from "../../public/assets/images/tiktok.png";
 import iconTwitter from "../../public/assets/images/twitter.png";
 import iconYouTube from "../../public/assets/images/youtube.png";
 import Boomplay from "../../public/assets/images/boomplay.svg";
 import iconInstagram from "../../public/assets/images/social.png";
-import face2 from "../../public/assets/images/face2.png";
-import face3 from "../../public/assets/images/face3.png";
-import face4 from "../../public/assets/images/face4.png";
-import vibing from "../../public/assets/images/vibing.png";
-import vibing2 from "../../public/assets/images/vibing2.png";
 
 export const navLinks = [
   { label: "MUSIC", href: "/music" },
@@ -37,20 +31,63 @@ export const albums = [
   { title: "Kitu Wrong EP", year: "2022", image: album4, tracks: 6 },
 ];
 
-export const tracks = [
-  { title: "Safe Space", duration: "3:40", plays: "1.1M" },
-  { title: "On and Off", duration: "3:52", plays: "980K" },
-  { title: "Kitu Wrong", duration: "3:45", plays: "1.2M" },
-  { title: "I Move On", duration: "4:12", plays: "890K" },
-  { title: "Happiness", duration: "3:28", plays: "1.5M" },
+export const musicReleases = [
+  {
+    title: "On and Off",
+    duration: "3:52",
+    plays: "980K",
+    views: "980K",
+    imageSrc: "/assets/images/main-on-and-off.jpeg",
+    imageAlt: "On and Off cover art",
+  },
+  {
+    title: "Kitu Wrong",
+    duration: "3:45",
+    plays: "1.2M",
+    views: "1.2M",
+    imageSrc: "/assets/images/alb1.jpeg",
+    imageAlt: "Kitu Wrong cover art",
+  },
+  {
+    title: "Safe Space",
+    duration: "3:40",
+    plays: "1.1M",
+    views: "1.1M",
+    imageSrc: "/assets/images/safe-space.jpg",
+    imageAlt: "Safe Space cover art",
+  },
+  {
+    title: "Bottles of Beer",
+    duration: "4:01",
+    plays: "840K",
+    views: "840K",
+    imageSrc: "/assets/images/alb2.jpeg",
+    imageAlt: "Bottles of Beer cover art",
+  },
+  {
+    title: "Am Alive",
+    duration: "3:36",
+    plays: "760K",
+    views: "760K",
+    imageSrc: "/assets/images/koala9.jpeg",
+    imageAlt: "Am Alive cover art",
+  },
 ];
 
-export const videos = [
-  { title: "Kitu Wrong (Official Video)", views: "2.3M", image: product5 },
-  { title: "Studio Sessions Vol. 1", views: "560K", image: product5 },
-  { title: "Live at Mlimani City", views: "1.1M", image: product5 },
-  { title: "Behind The Scenes", views: "430K", image: product5 },
-];
+export const tracks = musicReleases.map(({ title, duration, plays }) => ({
+  title,
+  duration,
+  plays,
+}));
+
+export const videos = musicReleases.map(
+  ({ title, views, imageSrc, imageAlt }) => ({
+    title,
+    views,
+    image: imageSrc,
+    imageAlt,
+  })
+);
 
 export const products = [
   { name: "Feelings T-Shirt", price: "35,000 TZS", image: product1 },

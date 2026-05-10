@@ -4,7 +4,6 @@ import React, { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoIosArrowRoundForward } from "react-icons/io";
-import Logo from "../../public/assets/images/green2.png";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -65,35 +64,28 @@ export default function Videos({
     return () => ctx.revert();
   }, []);
 
-  const renderVideoMeta = (video, size = "sm") => {
-    const titleSize =
-      size === "lg" ? "text-2xl md:text-3xl" : "text-xl md:text-2xl";
-    const viewsSize = size === "lg" ? "text-base" : "text-sm";
-
+  const renderVideoMeta = (video) => {
     return (
-      <div className="mt-4 flex items-center justify-between gap-6">
+      <div className="flex items-start justify-between gap-6 border-t border-white/10 px-5 py-5">
         <div>
-          <p className="text-[0.65rem] uppercase tracking-[0.4em] text-subtle">
-            Video
+          <p className="text-[0.65rem] uppercase tracking-[0.4em] text-subtle/80">
+            Video Release
           </p>
-          <h3 className={`${titleSize} font-display font-semibold`}>
+          <h3 className="mt-2 font-display text-2xl font-semibold md:text-3xl">
             {video.title}
           </h3>
         </div>
         <div className="text-right">
-          <p className="text-[0.65rem] uppercase tracking-[0.4em] text-subtle">
-            Views
+          <p className="text-[0.65rem] uppercase tracking-[0.4em] text-subtle/80">
+            Streams
           </p>
-          <p className={`${viewsSize} font-semibold text-accent`}>
+          <p className="mt-2 text-sm font-semibold text-accent md:text-base">
             {video.views}
           </p>
         </div>
       </div>
     );
   };
-
-  const featured = videos.slice(0, 3);
-  const isPreview = showMoreLink && featured.length >= 3;
 
   return (
     <section
@@ -135,154 +127,45 @@ export default function Videos({
           </div>
         )}
 
-        {isPreview ? (
-          <>
-            {/* Mobile layout */}
-            <div className="grid gap-8 md:hidden">
-              {featured.map((video, i) => (
-                <div key={i} className="video-item cursor-pointer group">
-                  <div className="aspect-video rounded-xs mb-4 flex items-center justify-center overflow-hidden relative">
-                    <Image
-                      src={video.image}
-                      alt={video.title}
-                      fill
-                      sizes="100vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-all"></div>
-                    <svg
-                      className="w-20 h-20 text-white group-hover:scale-125 transition-transform relative z-10"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                  {renderVideoMeta(video, "sm")}
-                </div>
-              ))}
-            </div>
-
-            {/* Desktop layout */}
-            <div className="hidden relative md:grid grid-cols-2 gap-8">
-              <div className="absolute -bottom-9 left-0 flex items-end ">
-                <div className="flex items-center gap-3 h-48 ">
-                  <Image
-                    src={Logo}
-                    alt="Koala logo"
-                    width={140}
-                    height={40}
-                    className="h-48 w-auto opacity-20"
-                  />
-                </div>
-                <p className=" absolute bottom-0 -right-20 text-xs">
-                  <span className=" font-display text-[#afd3a1] text-lg">
-                    KOALA.
-                  </span>{" "}
-                  @all rights reserved
-                </p>
-              </div>
-              <div className="video-item cursor-pointer group">
-                <div className="relative min-h-90 rounded-xs overflow-hidden">
-                  <Image
-                    src={featured[0].image}
-                    alt={featured[0].title}
-                    fill
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all"></div>
-                  <svg
-                    className="absolute left-6 bottom-6 w-16 h-16 text-white group-hover:scale-110 transition-transform"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-                {renderVideoMeta(featured[0], "lg")}
-              </div>
-              <div className="flex flex-col gap-8">
-                <div className="video-item cursor-pointer group">
-                  <div className="relative min-h-[180px] rounded-xs overflow-hidden">
-                    <Image
-                      src={featured[1].image}
-                      alt={featured[1].title}
-                      fill
-                      sizes="(min-width: 1024px) 50vw, 100vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all"></div>
-                    <svg
-                      className="absolute left-5 bottom-5 w-12 h-12 text-white group-hover:scale-110 transition-transform"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                  {renderVideoMeta(featured[1], "sm")}
-                </div>
-                <div className="video-item cursor-pointer group">
-                  <div className="relative min-h-[360px] rounded-xs overflow-hidden">
-                    <Image
-                      src={featured[2].image}
-                      alt={featured[2].title}
-                      fill
-                      sizes="(min-width: 1024px) 50vw, 100vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all"></div>
-                    <svg
-                      className="absolute left-6 bottom-6 w-16 h-16 text-white group-hover:scale-110 transition-transform"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                  {renderVideoMeta(featured[2], "lg")}
-                </div>
-              </div>
-            </div>
-          </>
-        ) : (
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
-            {videos.map((video, i) => (
-              <div key={i} className="video-item cursor-pointer group">
-                <div className="aspect-video rounded-xs mb-4 flex items-center justify-center overflow-hidden relative">
-                  <Image
-                    src={video.image}
-                    alt={video.title}
-                    fill
-                    sizes="(min-width: 1024px) 30vw, 100vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-all"></div>
-                  <svg
-                    className="w-16 h-16 text-white group-hover:scale-110 transition-transform relative z-10"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-                {renderVideoMeta(video, "sm")}
-              </div>
-            ))}
-          </div>
-        )}
-        {showMoreLink ? (
-          <div className="mt-10 flex justify-end">
-            <Link
-              href="/videos"
-              className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.3em] text-subtle hover-text-accent transition"
+        <div className="grid gap-8 lg:grid-cols-2 ">
+          {videos.map((video, i) => (
+            <article
+              key={`${video.title}-${i}`}
+              className="video-item group overflow-hidden border border-white/10 bg-[rgba(255,255,255,0.02)] backdrop-blur-sm"
             >
-              See More
-              <IoIosArrowRoundForward className="h-5 w-5" />
-            </Link>
-          </div>
-        ) : null}
+              <div className="relative aspect-[4/3] overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(175,211,161,0.18),_rgba(10,10,10,0.96)_68%)]">
+                <Image
+                  src={video.image}
+                  alt={video.imageAlt || video.title}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-contain p-4 transition duration-500 group-hover:scale-[1.02]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5">
+                  <div>
+                    <p className="text-[0.65rem] uppercase tracking-[0.45em] text-white/60">
+                      Watch Now
+                    </p>
+                    <p className="mt-2 max-w-xs font-display text-2xl text-white md:text-3xl">
+                      {video.title}
+                    </p>
+                  </div>
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md transition group-hover:scale-110 group-hover:bg-white/20">
+                    <svg
+                      className="ml-1 h-6 w-6"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              {renderVideoMeta(video)}
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

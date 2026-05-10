@@ -14,8 +14,11 @@ import DashboardUpcoming from "./components/DashboardUpcoming";
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 export default function AdminPage() {
+  const [authMode, setAuthMode] = useState("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [setupToken, setSetupToken] = useState("");
   const [token, setToken] = useState("");
   const [status, setStatus] = useState("");
   const [authError, setAuthError] = useState("");
@@ -63,14 +66,10 @@ export default function AdminPage() {
     setStatus("Logging in...");
     setAuthError("");
     try {
-      const body = new URLSearchParams();
-      body.append("username", email);
-      body.append("password", password);
-
-      const res = await fetch(`${API_URL}/auth/login`, {
+      const res = await fetch("/api/admin-auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
       });
       if (!res.ok) {
         const message = await parseAuthError(
@@ -81,6 +80,19 @@ export default function AdminPage() {
       }
 
       const data = await res.json();
+      if (data?.requiresSetup) {
+        setAuthMode("setup");
+        setSetupToken(data.setupToken || "");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setStatus(
+          data.message || "Temporary access verified. Create the permanent admin account."
+        );
+        setAuthError("");
+        return;
+      }
+
       localStorage.setItem("admin_token", data.access_token);
       setToken(data.access_token);
       setStatus("Logged in.");
@@ -93,29 +105,42 @@ export default function AdminPage() {
 
   async function register(e) {
     e.preventDefault();
-    setStatus("Creating admin...");
+    setStatus("Creating account...");
     setAuthError("");
     try {
-      const res = await fetch(`${API_URL}/auth/register`, {
+      const res = await fetch("/api/admin-auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, confirmPassword, setupToken }),
       });
 
       if (!res.ok) {
         const message = await parseAuthError(
           res,
-          "Admin creation failed. Please check your details."
+          "Account creation failed. Please check your details."
         );
         throw new Error(message);
       }
 
-      setStatus("Admin created. Now login.");
+      const data = await res.json();
+
+      if (data?.access_token) {
+        localStorage.setItem("admin_token", data.access_token);
+        setToken(data.access_token);
+        setStatus("Account created and logged in.");
+        setAuthError("");
+        return;
+      }
+
+      setAuthMode("login");
+      setSetupToken("");
+      setConfirmPassword("");
+      setStatus(data?.message || "Account created. Now log in.");
       setAuthError("");
     } catch (err) {
       setStatus("");
       setAuthError(
-        err?.message || "Admin creation failed. Please check your details."
+        err?.message || "Account creation failed. Please check your details."
       );
     }
   }
@@ -123,6 +148,9 @@ export default function AdminPage() {
   function logout() {
     localStorage.removeItem("admin_token");
     setToken("");
+    setAuthMode("login");
+    setSetupToken("");
+    setStatus("");
   }
 
   function handleEmailChange(value) {
@@ -133,6 +161,21 @@ export default function AdminPage() {
   function handlePasswordChange(value) {
     setPassword(value);
     if (authError) setAuthError("");
+  }
+
+  function handleConfirmPasswordChange(value) {
+    setConfirmPassword(value);
+    if (authError) setAuthError("");
+  }
+
+  function handleBackToLogin() {
+    setAuthMode("login");
+    setSetupToken("");
+    setConfirmPassword("");
+    setEmail("");
+    setPassword("");
+    setStatus("");
+    setAuthError("");
   }
 
   useEffect(() => {
@@ -317,14 +360,18 @@ export default function AdminPage() {
         ) : (
           <div className="grid min-h-screen place-items-center p-4">
             <AdminAuthPanel
+              mode={authMode}
               email={email}
               password={password}
+              confirmPassword={confirmPassword}
               status={status}
               errorMessage={authError}
               onEmailChange={handleEmailChange}
               onPasswordChange={handlePasswordChange}
+              onConfirmPasswordChange={handleConfirmPasswordChange}
               onLogin={login}
               onRegister={register}
+              onBackToLogin={handleBackToLogin}
             />
           </div>
         )}

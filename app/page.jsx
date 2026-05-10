@@ -9,8 +9,6 @@ import About from "./sections/About";
 import Albums from "./sections/Albums";
 import Music from "./sections/Music";
 import Videos from "./sections/Videos";
-import LiveShows from "./sections/LiveShows";
-import Lifestyle from "./sections/Lifestyle";
 import Store from "./sections/Store";
 import ComingSoon from "./sections/ComingSoon";
 import Connect from "./sections/Connect";
@@ -20,8 +18,6 @@ import {
   albums,
   tracks,
   videos,
-  liveShows,
-  lifestylePosts,
   products,
   socialLinks,
   comingSoon,
@@ -47,14 +43,15 @@ export default function KoalaWebsite() {
           <div id="smooth-content">
             <Hero />
             <About />
-            <Albums
+           <div className="lg:px-24">
+             <Albums
               albums={albums}
               scrollRef={albumScrollRef}
               onPrev={() => scrollAlbums(-1)}
               onNext={() => scrollAlbums(1)}
             />
             <Music tracks={tracks} />
-            <Videos videos={videos.slice(0, 3)} showMoreLink />
+            <Videos videos={videos.slice(0, 4)} showMoreLink />
             {/* <LiveShows shows={liveShows} /> */}
             {/* <Lifestyle posts={lifestylePosts.slice(0, 3)} /> */}
             <Store
@@ -62,6 +59,7 @@ export default function KoalaWebsite() {
               enableMobileSlider
               showMoreLink
             />
+           </div>
             <ComingSoon data={comingSoon} />
             <Connect socialLinks={socialLinks} />
             <Footer />
