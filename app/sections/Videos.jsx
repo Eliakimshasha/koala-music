@@ -133,6 +133,7 @@ export default function Videos({
               key={`${video.title}-${i}`}
               className="video-item group overflow-hidden border border-white/10 bg-[rgba(255,255,255,0.02)] backdrop-blur-sm"
             >
+              
               <div className="relative aspect-[4/3] overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(175,211,161,0.18),_rgba(10,10,10,0.96)_68%)]">
                 <Image
                   src={video.image}
