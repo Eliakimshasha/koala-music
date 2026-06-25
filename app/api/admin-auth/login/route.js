@@ -5,9 +5,7 @@ import {
   hasTemporaryAdminCredentials,
   verifyTemporaryAdminCredentials,
 } from "@/lib/admin-auth";
-
-const API_URL =
-  process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+import { getBackendApiUrl, getBackendConfigError } from "@/lib/backend-api";
 
 async function parseErrorMessage(response, fallbackMessage) {
   try {
@@ -60,7 +58,9 @@ export async function POST(request) {
     body.append("username", email);
     body.append("password", password);
 
-    const response = await fetch(`${API_URL}/auth/login`, {
+    const apiUrl = getBackendApiUrl();
+
+    const response = await fetch(`${apiUrl}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body,
@@ -78,10 +78,20 @@ export async function POST(request) {
 
     const data = await response.json();
     return NextResponse.json(data);
-  } catch {
+  } catch (error) {
+    console.error("Admin login failed:", error);
+
+    const configError = getBackendConfigError(error);
+    if (configError) {
+      return NextResponse.json(
+        { detail: configError.detail },
+        { status: configError.status }
+      );
+    }
+
     return NextResponse.json(
       { detail: "Unable to complete login right now. Please try again." },
-      { status: 500 }
+      { status: 502 }
     );
   }
 }

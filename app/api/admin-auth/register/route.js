@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { verifySetupToken } from "@/lib/admin-auth";
-
-const API_URL =
-  process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+import { getBackendApiUrl, getBackendConfigError } from "@/lib/backend-api";
 
 async function parseErrorMessage(response, fallbackMessage) {
   try {
@@ -59,7 +57,9 @@ export async function POST(request) {
       );
     }
 
-    const registerResponse = await fetch(`${API_URL}/auth/register`, {
+    const apiUrl = getBackendApiUrl();
+
+    const registerResponse = await fetch(`${apiUrl}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -79,7 +79,7 @@ export async function POST(request) {
     loginBody.append("username", email);
     loginBody.append("password", password);
 
-    const loginResponse = await fetch(`${API_URL}/auth/login`, {
+    const loginResponse = await fetch(`${apiUrl}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: loginBody,
@@ -101,10 +101,20 @@ export async function POST(request) {
       created: true,
       message: "Account created successfully.",
     });
-  } catch {
+  } catch (error) {
+    console.error("Admin registration failed:", error);
+
+    const configError = getBackendConfigError(error);
+    if (configError) {
+      return NextResponse.json(
+        { detail: configError.detail },
+        { status: configError.status }
+      );
+    }
+
     return NextResponse.json(
       { detail: "Unable to create the account right now. Please try again." },
-      { status: 500 }
+      { status: 502 }
     );
   }
 }

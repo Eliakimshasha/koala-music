@@ -1,7 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
+import AdminImagePickerField from "./AdminImagePickerField";
 import {
   Dialog,
   DialogContent,
@@ -31,6 +33,37 @@ const AUDIO_IMAGE =
 const DEFAULT_IMAGE =
   "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=800&q=80";
 
+function isImageField(field) {
+  return (
+    field.kind === "image" ||
+    ["image_url", "cover_image_url", "thumbnail_url"].includes(field.name)
+  );
+}
+
+async function parseApiError(response, fallbackMessage) {
+  try {
+    const data = await response.json();
+
+    if (typeof data?.detail === "string") {
+      return data.detail;
+    }
+
+    if (Array.isArray(data?.detail)) {
+      const first = data.detail[0];
+      if (typeof first === "string") return first;
+      if (typeof first?.msg === "string") return first.msg;
+    }
+
+    if (typeof data?.message === "string") {
+      return data.message;
+    }
+  } catch {
+    return fallbackMessage;
+  }
+
+  return fallbackMessage;
+}
+
 export default function AdminMockResourceWorkspace({
   title,
   fields,
@@ -47,7 +80,7 @@ export default function AdminMockResourceWorkspace({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  async function fetchItems() {
+  const fetchItems = useCallback(async () => {
     if (!token) return;
     setLoading(true);
     setError("");
@@ -55,7 +88,9 @@ export default function AdminMockResourceWorkspace({
       const res = await fetch(`${apiUrl}${endpoint}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (!res.ok) throw new Error("Failed to load items");
+      if (!res.ok) {
+        throw new Error(await parseApiError(res, "Failed to load items"));
+      }
       const data = await res.json();
       setItems(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -63,11 +98,11 @@ export default function AdminMockResourceWorkspace({
     } finally {
       setLoading(false);
     }
-  }
+  }, [apiUrl, endpoint, token]);
 
   useEffect(() => {
     fetchItems();
-  }, [token, apiUrl, endpoint]);
+  }, [fetchItems]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -135,7 +170,9 @@ export default function AdminMockResourceWorkspace({
           },
           body: JSON.stringify(payload),
         });
-        if (!res.ok) throw new Error("Failed to update item");
+        if (!res.ok) {
+          throw new Error(await parseApiError(res, "Failed to update item"));
+        }
       } else {
         const res = await fetch(`${apiUrl}${endpoint}`, {
           method: "POST",
@@ -145,7 +182,9 @@ export default function AdminMockResourceWorkspace({
           },
           body: JSON.stringify(payload),
         });
-        if (!res.ok) throw new Error("Failed to create item");
+        if (!res.ok) {
+          throw new Error(await parseApiError(res, "Failed to create item"));
+        }
       }
 
       setEditingId(null);
@@ -168,7 +207,9 @@ export default function AdminMockResourceWorkspace({
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (!res.ok) throw new Error("Failed to delete item");
+      if (!res.ok) {
+        throw new Error(await parseApiError(res, "Failed to delete item"));
+      }
       if (editingId === deleteTarget.id) {
         setEditingId(null);
         setDraft(getInitialDraft(fields));
@@ -181,10 +222,11 @@ export default function AdminMockResourceWorkspace({
   }
 
   function getItemImage(item) {
-    const isAudio = title.toLowerCase().includes("music");
-    if (isAudio) return AUDIO_IMAGE;
+    if (item.cover_image_url) return item.cover_image_url;
     if (item.thumbnail_url) return item.thumbnail_url;
     if (item.image_url) return item.image_url;
+    const isAudio = title.toLowerCase().includes("music");
+    if (isAudio) return AUDIO_IMAGE;
     return DEFAULT_IMAGE;
   }
 
@@ -268,7 +310,7 @@ export default function AdminMockResourceWorkspace({
                   />
                   <div className="grid gap-1 text-xs text-slate-600">
                     {fields
-                      .filter((field) => !field.name.includes("url"))
+                      .filter((field) => !field.name.includes("url") && !isImageField(field))
                       .slice(0, 3)
                       .map((field) => (
                         <p key={`${item.id}-${field.name}`}>
@@ -309,28 +351,40 @@ export default function AdminMockResourceWorkspace({
             <form onSubmit={saveItem} className="mt-4 grid gap-3">
               {fields.map((field) => (
                 <label key={field.name} className="block">
-                  <span className="mb-1 block text-xs font-semibold uppercase tracking-widest text-slate-600">
-                    {field.label}
-                  </span>
-                  {field.type === "textarea" ? (
-                    <textarea
-                      rows={3}
+                  {isImageField(field) ? (
+                    <AdminImagePickerField
+                      label={field.label}
                       value={draft[field.name] || ""}
-                      onChange={(e) =>
-                        setDraft((prev) => ({ ...prev, [field.name]: e.target.value }))
+                      onChange={(value) =>
+                        setDraft((prev) => ({ ...prev, [field.name]: value }))
                       }
-                      className="w-full border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-900"
                     />
                   ) : (
-                    <input
-                      type={field.type || "text"}
-                      step={field.step}
-                      value={draft[field.name] || ""}
-                      onChange={(e) =>
-                        setDraft((prev) => ({ ...prev, [field.name]: e.target.value }))
-                      }
-                      className="w-full border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-900"
-                    />
+                    <>
+                      <span className="mb-1 block text-xs font-semibold uppercase tracking-widest text-slate-600">
+                        {field.label}
+                      </span>
+                      {field.type === "textarea" ? (
+                        <textarea
+                          rows={3}
+                          value={draft[field.name] || ""}
+                          onChange={(e) =>
+                            setDraft((prev) => ({ ...prev, [field.name]: e.target.value }))
+                          }
+                          className="w-full border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-900"
+                        />
+                      ) : (
+                        <input
+                          type={field.type || "text"}
+                          step={field.step}
+                          value={draft[field.name] || ""}
+                          onChange={(e) =>
+                            setDraft((prev) => ({ ...prev, [field.name]: e.target.value }))
+                          }
+                          className="w-full border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-900"
+                        />
+                      )}
+                    </>
                   )}
                 </label>
               ))}

@@ -289,6 +289,13 @@ export default function AdminPage() {
                     { name: "album", label: "Album" },
                     { name: "description", label: "Description", type: "textarea" },
                     { name: "audio_url", label: "Audio URL" },
+                    { name: "cover_image_url", label: "Cover Image", kind: "image" },
+                    {
+                      name: "duration_seconds",
+                      label: "Duration (seconds)",
+                      type: "number",
+                      step: "1",
+                    },
                     { name: "release_date", label: "Release Date", type: "date" },
                   ]}
                 />
@@ -308,7 +315,8 @@ export default function AdminPage() {
                     { name: "title", label: "Title" },
                     { name: "description", label: "Description", type: "textarea" },
                     { name: "video_url", label: "Video URL" },
-                    { name: "thumbnail_url", label: "Thumbnail URL" },
+                    { name: "thumbnail_url", label: "Thumbnail Image", kind: "image" },
+                    { name: "views_label", label: "Views Label" },
                     { name: "release_date", label: "Release Date", type: "date" },
                   ]}
                 />
@@ -330,7 +338,10 @@ export default function AdminPage() {
                       label: "Show Date/Time",
                       type: "datetime-local",
                     },
+                    { name: "ticket_price", label: "Ticket Price" },
                     { name: "ticket_url", label: "Ticket URL" },
+                    { name: "image_url", label: "Show Image", kind: "image" },
+                    { name: "notes", label: "Notes", type: "textarea" },
                   ]}
                 />
               )}
@@ -347,7 +358,7 @@ export default function AdminPage() {
                     { name: "price", label: "Price", type: "number", step: "0.01" },
                     { name: "currency", label: "Currency" },
                     { name: "stock", label: "Stock", type: "number", step: "1" },
-                    { name: "image_url", label: "Image URL" },
+                    { name: "image_url", label: "Product Image", kind: "image" },
                   ]}
                 />
               )}

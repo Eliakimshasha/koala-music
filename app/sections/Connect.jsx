@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useLayoutEffect, useRef } from "react";
-import Image from "next/image";
-import { OrbitingCircles } from "@/registry/magicui/orbiting-circles";
-import logo from "../../public/assets/images/green.png";
+import { Separator } from "@/components/ui/separator";
 
 import { AiOutlineTikTok, AiOutlineSpotify } from "react-icons/ai";
 import { FaXTwitter, FaYoutube } from "react-icons/fa6";
@@ -18,24 +16,30 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* -------------------- ORBIT ICON -------------------- */
-
-const OrbitIcon = ({ Icon, label, href, size }) => {
+const SocialCard = ({ Icon, label, href, index }) => {
   return (
     <a
       href={href || "#"}
       aria-label={label}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex h-full w-full items-center justify-center transition-transform duration-300 hover:scale-110"
+      className="group relative flex min-h-40 flex-col justify-between overflow-hidden p-5 text-left transition duration-300 hover:bg-white/[0.04] md:min-h-52 md:p-7"
     >
-      <Icon
-        size={size}
-        width={size}
-        height={size}
-        className="opacity-90 text-accent"
-        aria-hidden="true"
-      />
+      <span className="text-xs uppercase tracking-[0.35em] text-subtle">
+        {String(index + 1).padStart(2, "0")}
+      </span>
+      <div>
+        <Icon
+          size={34}
+          width={34}
+          height={34}
+          className="mb-6 text-accent transition duration-300 group-hover:scale-110"
+          aria-hidden="true"
+        />
+        <span className="font-display text-3xl text-white transition duration-300 group-hover:text-accent md:text-4xl">
+          {label}
+        </span>
+      </div>
     </a>
   );
 };
@@ -87,86 +91,67 @@ export default function Connect({ socialLinks = [] }) {
 
   /* -------------------- PREPARE ICONS -------------------- */
 
-  const orbitIcons = socialLinks
+  const connectItems = socialLinks
     .map((icon) => ({
       ...icon,
       Icon: resolveIcon(icon.label),
     }))
     .filter((icon) => icon.Icon);
 
-  const outerIcons = orbitIcons.slice(0, 6);
-  const innerIcons = [
-    orbitIcons[0],
-    orbitIcons[1],
+  const streamingItems = [
     { label: "Audiomack", href: "#", Icon: SiAudiomack },
     { label: "Tidal", href: "#", Icon: SiTidal },
-  ].filter(Boolean);
+  ];
+
+  const gridItems = [...connectItems, ...streamingItems].slice(0, 8);
 
   /* -------------------- JSX -------------------- */
 
   return (
     <section
       ref={sectionRef}
-      className="section-stack relative px-6 lg:pb-32 lg:pt-32"
+      className="section-stack relative px-6 py-24 lg:pb-32 lg:pt-32"
     >
-      <div className="mx-auto max-w-5xl text-center">
-        <h2 className="section-title font-display mb-4 text-5xl font-bold text-accent md:text-8xl">
-          Connect
-        </h2>
+      <div className="mx-auto max-w-5xl">
+        <div className="mb-12 flex flex-col gap-4 text-center md:mb-16">
+          <p className="text-xs uppercase tracking-[0.45em] text-subtle">
+            Stay in the loop
+          </p>
+          <h2 className="section-title font-display text-5xl font-bold text-accent md:text-8xl">
+            Connect
+          </h2>
+          <div className="splash-line mx-auto"></div>
+        </div>
 
-        <div className="splash-line mx-auto lg:mb-12"></div>
-
-        <div className="relative mx-auto flex h-90 w-full max-w-2xl items-center justify-center overflow-hidden">
-          {/* OUTER ORBIT */}
-          <OrbitingCircles
-            iconSize={36}
-            radius={130}
-            speed={1}
-            pathColor="var(--border-strong)"
-            pathOpacity={0.9}
-            className="border border-subtle bg-black/80 shadow-[0_0_16px_-12px_rgba(0,0,0,0.9)]"
-          >
-            {outerIcons.map((icon) => (
-              <OrbitIcon
-                key={`outer-${icon.label}`}
-                Icon={icon.Icon}
-                label={icon.label}
-                href={icon.href}
-                size={22}
+        <div className="relative overflow-hidden border border-white/15 bg-black/35 shadow-[0_28px_80px_rgba(0,0,0,0.35)] backdrop-blur-sm">
+          <div className="grid grid-cols-2 md:grid-cols-4">
+            {gridItems.map((item, index) => (
+              <SocialCard
+                key={item.label}
+                Icon={item.Icon}
+                label={item.label}
+                href={item.href}
+                index={index}
               />
             ))}
-          </OrbitingCircles>
+          </div>
 
-          {/* INNER ORBIT */}
-          <OrbitingCircles
-            iconSize={36}
-            radius={85}
-            reverse
-            speed={1}
-            pathColor="var(--border-strong)"
-            pathOpacity={0.9}
-            className="border border-subtle bg-black/80 shadow-[0_0_16px_-12px_rgba(0,0,0,0.9)]"
-          >
-            {innerIcons.map((icon) => (
-              <OrbitIcon
-                key={`inner-${icon.label}`}
-                Icon={icon.Icon}
-                label={icon.label}
-                href={icon.href}
-                size={18}
-              />
-            ))}
-          </OrbitingCircles>
-
-          {/* CENTER LOGO */}
-          <div className="relative z-10 flex h-20 w-20 items-center justify-center rounded-full border-2 border-strong bg-black shadow-[0_0_24px_-14px_rgba(0,0,0,0.9)]">
-            <Image
-              src={logo}
-              alt="Koala logo"
-              width={40}
-              height={40}
-              className="object-contain"
+          <div className="pointer-events-none absolute inset-0">
+            <Separator
+              orientation="vertical"
+              className="absolute left-1/2 top-0 h-full bg-white/15 md:left-1/4"
             />
+            <Separator
+              orientation="vertical"
+              className="absolute left-1/2 top-0 hidden h-full bg-white/15 md:block"
+            />
+            <Separator
+              orientation="vertical"
+              className="absolute left-3/4 top-0 hidden h-full bg-white/15 md:block"
+            />
+            <Separator className="absolute left-0 top-1/4 bg-white/15 md:hidden" />
+            <Separator className="absolute left-0 top-1/2 bg-white/15" />
+            <Separator className="absolute left-0 top-3/4 bg-white/15 md:hidden" />
           </div>
         </div>
       </div>

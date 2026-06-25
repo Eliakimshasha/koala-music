@@ -66,23 +66,18 @@ export default function Videos({
 
   const renderVideoMeta = (video) => {
     return (
-      <div className="flex items-start justify-between gap-6 border-t border-white/10 px-5 py-5">
+      <div className="flex items-end justify-between gap-5 px-2 pb-2 pt-5">
         <div>
-          <p className="text-[0.65rem] uppercase tracking-[0.4em] text-subtle/80">
+          <p className="text-[0.65rem] uppercase tracking-[0.38em] text-subtle/80">
             Video Release
           </p>
-          <h3 className="mt-2 font-display text-2xl font-semibold md:text-3xl">
+          <h3 className="mt-2 font-display text-2xl font-semibold text-white md:text-3xl">
             {video.title}
           </h3>
         </div>
-        <div className="text-right">
-          <p className="text-[0.65rem] uppercase tracking-[0.4em] text-subtle/80">
-            Streams
-          </p>
-          <p className="mt-2 text-sm font-semibold text-accent md:text-base">
-            {video.views}
-          </p>
-        </div>
+        <p className="shrink-0 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2 text-sm font-semibold text-accent">
+          {video.views}
+        </p>
       </div>
     );
   };
@@ -93,7 +88,7 @@ export default function Videos({
       ref={sectionRef}
       className="section-stack relative pb-32 pt-9 lg:pt-32  px-6"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         {centerTitle ? (
           <div className="flex flex-col items-center text-center gap-4 mb-12">
             <h2 className="section-title font-display text-5xl md:text-8xl font-bold text-accent">
@@ -127,32 +122,24 @@ export default function Videos({
           </div>
         )}
 
-        <div className="grid gap-8 lg:grid-cols-2 ">
+        <div className="grid gap-7 lg:grid-cols-2">
           {videos.map((video, i) => (
             <article
               key={`${video.title}-${i}`}
-              className="video-item group overflow-hidden border border-white/10 bg-[rgba(255,255,255,0.02)] backdrop-blur-sm"
+              className="video-item group overflow-hidden  border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] p-3 shadow-[0_22px_60px_rgba(0,0,0,0.34)] backdrop-blur-sm transition duration-300 "
             >
-              
-              <div className="relative aspect-[4/3] overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(175,211,161,0.18),_rgba(10,10,10,0.96)_68%)]">
+              <div className="relative lg:h-84 aspect-vide overflow-hidden  bg-black">
                 <Image
                   src={video.image}
                   alt={video.imageAlt || video.title}
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-contain p-4 transition duration-500 group-hover:scale-[1.02]"
+                  className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-black/10" />
+
                 <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5">
-                  <div>
-                    <p className="text-[0.65rem] uppercase tracking-[0.45em] text-white/60">
-                      Watch Now
-                    </p>
-                    <p className="mt-2 max-w-xs font-display text-2xl text-white md:text-3xl">
-                      {video.title}
-                    </p>
-                  </div>
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md transition group-hover:scale-110 group-hover:bg-white/20">
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/15 text-white shadow-[0_18px_40px_rgba(0,0,0,0.25)] backdrop-blur-md transition group-hover:scale-110 group-hover:bg-accent group-hover:text-black">
                     <svg
                       className="ml-1 h-6 w-6"
                       fill="currentColor"

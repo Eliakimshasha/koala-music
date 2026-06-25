@@ -44,7 +44,11 @@ export default function MusicPage() {
       <header className="fixed top-0 left-0 right-0 z-50">
         <nav className="bg-nav backdrop-blur-md border-subtle transition-all duration-300">
           <div className="max-w-7xl mx-auto px-6 pt-4 flex justify-between items-center">
-            <Link href="/" className="flex items-center" aria-label="Go to home">
+            <Link
+              href="/"
+              className="flex items-center"
+              aria-label="Go to home"
+            >
               <Image
                 src="/assets/images/green.png"
                 alt="Koala logo"
@@ -86,7 +90,9 @@ export default function MusicPage() {
         <div
           id="mobile-nav"
           className={`md:hidden fixed inset-0 z-50 transition-all duration-300 ${
-            menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+            menuOpen
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
           }`}
           role="dialog"
           aria-modal="true"
@@ -189,7 +195,7 @@ export default function MusicPage() {
       </header>
 
       <main className="pt-28 pb-24 px-6 md:px-24">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <h1 className="text-center font-display text-6xl md:text-8xl font-bold mb-6 text-gradient">
             Music
           </h1>
@@ -230,7 +236,9 @@ export default function MusicPage() {
                         imageFirst ? "lg:pl-12" : "",
                       ].join(" ")}
                     >
-                      <div className="text-muted text-sm mb-3">Koala Muziki</div>
+                      <div className="text-muted text-sm mb-3">
+                        Koala Muziki
+                      </div>
                       <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
                         {track.title}
                       </h2>
