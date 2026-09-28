@@ -55,7 +55,8 @@ function RotateCard() {
       mm.add(
         {
           isMobile: "(max-width: 768px)",
-          isDesktop: "(min-width: 769px)",
+          // Up to 1023px only; desktop (>=1024px) shows ZoomGallery instead
+          isDesktop: "(min-width: 769px) and (max-width: 1023px)",
         },
         (context) => {
           let { isMobile, isDesktop } = context.conditions;
@@ -225,7 +226,7 @@ function RotateCard() {
   return (
     <section
       ref={sectionRef}
-      className="h-[60vh] flex items-center justify-center relative perspective-distant"
+      className="h-[60vh] flex lg:hidden items-center justify-center relative perspective-distant"
     >
       <div
         className="relative w-125 h-75 "

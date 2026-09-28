@@ -16,7 +16,7 @@ export default function Navbar({ navLinks, menuOpen, setMenuOpen, glassBg, hidde
           : ""
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 pt-4 flex justify-between md:justify-center items-center">
+      <div className="max-w-7xl mx-auto  px-6 pt-4 pb-3 flex justify-between md:justify-center items-center">
         {/* Logo is mobile-only; desktop shows just the centred glass menu */}
         <Link href="/" className="flex items-center md:hidden" aria-label="Go to home">
           <Image
@@ -28,7 +28,7 @@ export default function Navbar({ navLinks, menuOpen, setMenuOpen, glassBg, hidde
             priority
           />
         </Link>
-        <div className="hidden md:flex items-center gap-8 text-sm tracking-wider px-8 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+        <div className="hidden md:flex items-center gap-8 text-sm tracking-wider px-8 py-6 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
           {navLinks.map((link) => (
             <Link
               key={link.href}

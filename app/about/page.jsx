@@ -10,10 +10,52 @@ import Chrome from "../components/Chrome";
 import About from "../sections/About";
 import { navLinks, socialLinks } from "../data/siteData";
 import RotateCard from "../sections/RotateCard";
+import ZoomGallery from "../sections/ZoomGallery";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const LISTEN_NOW_HREF = "https://oneprm.link/245155137539";
+
+function FooterContent() {
+  return (
+    <div className="flex flex-col items-center text-center gap-6">
+      <Link href="/" aria-label="Go to home">
+        <Image
+          src="/assets/images/green2.png"
+          alt="Koala logo"
+          width={220}
+          height={64}
+          className="h-12 w-auto object-contain"
+        />
+      </Link>
+
+      <div className="text-muted text-xs md:text-sm tracking-wide">
+        <span>© 2026 KOALA MUZIKI</span>
+        <span className="mx-2">|</span>
+        <Link href="/about" className="hover-text-accent transition-colors">
+          About
+        </Link>
+        <span className="mx-2">|</span>
+        <Link href="/contact" className="hover-text-accent transition-colors">
+          Contact
+        </Link>
+        <span className="mx-2">|</span>
+        <Link href="/store" className="hover-text-accent transition-colors">
+          Store
+        </Link>
+        <span className="mx-2">|</span>
+        <Link
+          href={LISTEN_NOW_HREF}
+          target="_blank"
+          rel="noreferrer"
+          className="hover-text-accent transition-colors"
+        >
+          Listen Now
+        </Link>
+      </div>
+    </div>
+  );
+}
 
 export default function AboutPage() {
   const pinRef = useRef(null);
@@ -39,7 +81,7 @@ export default function AboutPage() {
   
   return (
     <Chrome navLinks={navLinks}>
-      <div className="bg-base section-alt text-base-color overflow-hidden">
+      <div className="bg-base section-alt lg:bg-black text-base-color overflow-hidden">
         <div className="noise"></div>
         <div className="lg:pt-24">
           <div ref={pinRef} className="relative z-0">
@@ -104,55 +146,13 @@ export default function AboutPage() {
             </div>
           </div>
          <RotateCard/>
+          <ZoomGallery footer={<FooterContent />} />
         </div>
 
-        <footer className="footer-distinct px-6 md:px-24 pb-10 mt-[144px] lg:mt-[186px]">
-          <div className="max-w-7xl mx-auto border-t border-gray-100/10 pt-5 lg:pt-10">
-            <div className="flex flex-col items-center text-center gap-6">
-              <Link href="/" aria-label="Go to home">
-                <Image
-                  src="/assets/images/green2.png"
-                  alt="Koala logo"
-                  width={220}
-                  height={64}
-                  className="h-12 w-auto object-contain"
-                />
-              </Link>
-
-              <div className="text-muted text-xs md:text-sm tracking-wide">
-                <span>© 2026 KOALA MUZIKI</span>
-                <span className="mx-2">|</span>
-                <Link
-                  href="/about"
-                  className="hover-text-accent transition-colors"
-                >
-                  About
-                </Link>
-                <span className="mx-2">|</span>
-                <Link
-                  href="/contact"
-                  className="hover-text-accent transition-colors"
-                >
-                  Contact
-                </Link>
-                <span className="mx-2">|</span>
-                <Link
-                  href="/store"
-                  className="hover-text-accent transition-colors"
-                >
-                  Store
-                </Link>
-                <span className="mx-2">|</span>
-                <Link
-                  href={LISTEN_NOW_HREF}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover-text-accent transition-colors"
-                >
-                  Listen Now
-                </Link>
-              </div>
-            </div>
+        {/* Mobile footer; on desktop the same content sits inside ZoomGallery */}
+        <footer className="footer-distinct lg:hidden px-6 md:px-24 pb-10 mt-[144px]">
+          <div className="max-w-7xl mx-auto border-t border-gray-100/10 pt-5">
+            <FooterContent />
           </div>
         </footer>
       </div>
