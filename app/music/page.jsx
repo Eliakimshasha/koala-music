@@ -7,7 +7,7 @@ import { HiOutlineBars2 } from "react-icons/hi2";
 import { IoIosArrowRoundForward } from "react-icons/io";
 
 import MusicStreamingDialog from "@/components/MusicStreamingDialog";
-import { musicReleases, navLinks } from "../data/siteData";
+import { musicReleases, visibleNavLinks as navLinks } from "../data/siteData";
 
 const LISTEN_NOW_HREF = "https://onerpm.link/245155137539";
 

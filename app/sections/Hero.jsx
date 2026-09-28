@@ -5,7 +5,7 @@ import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import face from "../../public/assets/images/face1.png";
-import face4 from "../../public/assets/images/face4-cut.png";
+import faceBw from "../../public/assets/images/face1-bw.png";
 import TunnelGallery from "../components/TunnelGallery";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -219,7 +219,7 @@ export default function Hero() {
       <div className="hero-desktop-center hidden lg:flex">
         <div className="hero-desktop-face">
           <Image
-            src={face4}
+            src={faceBw}
             alt="Koala portrait"
             fill
             priority

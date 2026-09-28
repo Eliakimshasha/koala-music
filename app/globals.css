@@ -690,13 +690,12 @@ text-align: start;
   text-align: center;
 }
 
-/* Portrait (face4-cut.png, 257x332): old black-and-white look,
+/* Portrait (face1-bw.png, 675x868): black-and-white is baked into the file;
    the flat bottom cut fades out so it floats. */
 .hero-desktop-face {
   position: relative;
   height: min(46vh, 30vw);
-  aspect-ratio: 257 / 332;
-  filter: grayscale(1) sepia(0.2) contrast(1.05) brightness(1.45);
+  aspect-ratio: 675 / 868;
   -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
 }

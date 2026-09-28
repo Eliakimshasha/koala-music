@@ -18,11 +18,14 @@ export const navLinks = [
   { label: "MUSIC", href: "/music" },
   { label: "VIDEOS", href: "/videos" },
   { label: "SHOWS", href: "/live-shows" },
-  { label: "LIFESTYLE", href: "/lifestyle" },
+  // hidden: kept (page still exists) but not shown in the header menus
+  { label: "LIFESTYLE", href: "/lifestyle", hidden: true },
   { label: "MORE THAN MUSIC", href: "/more-than-music" },
   { label: "STORE", href: "/store" },
   { label: "ABOUT", href: "/about" },
 ];
+
+export const visibleNavLinks = navLinks.filter((link) => !link.hidden);
 
 export const albums = [
   { title: "Feelings Collection", year: "2024", image: album1, tracks: 12 },

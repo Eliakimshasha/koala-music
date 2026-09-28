@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import MobileNav from "./MobileNav";
 
-export default function Chrome({ navLinks, children }) {
+export default function Chrome({ navLinks: allNavLinks, children }) {
+  const navLinks = allNavLinks.filter((link) => !link.hidden);
   const [menuOpen, setMenuOpen] = useState(false);
   const [glassBg, setGlassBg] = useState(false);
   const [navHidden, setNavHidden] = useState(false);
