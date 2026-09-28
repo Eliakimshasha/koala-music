@@ -4,16 +4,21 @@ import Link from "next/link";
 import { HiOutlineBars2 } from "react-icons/hi2";
 import logoGreen from "../../public/assets/images/green.png";
 
-export default function Navbar({ navLinks, menuOpen, setMenuOpen, glassBg }) {
+export default function Navbar({ navLinks, menuOpen, setMenuOpen, glassBg, hidden = false }) {
 
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        glassBg ? "bg-nav backdrop-blur-md  border-subtle" : ""
+        hidden ? "-translate-y-full" : "translate-y-0"
+      } ${
+        glassBg
+          ? "bg-nav backdrop-blur-md border-subtle md:bg-transparent md:backdrop-blur-none"
+          : ""
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 pt-4 flex justify-between items-center">
-        <Link href="/" className="flex items-center" aria-label="Go to home">
+      <div className="max-w-7xl mx-auto px-6 pt-4 flex justify-between md:justify-center items-center">
+        {/* Logo is mobile-only; desktop shows just the centred glass menu */}
+        <Link href="/" className="flex items-center md:hidden" aria-label="Go to home">
           <Image
             src={logoGreen}
             alt="Koala logo"
@@ -23,7 +28,7 @@ export default function Navbar({ navLinks, menuOpen, setMenuOpen, glassBg }) {
             priority
           />
         </Link>
-        <div className="hidden md:flex items-center gap-8 text-sm tracking-wider">
+        <div className="hidden md:flex items-center gap-8 text-sm tracking-wider px-8 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
           {navLinks.map((link) => (
             <Link
               key={link.href}

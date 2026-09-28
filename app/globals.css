@@ -541,6 +541,16 @@ text-align: start;
   display: none;
 }
 
+/* Scrollbars hidden site-wide; scrolling still works */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
 .section-stack {
   position: relative;
   z-index: 20;
@@ -656,6 +666,39 @@ text-align: start;
   transform: scale(1.02);
   filter: grayscale(1) contrast(1.05);
   position: absolute;
+}
+
+/* Desktop hero centre column: portrait with the title underneath */
+.hero-desktop-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 30;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(-50%, -44%);
+  pointer-events: none;
+}
+
+.hero-desktop-copy {
+  position: relative;
+  margin-top: -3.5vh; /* tuck the title into the faded bottom of the portrait */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  text-align: center;
+}
+
+/* Portrait (face4-cut.png, 257x332): old black-and-white look,
+   the flat bottom cut fades out so it floats. */
+.hero-desktop-face {
+  position: relative;
+  height: min(46vh, 30vw);
+  aspect-ratio: 257 / 332;
+  filter: grayscale(1) sepia(0.2) contrast(1.05) brightness(1.45);
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
 }
 
 .hero-image-glow {

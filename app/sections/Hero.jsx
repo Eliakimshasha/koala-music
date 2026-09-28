@@ -5,9 +5,28 @@ import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import face from "../../public/assets/images/face1.png";
-import hero from "../../public/assets/images/hero.png";
+import face4 from "../../public/assets/images/face4-cut.png";
+import TunnelGallery from "../components/TunnelGallery";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Web-sized copies (700x1050) in /tunnel; the originals are 15–20MB and fail to optimize.
+const tunnelPhotos = [
+  "man1",
+  "koala9",
+  "man2",
+  "safe-space",
+  "man3",
+  "on-and-off",
+  "man4",
+  "alb1",
+  "man5",
+  "alb3",
+  "man6",
+  "man7",
+  "man8",
+  "man9",
+].map((name) => `/assets/images/tunnel/${name}.jpg`);
 
 export default function Hero() {
   const sectionRef = useRef(null);
@@ -21,6 +40,7 @@ export default function Hero() {
 
       heroIntro
         .from(".hero-bg", { scale: 1.08, opacity: 0, duration: 1.4 })
+        .from(".hero-tunnel", { scale: 1.08, autoAlpha: 0, duration: 2.2, ease: "expo.out" }, 0)
         .from(".hero-orb", { scale: 0.7, opacity: 0, stagger: 0.15 }, "-=1.1")
         .from(".hero-title", { y: 60, opacity: 0 }, "-=0.8")
         .from(".hero-actions", { y: 20, opacity: 0 }, "-=0.6");
@@ -133,18 +153,28 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="hero-section relative h-screen flex items-center justify-center overflow-hidden z-10"
+      className="hero-section relative h-screen flex items-center justify-center overflow-hidden z-10 lg:bg-black"
     >
-      <div className="hero-bg absolute inset-0 opacity-50"></div>
-      <div className="hero-spotlight absolute inset-0"></div>
-      <div className="hero-pattern absolute inset-0"></div>
+      {/* Gradient, spotlight and orbs are mobile-only; desktop is plain black */}
+      <div className="hero-bg absolute inset-0 opacity-50 lg:hidden"></div>
+      <div className="hero-spotlight absolute inset-0 lg:hidden"></div>
+
+      {/* Desktop only: photo corridor on the sides, centre left clear for the portrait */}
+      <div className="hero-tunnel hidden lg:block absolute inset-0">
+        <TunnelGallery
+          photos={tunnelPhotos}
+          clearCenter={0.14}
+          scale={1.3}
+          className="h-full w-full"
+        />
+      </div>
 
       <div
-        className="hero-orb parallax-slow absolute top-16 left-10 w-72 h-72 rounded-full blur-3xl opacity-20"
+        className="hero-orb parallax-slow absolute top-16 left-10 w-72 h-72 rounded-full blur-3xl opacity-20 lg:hidden"
         data-speed="0.3"
       ></div>
       <div
-        className="hero-orb hero-orb-secondary parallax-slow absolute bottom-16 right-12 w-64 h-64 rounded-full blur-3xl opacity-10"
+        className="hero-orb hero-orb-secondary parallax-slow absolute bottom-16 right-12 w-64 h-64 rounded-full blur-3xl opacity-10 lg:hidden"
         data-speed="0.5"
       ></div>
 
@@ -183,18 +213,30 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* Desktop hero (image only) */}
-        <div className="hidden  mt-16 lg:flex items-center justify-center">
-          <div className="hero-image-frame  h-[80vh] w-225">
-            <Image
-              src={hero}
-              alt="Koala portrait"
-              fill
-              priority
-              className="hero-portrait w-full"
-            />
-            {/* <div className="hero-image-glow"></div> */}
-          </div>
+      </div>
+
+      {/* Desktop hero: vintage black-and-white portrait + title, centred between the photo walls */}
+      <div className="hero-desktop-center hidden lg:flex">
+        <div className="hero-desktop-face">
+          <Image
+            src={face4}
+            alt="Koala portrait"
+            fill
+            priority
+            sizes="(min-width: 1024px) 30vw, 1px"
+            className="object-contain"
+          />
+        </div>
+        <div className="hero-desktop-copy">
+          <p className="text-xs tracking-[0.45em] uppercase text-accent">
+            More than music
+          </p>
+          <h2 className="font-display uppercase leading-none text-[clamp(3rem,5.2vw,5.5rem)] tracking-[0.04em]">
+            Koala Muziki
+          </h2>
+          <p className="text-sm tracking-[0.2em] uppercase text-muted">
+            Pure feeling · Music · Videos · Live
+          </p>
         </div>
       </div>
     </section>

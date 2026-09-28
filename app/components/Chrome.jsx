@@ -7,6 +7,33 @@ import MobileNav from "./MobileNav";
 export default function Chrome({ navLinks, children }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [glassBg, setGlassBg] = useState(false);
+  const [navHidden, setNavHidden] = useState(false);
+
+  // Hide the header while scrolling down, reveal it as soon as the user scrolls up.
+  useEffect(() => {
+    let lastY = window.scrollY;
+    let ticking = false;
+
+    const update = () => {
+      const y = window.scrollY;
+      const delta = y - lastY;
+      if (y < 80) setNavHidden(false);
+      else if (delta > 6) setNavHidden(true);
+      else if (delta < -6) setNavHidden(false);
+      if (Math.abs(delta) > 6 || y < 80) lastY = y;
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -64,6 +91,7 @@ export default function Chrome({ navLinks, children }) {
         menuOpen={menuOpen}
         setMenuOpen={setMenuOpen}
         glassBg={glassBg}
+        hidden={navHidden && !menuOpen}
       />
       <MobileNav
         navLinks={navLinks}
