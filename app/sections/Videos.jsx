@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Videos({
   videos = [],
   showMoreLink = false,
+  homePreview = false,
   centerTitle = false,
   intro,
 }) {
@@ -65,6 +66,35 @@ export default function Videos({
   }, []);
 
   const renderVideoMeta = (video) => {
+    if (homePreview) {
+      return (
+        <div className="flex items-center justify-between gap-4 px-2 py-2">
+          <div className="min-w-0">
+            <p className="text-[0.65rem] uppercase tracking-[0.38em] text-subtle/80">
+              Video Release
+            </p>
+            <h3 className="mt-2 truncate font-display text-2xl font-semibold text-white md:text-3xl">
+              {video.title}
+            </h3>
+          </div>
+          <div className="relative h-16 w-24 shrink-0 overflow-hidden rounded-sm bg-black sm:h-20 sm:w-32">
+            <Image
+              src={video.image}
+              alt={video.imageAlt || video.title}
+              fill
+              sizes="128px"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+              <svg className="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="flex items-end justify-between gap-5 px-2 pb-2 pt-5">
         <div>
@@ -128,28 +158,31 @@ export default function Videos({
               key={`${video.title}-${i}`}
               className="video-item group overflow-hidden  border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] p-3 shadow-[0_22px_60px_rgba(0,0,0,0.34)] backdrop-blur-sm transition duration-300 "
             >
-              <div className="relative lg:h-84 aspect-vide overflow-hidden  bg-black">
-                <Image
-                  src={video.image}
-                  alt={video.imageAlt || video.title}
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-black/10" />
+              {!homePreview ? (
+                <div className="relative aspect-video overflow-hidden bg-black lg:h-84">
+                  <Image
+                    src={video.image}
+                    alt={video.imageAlt || video.title}
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-black/10" />
 
-                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5">
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/15 text-white shadow-[0_18px_40px_rgba(0,0,0,0.25)] backdrop-blur-md transition group-hover:scale-110 group-hover:bg-accent group-hover:text-black">
-                    <svg
-                      className="ml-1 h-6 w-6"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
+                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5">
+                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/15 text-white shadow-[0_18px_40px_rgba(0,0,0,0.25)] backdrop-blur-md transition group-hover:scale-110 group-hover:bg-accent group-hover:text-black">
+                      <svg
+                        className="ml-1 h-6 w-6"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : null}
               {renderVideoMeta(video)}
             </article>
           ))}
