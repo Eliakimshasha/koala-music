@@ -325,6 +325,16 @@ text-align: start;
   border-radius: 999px;
   color: var(--accent);
   font-size: 1rem;
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.music-icon:hover,
+.music-icon:focus-visible {
+  background-color: #f3f4ed;
+  border-color: #f3f4ed;
+  color: #10120e;
+  transform: scale(1.08);
+  box-shadow: 0 0 0 4px rgb(243 244 237 / 14%);
 }
 
 .music-title {

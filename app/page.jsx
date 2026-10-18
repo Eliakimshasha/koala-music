@@ -9,8 +9,6 @@ import About from "./sections/About";
 import Albums from "./sections/Albums";
 import Music from "./sections/Music";
 import Videos from "./sections/Videos";
-import Store from "./sections/Store";
-import ComingSoon from "./sections/ComingSoon";
 import Connect from "./sections/Connect";
 import Footer from "./sections/Footer";
 import {
@@ -18,9 +16,7 @@ import {
   albums,
   tracks,
   videos,
-  products,
   socialLinks,
-  comingSoon,
 } from "./data/siteData";
 
 export default function KoalaWebsite() {
@@ -54,13 +50,7 @@ export default function KoalaWebsite() {
             <Videos videos={videos.slice(0, 4)} showMoreLink homePreview />
             {/* <LiveShows shows={liveShows} /> */}
             {/* <Lifestyle posts={lifestylePosts.slice(0, 3)} /> */}
-            <Store
-              products={products.slice(0, 3)}
-              enableMobileSlider
-              showMoreLink
-            />
            </div>
-            <ComingSoon data={comingSoon} />
             <Connect socialLinks={socialLinks} />
             <Footer />
           </div>

@@ -41,7 +41,7 @@ export default function Albums({ albums, scrollRef, onPrev, onNext }) {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between gap-6 mb-12 md:mb-16">
           <h2 className="section-title font-display text-6xl md:text-8xl font-bold text-accent">
-            Albums
+            Latest Releases
           </h2>
           <div className="flex items-center gap-3">
             <button
@@ -67,9 +67,13 @@ export default function Albums({ albums, scrollRef, onPrev, onNext }) {
           className="flex gap-8 overflow-x-auto pb-6 scrollbar-hide snap-x snap-mandatory"
         >
           {albums.map((album, i) => (
-            <div
+            <a
+              href={album.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Listen to ${album.title}`}
               key={i}
-              className="album-card card-hover cursor-pointer min-w-[240px] sm:min-w-[280px] md:min-w-[320px] snap-start"
+              className="album-card card-hover group min-w-[240px] sm:min-w-[280px] md:min-w-[320px] snap-start"
             >
               <div className="relative aspect-square rounded-lg mb-4 overflow-hidden">
                 <Image
@@ -80,17 +84,15 @@ export default function Albums({ albums, scrollRef, onPrev, onNext }) {
                   className="object-cover"
                 />
                 <div className="absolute inset-0 overlay-soft"></div>
-                <div className="absolute bottom-4 left-4 text-2xl font-display text-contrast">
-                  {album.year}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/40 group-hover:opacity-100">
+                  <span className="rounded-full border border-white/30 px-5 py-3 text-xs uppercase tracking-[0.3em] text-white">Listen now</span>
                 </div>
               </div>
               <h3 className="text-2xl font-display font-bold mb-2">
                 {album.title}
               </h3>
-              <p className="text-muted">
-                {album.tracks} tracks - {album.year}
-              </p>
-            </div>
+              <p className="text-muted">Now streaming</p>
+            </a>
           ))}
         </div>
       </div>

@@ -90,9 +90,11 @@ export default function LiveShows({ shows = [] }) {
               </div>
               <div className="flex items-center justify-between gap-6">
                 <div>
-                  <p className="text-[0.65rem] uppercase tracking-[0.4em] text-subtle">
-                    {show.date}
-                  </p>
+                  {show.date ? (
+                    <p className="text-[0.65rem] uppercase tracking-[0.4em] text-subtle">
+                      {show.date}
+                    </p>
+                  ) : null}
                   <h3 className="mt-2 text-2xl font-display font-semibold">
                     {show.title}
                   </h3>
@@ -102,16 +104,15 @@ export default function LiveShows({ shows = [] }) {
                 </div>
                 <div className="text-right">
                   <p className="text-[0.6rem] uppercase tracking-[0.35em] text-subtle">
-                    Price
-                  </p>
-                  <p className="mt-2 text-xl max-[900px]:text-sm font-semibold text-accent">
-                    {show.price}
+                    Live performance
                   </p>
                   <Link
-                    href="/live-shows"
+                    href={show.href || "/live-shows"}
+                    target={show.href ? "_blank" : undefined}
+                    rel={show.href ? "noopener noreferrer" : undefined}
                     className="mt-3 inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-subtle hover-text-accent transition"
                   >
-                    Tickets
+                    Watch
                     <IoIosArrowRoundForward className="h-4 w-4" />
                   </Link>
                 </div>

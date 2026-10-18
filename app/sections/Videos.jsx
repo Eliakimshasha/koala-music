@@ -79,18 +79,21 @@ export default function Videos({
               </h3>
             </div>
             <span className="mt-6 inline-flex items-center gap-2 text-[0.65rem] uppercase tracking-[0.32em] text-white/50 transition-colors duration-300 group-hover:text-accent">
-              Watch
-              <IoIosArrowRoundForward className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+              {video.href ? "Watch" : "Link coming soon"}
+              {video.href ? <IoIosArrowRoundForward className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" /> : null}
             </span>
           </div>
-          <div className="relative aspect-4/3 w-36 shrink-0 self-center overflow-hidden bg-black ring-1 ring-white/10 sm:w-48">
-            <Image
+          <div
+            className="relative w-36 shrink-0 self-center overflow-hidden bg-black ring-1 ring-white/10 sm:w-48"
+            style={{ aspectRatio: video.aspectRatio || "1 / 1" }}
+          >
+            {video.image ? <Image
               src={video.image}
               alt={video.imageAlt || video.title}
               fill
               sizes="192px"
-              className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-            />
+              className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+            /> : <div className="flex h-full items-center justify-center bg-[radial-gradient(circle_at_center,rgba(211,234,153,0.18),transparent_60%),#111] text-center text-[0.55rem] uppercase tracking-[0.2em] text-white/50">Artwork soon</div>}
             <div className="absolute inset-0 bg-black/25 transition-colors duration-300 group-hover:bg-black/10" />
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-black/40 text-white backdrop-blur-sm transition duration-300 group-hover:scale-110 group-hover:border-transparent group-hover:bg-accent group-hover:text-black">
@@ -114,9 +117,15 @@ export default function Videos({
             {video.title}
           </h3>
         </div>
-        <p className="shrink-0 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2 text-sm font-semibold text-accent">
-          {video.views}
-        </p>
+        {video.views ? (
+          <p className="shrink-0 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2 text-sm font-semibold text-accent">
+            {video.views}
+          </p>
+        ) : video.href ? (
+          <span className="shrink-0 text-xs uppercase tracking-[0.3em] text-accent">Watch</span>
+        ) : (
+          <span className="shrink-0 text-xs uppercase tracking-[0.3em] text-white/45">Link coming soon</span>
+        )}
       </div>
     );
   };
@@ -162,8 +171,13 @@ export default function Videos({
         )}
 
         <div className="grid gap-7 lg:grid-cols-2">
-          {videos.map((video, i) => (
-            <article
+          {videos.map((video, i) => {
+            const VideoTag = video.href ? "a" : "article";
+            return <VideoTag
+              href={video.href || undefined}
+              target={video.href ? "_blank" : undefined}
+              rel={video.href ? "noopener noreferrer" : undefined}
+              aria-label={video.href ? `Watch ${video.title} on YouTube` : undefined}
               key={`${video.title}-${i}`}
               className={
                 homePreview
@@ -172,18 +186,20 @@ export default function Videos({
               }
             >
               {!homePreview ? (
-                <div className="relative aspect-video overflow-hidden bg-black lg:h-84">
-                  <Image
+                <div
+                  className="relative w-full overflow-hidden bg-[#10120e]"
+                  style={{ aspectRatio: video.aspectRatio || "1 / 1" }}
+                >
+                  {video.image ? <Image
                     src={video.image}
                     alt={video.imageAlt || video.title}
                     fill
                     sizes="(min-width: 1024px) 50vw, 100vw"
                     className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-black/10" />
+                  /> : <div className="flex h-full items-center justify-center bg-[radial-gradient(circle_at_center,rgba(211,234,153,0.18),transparent_60%),#111] p-8 text-center font-display text-2xl text-white/70">Artwork coming soon</div>}
 
-                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5">
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/15 text-white shadow-[0_18px_40px_rgba(0,0,0,0.25)] backdrop-blur-md transition group-hover:scale-110 group-hover:bg-accent group-hover:text-black">
+                  {video.href ? <div className="absolute inset-0 flex items-end justify-end p-4">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-black/45 text-white shadow-[0_18px_40px_rgba(0,0,0,0.25)] backdrop-blur-sm transition group-hover:scale-110 group-hover:border-transparent group-hover:bg-accent group-hover:text-black">
                       <svg
                         className="ml-1 h-6 w-6"
                         fill="currentColor"
@@ -193,12 +209,12 @@ export default function Videos({
                         <path d="M8 5v14l11-7z" />
                       </svg>
                     </div>
-                  </div>
+                  </div> : null}
                 </div>
               ) : null}
               {renderVideoMeta(video)}
-            </article>
-          ))}
+            </VideoTag>;
+          })}
         </div>
       </div>
     </section>

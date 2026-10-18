@@ -6,7 +6,6 @@ import Link from "next/link";
 import { HiOutlineBars2 } from "react-icons/hi2";
 import { IoIosArrowRoundForward } from "react-icons/io";
 
-import MusicStreamingDialog from "@/components/MusicStreamingDialog";
 import { musicReleases, visibleNavLinks as navLinks } from "../data/siteData";
 
 const LISTEN_NOW_HREF = "https://onerpm.link/245155137539";
@@ -244,12 +243,14 @@ export default function MusicPage() {
                       </h2>
 
                       <div className="flex flex-wrap items-center gap-4">
-                        <MusicStreamingDialog
-                          title={track.title}
-                          imageSrc={track.imageSrc}
-                          imageAlt={track.imageAlt}
-                          triggerClassName="px-6 py-3 bg-accent text-accent-contrast font-semibold hover:scale-105 transition-transform"
-                        />
+                        <Link
+                          href={track.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-6 py-3 bg-accent text-accent-contrast font-semibold hover:scale-105 transition-transform"
+                        >
+                          Listen now
+                        </Link>
                         <div className="text-muted text-sm">
                           Available on all platforms
                         </div>

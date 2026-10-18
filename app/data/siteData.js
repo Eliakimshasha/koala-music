@@ -1,7 +1,3 @@
-import album1 from "../../public/assets/images/alb1.jpeg";
-import album2 from "../../public/assets/images/alb2.jpeg";
-import album3 from "../../public/assets/images/alb3.jpeg";
-import album4 from "../../public/assets/images/alb4.jpeg";
 import product1 from "../../public/assets/images/prod1.jpg";
 import product2 from "../../public/assets/images/prod2.jpg";
 import product3 from "../../public/assets/images/prod3.jpg";
@@ -21,76 +17,53 @@ export const navLinks = [
   // hidden: kept (page still exists) but not shown in the header menus
   { label: "LIFESTYLE", href: "/lifestyle", hidden: true },
   { label: "MORE THAN MUSIC", href: "/more-than-music" },
-  { label: "STORE", href: "/store" },
+  { label: "MERCHANDISE", href: "/store" },
   { label: "ABOUT", href: "/about" },
 ];
 
 export const visibleNavLinks = navLinks.filter((link) => !link.hidden);
 
 export const albums = [
-  { title: "Feelings Collection", year: "2024", image: album1, tracks: 12 },
-  { title: "Deep Vibes", year: "2023", image: album2, tracks: 10 },
-  { title: "Life Sessions", year: "2023", image: album3, tracks: 8 },
-  { title: "Kitu Wrong EP", year: "2022", image: album4, tracks: 6 },
+  { title: "On & Off EP", image: "/assets/images/main-on-and-off.jpeg", href: "https://onerpm.link/245155137539" },
+  { title: "Safe Space", image: "/assets/images/safe-space.jpg", href: "https://onerpm.link/219151261349" },
+  { title: "Eulo", image: "/assets/images/WhatsApp Image 2026-10-18 at 9.18.12 PM.jpeg", href: "https://onerpm.link/200067207020" },
 ];
 
 export const musicReleases = [
   {
-    title: "On and Off",
-    duration: "3:52",
-    plays: "980K",
-    views: "980K",
+    title: "On & Off EP",
     imageSrc: "/assets/images/main-on-and-off.jpeg",
     imageAlt: "On and Off cover art",
-  },
-  {
-    title: "Kitu Wrong",
-    duration: "3:45",
-    plays: "1.2M",
-    views: "1.2M",
-    imageSrc: "/assets/images/alb1.jpeg",
-    imageAlt: "Kitu Wrong cover art",
+    href: "https://onerpm.link/245155137539",
   },
   {
     title: "Safe Space",
-    duration: "3:40",
-    plays: "1.1M",
-    views: "1.1M",
     imageSrc: "/assets/images/safe-space.jpg",
     imageAlt: "Safe Space cover art",
+    href: "https://onerpm.link/219151261349",
   },
   {
-    title: "Bottles of Beer",
-    duration: "4:01",
-    plays: "840K",
-    views: "840K",
-    imageSrc: "/assets/images/alb2.jpeg",
-    imageAlt: "Bottles of Beer cover art",
-  },
-  {
-    title: "Am Alive",
-    duration: "3:36",
-    plays: "760K",
-    views: "760K",
-    imageSrc: "/assets/images/koala9.jpeg",
-    imageAlt: "Am Alive cover art",
+    title: "Eulo",
+    imageSrc: "/assets/images/WhatsApp Image 2026-10-18 at 9.18.12 PM.jpeg",
+    imageAlt: "Eulo cover art",
+    href: "https://onerpm.link/200067207020",
   },
 ];
 
-export const tracks = musicReleases.map(({ title, duration, plays }) => ({
+export const tracks = musicReleases.map(({ title, href }) => ({
   title,
-  duration,
-  plays,
+  href,
+  duration: "",
 }));
 
-export const videos = musicReleases.map(
-  ({ title, views, imageSrc, imageAlt }) => ({
-    title,
-    views,
-    image: imageSrc,
-    imageAlt,
-  })
-);
+export const videos = [
+  { title: "Safe Space (Acoustic Version)", image: "/assets/images/WhatsApp Image 2026-10-18 at 9.26.04 PM.jpeg", aspectRatio: "1254 / 1254", href: "https://youtu.be/OVleZjX9Ukw?si=Nd4u_khJM9RpVlso" },
+  { title: "Eulo (Acoustic Version)", image: "/assets/images/WhatsApp Image 2026-10-18 at 9.27.08 PM.jpeg", aspectRatio: "1280 / 1280", href: "https://youtu.be/JmYQ0KhfF_8?si=NC5wk72GsbFXarkP" },
+  { title: "Bottles of Beer (Acoustic Version)", image: null, aspectRatio: "1 / 1", href: null },
+  { title: "Kitu Wrong (Acoustic Remix)", image: "/assets/images/alb4.jpeg", aspectRatio: "938 / 1194", href: "https://youtu.be/wmMga1XVVvA?si=8znkcBRGT7qgS5Xg" },
+  { title: "Eulo (Lyric Video)", image: "/assets/images/WhatsApp Image 2026-10-18 at 9.30.05 PM.jpeg", aspectRatio: "1020 / 1039", href: "https://youtu.be/FdKhdyFaQOk?si=Z99z0eQp4othbFgH" },
+  { title: "Safe Space (Lyric Video)", image: "/assets/images/safe-space.jpg", aspectRatio: "1118 / 1157", href: "https://youtu.be/ngEBdPhpDCc?si=lxVOW8FSCSQqHV1a" },
+];
 
 export const products = [
   { name: "Feelings T-Shirt", price: "35,000 TZS", image: product1 },
@@ -118,32 +91,10 @@ export const socialLinks = [
 
 export const liveShows = [
   {
-    title: "Midnight Echoes Tour",
-    date: "Mar 12, 2026",
-    location: "Dar es Salaam • Diamond Dome",
-    price: "55,000 TZS",
-    image: product5,
-  },
-  {
-    title: "Coastline Sessions",
-    date: "Apr 18, 2026",
-    location: "Zanzibar • Oceanfront Arena",
-    price: "70,000 TZS",
-    image: product5,
-  },
-  {
-    title: "Neon Rooftop Live",
-    date: "May 09, 2026",
-    location: "Arusha • Skyline Rooftop",
-    price: "45,000 TZS",
-    image: product5,
-  },
-  {
-    title: "City Lights Experience",
-    date: "Jun 20, 2026",
-    location: "Dodoma • Capital Hall",
-    price: "60,000 TZS",
-    image: product5,
+    title: "Koala Live at The Slow Leopard, Dar es Salaam \u2014 Marafiki Night Live",
+    location: "The Slow Leopard, Dar es Salaam",
+    image: "/assets/images/WhatsApp Image 2026-10-18 at 9.35.51 PM.jpeg",
+    href: "https://youtu.be/b1SMfyAV_mA?si=9qvG6EuxOrnAmRlT",
   },
 ];
 
@@ -178,6 +129,7 @@ export const lifestylePosts = [
 ];
 
 export const moreThanMusic = {
+  commercialModeling: ["Serengeti Lemon", "CRDB Bank", "Kikkoman Soy Sauce"],
   title: "More Than Music",
   subtitle:
     "Biotechnologist, strategist, and community leader blending research, creativity, and social impact.",

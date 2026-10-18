@@ -59,12 +59,29 @@ export default function Music({ tracks }) {
           <div className="music-list ">
             {tracks.map((track, i) => (
               <div key={i} className="music-row">
-                <span className="music-icon" aria-hidden="true">
+                <a
+                  className="music-icon"
+                  href={track.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Listen to ${track.title}`}
+                >
                   <IoIosPlay />
-                </span>
-                <span className="music-title">{track.title}</span>
-                <span className="music-dots" aria-hidden="true"></span>
-                <span className="music-duration">{track.duration}</span>
+                </a>
+                <a
+                  className="music-title transition-colors hover:text-accent"
+                  href={track.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {track.title}
+                </a>
+                {track.duration ? (
+                  <>
+                    <span className="music-dots" aria-hidden="true"></span>
+                    <span className="music-duration">{track.duration}</span>
+                  </>
+                ) : null}
               </div>
             ))}
           </div>

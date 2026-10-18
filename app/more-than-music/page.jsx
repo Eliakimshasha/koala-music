@@ -97,6 +97,24 @@ export default function MoreThanMusicPage() {
                   </p>
                 </div>
               </div>
+              <section className="section-stack px-6 py-10 lg:px-24" aria-labelledby="commercial-modeling-title">
+                <div className="mx-auto max-w-7xl">
+                  <p className="mb-4 text-center text-xs uppercase tracking-[0.4em] text-subtle">Commercial campaigns</p>
+                  <h2 id="commercial-modeling-title" className="section-title text-center font-display text-4xl font-bold text-gradient md:text-6xl">
+                    Commercial Modeling
+                  </h2>
+                  <div className="mt-10 grid gap-4 sm:grid-cols-3">
+                    {moreThanMusic.commercialModeling.map((brand, index) => (
+                      <div key={brand} className="mtm-card flex min-h-40 flex-col justify-between border border-white/10 bg-surface p-6">
+                        <span className="text-xs tracking-[0.35em] text-subtle">0{index + 1}</span>
+                        <h3 className="font-display text-2xl font-semibold text-white md:text-3xl">{brand}</h3>
+                        <p className="text-xs uppercase tracking-[0.25em] text-muted">Advertisement</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
               <div className="grid gap-6">
                 <div className="mtm-card bg-surface rounded-xs text-center p-6">
                   <p className="text-xs uppercase tracking-[0.4em] text-center text-subtle mb-3">
@@ -137,6 +155,7 @@ export default function MoreThanMusicPage() {
               </div>
             </div>
           </section>
+
         </div>
 
         <footer className="footer-distinct px-6 md:px-24 pb-10">
