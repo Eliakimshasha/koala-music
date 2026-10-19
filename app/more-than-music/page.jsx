@@ -69,7 +69,7 @@ export default function MoreThanMusicPage() {
         <div className="lg:pt-24 pt-16">
         
 
-          <section className="section-stack relative lg:px-68 py-10 px-6">
+          <section className="section-stack relative py-10 px-6 lg:px-12">
             {/* <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.35fr_0.65fr] gap-10 items-start"> */}
             <div className="max-w-7xl mx-auto grid  gap-10 items-start">
               <div>
@@ -97,19 +97,39 @@ export default function MoreThanMusicPage() {
                   </p>
                 </div>
               </div>
-              <section className="section-stack px-6 py-10 lg:px-24" aria-labelledby="commercial-modeling-title">
-                <div className="mx-auto max-w-7xl">
+              <section className="section-stack w-full py-10 lg:h-[100svh] lg:max-h-[100svh] lg:overflow-hidden lg:py-6" aria-labelledby="commercial-modeling-title">
+                <div className="w-full lg:flex lg:h-full lg:flex-col lg:justify-center">
                   <p className="mb-4 text-center text-xs uppercase tracking-[0.4em] text-subtle">Commercial campaigns</p>
                   <h2 id="commercial-modeling-title" className="section-title text-center font-display text-4xl font-bold text-gradient md:text-6xl">
                     Commercial Modeling
                   </h2>
-                  <div className="mt-10 grid gap-4 sm:grid-cols-3">
-                    {moreThanMusic.commercialModeling.map((brand, index) => (
-                      <div key={brand} className="mtm-card flex min-h-40 flex-col justify-between border border-white/10 bg-surface p-6">
-                        <span className="text-xs tracking-[0.35em] text-subtle">0{index + 1}</span>
-                        <h3 className="font-display text-2xl font-semibold text-white md:text-3xl">{brand}</h3>
-                        <p className="text-xs uppercase tracking-[0.25em] text-muted">Advertisement</p>
-                      </div>
+                  <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:mt-6">
+                    {moreThanMusic.commercialModeling.map((campaign, index) => (
+                      <article key={campaign.brand} className="mtm-card group overflow-hidden border border-white/10 bg-surface">
+                        <div className="relative aspect-[7/10] overflow-hidden bg-[#10120e] lg:h-[60svh] lg:max-h-[600px] lg:aspect-auto">
+                          <Image
+                            src={campaign.image}
+                            alt={`${campaign.brand} campaign sample image`}
+                            fill
+                            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                            className="object-cover object-[center_30%] transition-transform duration-500 group-hover:scale-[1.02]"
+                          />
+                        </div>
+                        <div className="p-5">
+                          <span className="text-xs tracking-[0.35em] text-subtle">0{index + 1}</span>
+                          <div className="mt-2 flex items-center justify-between gap-3">
+                            <h3 className="font-display text-xl font-semibold text-white md:text-2xl">{campaign.brand}</h3>
+                            <a
+                              href={campaign.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="shrink-0 border border-white/20 px-3 py-2 text-[0.65rem] uppercase tracking-[0.2em] text-white transition hover:border-accent hover:text-accent"
+                            >
+                              View Reel
+                            </a>
+                          </div>
+                        </div>
+                      </article>
                     ))}
                   </div>
                 </div>

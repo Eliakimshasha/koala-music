@@ -129,7 +129,23 @@ export const lifestylePosts = [
 ];
 
 export const moreThanMusic = {
-  commercialModeling: ["Serengeti Lemon", "CRDB Bank", "Kikkoman Soy Sauce"],
+  commercialModeling: [
+    {
+      brand: "Serengeti Lemon",
+      href: "https://www.instagram.com/reel/DUkc1D7DM4o/?obrf=am5iZG5pb2hlc2U3",
+      image: "/assets/images/tunnel/man1.jpg",
+    },
+    {
+      brand: "CRDB Bank",
+      href: "https://www.instagram.com/reel/DXMVxTrDCXy/?rpxt=MTdoZmdxdGVzcjNjZA==",
+      image: "/assets/images/tunnel/man2.jpg",
+    },
+    {
+      brand: "Kikkoman Soy Sauce",
+      href: "https://www.instagram.com/reel/Da16DNHIZNs/?cplk=MXVmMm4waWZ3eTlzcw==",
+      image: "/assets/images/tunnel/man6.jpg",
+    },
+  ],
   title: "More Than Music",
   subtitle:
     "Biotechnologist, strategist, and community leader blending research, creativity, and social impact.",
