@@ -27,6 +27,8 @@ export default function Navbar({ navLinks, menuOpen, setMenuOpen, glassBg, hidde
             className="h-16 w-auto object-contain"
             priority
           />
+
+          
         </Link>
         <div className="hidden md:flex items-center gap-8 text-sm tracking-wider px-8 py-6 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
           {navLinks.map((link) => (
