@@ -1049,3 +1049,13 @@ text-align: start;
     @apply bg-background text-foreground;
   }
 }
+.campaign-image-frame {
+  aspect-ratio: 4 / 3;
+}
+
+@media (max-width: 639px) {
+  .campaign-image-frame.campaign-image-frame {
+    height: calc(75vw - 20px);
+    aspect-ratio: auto;
+  }
+}

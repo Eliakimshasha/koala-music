@@ -133,17 +133,17 @@ export const moreThanMusic = {
     {
       brand: "Serengeti Lemon",
       href: "https://www.instagram.com/reel/DUkc1D7DM4o/?obrf=am5iZG5pb2hlc2U3",
-      image: "/assets/images/tunnel/man1.jpg",
+      image: "/assets/images/Screenshot_20261019_103429_Gallery.jpg.jpeg",
     },
     {
       brand: "CRDB Bank",
       href: "https://www.instagram.com/reel/DXMVxTrDCXy/?rpxt=MTdoZmdxdGVzcjNjZA==",
-      image: "/assets/images/tunnel/man2.jpg",
+      image: "/assets/images/Screenshot_20261019_103536_Gallery.jpg.jpeg",
     },
     {
       brand: "Kikkoman Soy Sauce",
       href: "https://www.instagram.com/reel/Da16DNHIZNs/?cplk=MXVmMm4waWZ3eTlzcw==",
-      image: "/assets/images/tunnel/man6.jpg",
+      image: "/assets/images/Screenshot_20261019_103452_Gallery.jpg.jpeg",
     },
   ],
   title: "More Than Music",

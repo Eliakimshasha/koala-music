@@ -106,7 +106,7 @@ export default function MoreThanMusicPage() {
                   <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:mt-6">
                     {moreThanMusic.commercialModeling.map((campaign, index) => (
                       <article key={campaign.brand} className="mtm-card group overflow-hidden border border-white/10 bg-surface">
-                        <div className="relative aspect-[7/10] overflow-hidden bg-[#10120e] lg:h-[60svh] lg:max-h-[600px] lg:aspect-auto">
+                        <div className="campaign-image-frame relative overflow-hidden bg-[#10120e] sm:aspect-[7/10] lg:h-[60svh] lg:max-h-[600px] lg:aspect-auto">
                           <Image
                             src={campaign.image}
                             alt={`${campaign.brand} campaign sample image`}
