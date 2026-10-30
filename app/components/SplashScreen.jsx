@@ -54,7 +54,7 @@ export default function SplashScreen() {
           <Image src={logo} alt="Koala logo" width={64} height={64} />
         </div>
         <div className="splash-line"></div>
-        <p className="splash-kicker">Koala Music Studio</p>
+        <p className="splash-kicker">Koala</p>
         <h1 className="splash-title">
           Feel the quiet
           <span>before the drop</span>

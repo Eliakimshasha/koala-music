@@ -82,7 +82,7 @@ export default function ZoomGallery({ footer = null }) {
 
         {/* Caption sized to sit inside the half-screen centre photo */}
         <div className="zoom-caption absolute left-1/2 top-1/2 flex h-[50vh] w-[50vw] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center px-10 text-center">
-          <p className="invisible text-xs uppercase tracking-[0.5em] text-accent opacity-0">Koala Music</p>
+          <p className="invisible text-xs uppercase tracking-[0.5em] text-accent opacity-0">Koala</p>
           <h3 className="invisible mt-4 font-display text-[clamp(2rem,3.4vw,3.5rem)] uppercase leading-none opacity-0">
             Warm, late-night soundscapes
           </h3>

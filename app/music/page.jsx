@@ -236,7 +236,7 @@ export default function MusicPage() {
                       ].join(" ")}
                     >
                       <div className="text-muted text-sm mb-3">
-                        Koala Muziki
+                        Koala
                       </div>
                       <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
                         {track.title}
