@@ -7,7 +7,6 @@ import iconSpotify from "../../public/assets/images/spotify.png";
 import iconTikTok from "../../public/assets/images/tiktok.png";
 import iconTwitter from "../../public/assets/images/twitter.png";
 import iconYouTube from "../../public/assets/images/youtube.png";
-import Boomplay from "../../public/assets/images/boomplay.svg";
 import iconInstagram from "../../public/assets/images/social.png";
 
 export const navLinks = [
@@ -59,7 +58,7 @@ export const tracks = musicReleases.map(({ title, href }) => ({
 export const videos = [
   { title: "Safe Space (Acoustic Version)", image: "/assets/images/WhatsApp Image 2026-10-18 at 9.26.04 PM.jpeg", aspectRatio: "1254 / 1254", href: "https://youtu.be/OVleZjX9Ukw?si=Nd4u_khJM9RpVlso" },
   { title: "Eulo (Acoustic Version)", image: "/assets/images/WhatsApp Image 2026-10-18 at 9.27.08 PM.jpeg", aspectRatio: "1280 / 1280", href: "https://youtu.be/JmYQ0KhfF_8?si=NC5wk72GsbFXarkP" },
-  { title: "Bottles of Beer (Acoustic Version)", image: "/assets/images/bottles.jpeg", aspectRatio: "694 / 1040", href: null },
+  { title: "Bottles of Beer (Acoustic Version)", image: "/assets/images/bottles.jpeg", aspectRatio: "694 / 1040", href: "https://youtu.be/eDK2aK2sKEo?si=csu94IORrCkwLIRI" },
   { title: "Kitu Wrong (Acoustic Remix)", image: "/assets/images/alb4.jpeg", aspectRatio: "938 / 1194", href: "https://youtu.be/wmMga1XVVvA?si=8znkcBRGT7qgS5Xg" },
   { title: "Eulo (Lyric Video)", image: "/assets/images/WhatsApp Image 2026-10-18 at 9.30.05 PM.jpeg", aspectRatio: "1020 / 1039", href: "https://youtu.be/FdKhdyFaQOk?si=Z99z0eQp4othbFgH" },
   { title: "Safe Space (Lyric Video)", image: "/assets/images/safe-space.jpg", aspectRatio: "1118 / 1157", href: "https://youtu.be/ngEBdPhpDCc?si=lxVOW8FSCSQqHV1a" },
@@ -80,13 +79,13 @@ export const comingSoon = {
   image: product5,
 };
 
+// TODO: Spotify and X links still needed — replace "#" when available.
 export const socialLinks = [
   { label: "Spotify", href: "#", icon: iconSpotify },
-  { label: "TikTok", href: "#", icon: iconTikTok },
-  { label: "Boomplay", href: "#", icon: Boomplay },
-  { label: "Instagram", href: "#", icon: iconInstagram },
-  { label: "Twitter", href: "#", icon: iconTwitter },
-  { label: "YouTube", href: "#", icon: iconYouTube },
+  { label: "YouTube", href: "https://youtube.com/@koalamuziki", icon: iconYouTube },
+  { label: "Instagram", href: "https://www.instagram.com/koalamuziki", icon: iconInstagram },
+  { label: "TikTok", href: "https://www.tiktok.com/@koalamuziki", icon: iconTikTok },
+  { label: "X", href: "#", icon: iconTwitter },
 ];
 
 export const liveShows = [

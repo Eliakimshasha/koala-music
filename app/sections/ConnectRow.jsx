@@ -21,6 +21,8 @@ export default function ConnectRow({ socialLinks = [] }) {
               key={item.label}
               href={item.href || "#"}
               aria-label={item.label}
+              target="_blank"
+              rel="noopener noreferrer"
               className=" items-center gap-3 rounded-full bg-surface h-4 h-4 text-[0.65rem] uppercase tracking-[0.35em] text-subtle"
             >
               {item.icon ? (

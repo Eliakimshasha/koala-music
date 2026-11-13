@@ -5,6 +5,8 @@ import cardImage from "../../public/assets/images/alb2.jpg";
 import toto1 from "../../public/assets/images/toto (1).jpeg";
 import toto2 from "../../public/assets/images/toto (2).jpeg";
 import toto3 from "../../public/assets/images/toto (3).jpeg";
+import toto4 from "../../public/assets/images/toto (4).jpeg";
+import toto5 from "../../public/assets/images/toto (5).jpeg";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
@@ -12,7 +14,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const LISTEN_NOW_HREF = "https://oneprm.link/245155137539";
+const LISTEN_NOW_HREF = "https://onerpm.link/245155137539";
 
 function RotateCard() {
   const sectionRef = useRef(null);
@@ -256,10 +258,10 @@ function RotateCard() {
           style={{ transformStyle: "preserve-3d" }}
         >
           <Image
-            src={cardImage}
+            src={toto4}
             alt="Small 3"
             fill
-            className="object-cover rounded-xs shadow-xl"
+            className="object-cover object-[50%_20%] rounded-xs shadow-xl"
           />
         </div>
 
@@ -282,10 +284,10 @@ function RotateCard() {
           style={{ transformStyle: "preserve-3d" }}
         >
           <Image
-            src={cardImage}
+            src={toto5}
             alt="Small 7"
             fill
-            className="object-cover rounded-xs shadow-xl"
+            className="object-cover object-[50%_20%] rounded-xs shadow-xl"
           />
         </div>
 

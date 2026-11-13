@@ -131,6 +131,8 @@ export default function AboutPage() {
                     key={icon.label}
                     href={icon.href || "#"}
                     aria-label={icon.label}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="rounded-full h-6 w-6  transition"
                   >
                     <Image

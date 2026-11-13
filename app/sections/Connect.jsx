@@ -1,15 +1,10 @@
 "use client";
 
 import React, { useLayoutEffect, useRef } from "react";
-import { Separator } from "@/components/ui/separator";
 
 import { AiOutlineTikTok, AiOutlineSpotify } from "react-icons/ai";
 import { FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { IoLogoInstagram } from "react-icons/io5";
-import { SiAudiomack, SiTidal } from "react-icons/si";
-
-import boomplay from "musicfetch/brands/boomplay";
-import { BrandIcon } from "musicfetch/react";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -23,7 +18,7 @@ const SocialCard = ({ Icon, label, href, index }) => {
       aria-label={label}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex min-h-40 flex-col justify-between overflow-hidden p-5 text-left transition duration-300 hover:bg-white/[0.04] md:min-h-52 md:p-7"
+      className="group relative flex min-h-40 flex-col justify-between overflow-hidden bg-black p-5 text-left transition duration-300 last:col-span-2 hover:bg-[#0d0d0d] md:min-h-52 md:p-7 md:last:col-span-1"
     >
       <span className="text-xs uppercase tracking-[0.35em] text-subtle">
         {String(index + 1).padStart(2, "0")}
@@ -79,9 +74,6 @@ export default function Connect({ socialLinks = [] }) {
     instagram: IoLogoInstagram,
     youtube: FaYoutube,
     spotify: AiOutlineSpotify,
-    boomplay: (props) => (
-      <BrandIcon brand={boomplay} {...props} />
-    ),
   };
 
   const resolveIcon = (label = "") => {
@@ -98,12 +90,7 @@ export default function Connect({ socialLinks = [] }) {
     }))
     .filter((icon) => icon.Icon);
 
-  const streamingItems = [
-    { label: "Audiomack", href: "#", Icon: SiAudiomack },
-    { label: "Tidal", href: "#", Icon: SiTidal },
-  ];
-
-  const gridItems = [...connectItems, ...streamingItems].slice(0, 8);
+  const gridItems = connectItems;
 
   /* -------------------- JSX -------------------- */
 
@@ -123,8 +110,8 @@ export default function Connect({ socialLinks = [] }) {
           <div className="splash-line mx-auto"></div>
         </div>
 
-        <div className="relative overflow-hidden border border-white/15 bg-black/35 shadow-[0_28px_80px_rgba(0,0,0,0.35)] backdrop-blur-sm">
-          <div className="grid grid-cols-2 md:grid-cols-4">
+        <div className="relative overflow-hidden border border-white/15 shadow-[0_28px_80px_rgba(0,0,0,0.35)]">
+          <div className="grid grid-cols-2 gap-px bg-white/15 md:grid-cols-5">
             {gridItems.map((item, index) => (
               <SocialCard
                 key={item.label}
@@ -134,24 +121,6 @@ export default function Connect({ socialLinks = [] }) {
                 index={index}
               />
             ))}
-          </div>
-
-          <div className="pointer-events-none absolute inset-0">
-            <Separator
-              orientation="vertical"
-              className="absolute left-1/2 top-0 h-full bg-white/15 md:left-1/4"
-            />
-            <Separator
-              orientation="vertical"
-              className="absolute left-1/2 top-0 hidden h-full bg-white/15 md:block"
-            />
-            <Separator
-              orientation="vertical"
-              className="absolute left-3/4 top-0 hidden h-full bg-white/15 md:block"
-            />
-            <Separator className="absolute left-0 top-1/4 bg-white/15 md:hidden" />
-            <Separator className="absolute left-0 top-1/2 bg-white/15" />
-            <Separator className="absolute left-0 top-3/4 bg-white/15 md:hidden" />
           </div>
         </div>
       </div>
